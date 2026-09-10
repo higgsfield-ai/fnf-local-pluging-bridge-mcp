@@ -26,7 +26,8 @@ if (existsSync(staged))
   throw new Error("Remove stale skills.staging after reviewing its contents.");
 const manifest = {
   schemaVersion: 1,
-  sourceRepository: "fnf-creative-apps-skills",
+  sourceRepository: "higgsfield-ai/fnf-local-pluging-bridge-mcp",
+  sourcePath: "creative-skills",
   sourceCommit,
   skills: [],
 };

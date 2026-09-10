@@ -14,10 +14,18 @@
     "model-context-protocol",
     "motion-graphics"
   ],
+  "homepage": "https://github.com/higgsfield-ai/fnf-local-pluging-bridge-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/higgsfield-ai/fnf-local-pluging-bridge-mcp/issues"
+  },
   "license": "SEE LICENSE IN UPSTREAM.md",
   "author": {
     "name": "kumo.productions, Inc.",
     "url": "https://github.com/kumoproductions"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/higgsfield-ai/fnf-local-pluging-bridge-mcp.git"
   },
   "bin": {
     "fnf-after-effects": "dist/cli.js",

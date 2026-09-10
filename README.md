@@ -1,4 +1,4 @@
-# FNF After Effects MCP
+# FNF Local Plugin Bridge MCP
 
 Local control of Adobe After Effects, with offline creative skills adapted from the FNF bridge. Based on the MIT-licensed [mcp-aftereffects](https://github.com/kumoproductions/mcp-aftereffects) runtime; see [attribution](UPSTREAM.md).
 
@@ -9,6 +9,15 @@ Codex / desktop MCP client → local stdio server → OS scripting → After Eff
 ```
 
 No Higgsfield account, cloud relay or installed AE panel is required. Adobe licensing, an installed AE application, OS Automation permissions and AE's scripting file access preference are separate requirements. This integration controls AE; Blender and Premiere require their own adapters. A remote web client cannot directly launch a local stdio process.
+
+## Repository layout
+
+- Root: the local After Effects MCP runtime, tests and setup CLI.
+- `skills/`: the pinned runtime skill bundle.
+- `creative-skills/skills/`: editable skill sources and the entry skill installer.
+- `creative-skills/archive/bridge-ae/`: original bridge knowledge retained for migration review.
+
+Both original Git histories are retained. The current adapter controls After Effects; future application adapters can be added separately.
 
 ## Setup
 
@@ -25,7 +34,7 @@ node dist/cli.js install-codex
 
 For another desktop MCP client, `node dist/cli.js config` prints a JSON configuration using the current Node and server paths. For nonstandard AE installs, set `AE_MCP_EXE` in the MCP server environment. On macOS, allow the relevant host app's Automation request when first connecting. Enable AE's **Allow Scripts to Write Files and Access Network** preference if AE reports file access denied.
 
-For the discoverable entry skill, run `python3 scripts/install.py` from the `fnf-creative-apps-skills` source repository. Its companion skills come from this server and need no separate global installation.
+For the discoverable entry skill, run `python3 creative-skills/scripts/install.py` from this checkout. Its companion skills come from this server and need no separate global installation.
 
 ## First calls
 
@@ -46,12 +55,12 @@ Preserve unsaved work. Inspect before editing and render representative frames f
 
 ## Skills and development
 
-Ten skill entries and their references are pinned under `skills/`; no network or sibling checkout is needed to read them. The runtime verifies document hashes and serves only manifest-listed paths. The original bridge archive is retained only in the source skills repository, not this package.
+Ten skill entries and their references are pinned under `skills/`; no network or sibling checkout is needed to read them. The runtime verifies document hashes and serves only manifest-listed paths. The original bridge archive lives under `creative-skills/` in this repository and is excluded from the runtime package.
 
 ```sh
 npm run test:offline
 npm run check
-node scripts/sync-skills.mjs /absolute/path/to/fnf-creative-apps-skills
+node scripts/sync-skills.mjs ./creative-skills
 ```
 
 The sync source must be committed and clean. Review the changed manifest and documents before committing the runtime snapshot. Live tests under `tests/e2e` have separate prerequisites; offline success does not prove rendering on your AE installation. See [VALIDATION.md](docs/VALIDATION.md) for the actual checks performed on this fork.

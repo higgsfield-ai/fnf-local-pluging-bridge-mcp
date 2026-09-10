@@ -26,6 +26,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Validate source skills and archived provenance
+        run: python3 creative-skills/scripts/validate.py
+
       - name: Typecheck
         run: npm run typecheck
 
