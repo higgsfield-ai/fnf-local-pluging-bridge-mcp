@@ -27,4 +27,4 @@ npm view fnf-after-effects-mcp@0.1.0 version dist.integrity
 
 Complete login and any publish verification in npm's browser flow. Never put account credentials or tokens in repository files or chat. npm may require two-factor verification. A dry run does not establish publishing permission or reserve the name.
 
-After publication, test the registry version in a fresh prefix, remove the pending-release note in the README and update the server's `/use-after-effects` setup instructions. Only then describe the npm installation as available. Use a new version for subsequent releases and update pinned setup examples together.
+After publication, test the registry version in a fresh prefix, update the server's `/use-after-effects` setup instructions. Only then describe the npm installation as available. Use a new version for subsequent releases and update pinned setup examples together.
