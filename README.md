@@ -13,8 +13,8 @@ No Higgsfield account, cloud relay or installed AE panel is required. Adobe lice
 ## Repository layout
 
 - Root: the local After Effects MCP runtime, tests and setup CLI.
-- `skills/`: the pinned runtime skill bundle.
-- `creative-skills/skills/`: editable skill sources and the entry skill installer.
+- `skills/`: the single source of editable skills, also bundled with the runtime.
+- `scripts/`: skill installation, manifest generation and validation.
 - `creative-skills/archive/bridge-ae/`: original bridge knowledge retained for migration review.
 
 Both original Git histories are retained. The current adapter controls After Effects; future application adapters can be added separately.
@@ -36,7 +36,7 @@ When replacing an existing `fnf-after-effects` registration, review it with `cod
 
 For another desktop MCP client, `node dist/cli.js config` prints a JSON configuration using the current Node and server paths. For nonstandard AE installs, set `AE_MCP_EXE` in the MCP server environment. On macOS, allow the relevant host app's Automation request when first connecting. Enable AE's **Allow Scripts to Write Files and Access Network** preference if AE reports file access denied.
 
-For the discoverable entry skill, run `python3 creative-skills/scripts/install.py` from this checkout. Its companion skills come from this server and need no separate global installation.
+For the discoverable entry skill, run `python3 scripts/install-skill.py` from this checkout. Its companion skills come from this server and need no separate global installation.
 
 ## First calls
 
@@ -57,14 +57,14 @@ Preserve unsaved work. Inspect before editing and render representative frames f
 
 ## Skills and development
 
-Ten skill entries and their references are pinned under `skills/`; no network or sibling checkout is needed to read them. The runtime verifies document hashes and serves only manifest-listed paths. The original bridge archive lives under `creative-skills/` in this repository and is excluded from the runtime package.
+Skill entries and their references are maintained directly under `skills/`; no network or sibling checkout is needed to read them. The runtime verifies document hashes and serves only manifest-listed paths. The original bridge archive lives under `creative-skills/` in this repository and is excluded from the runtime package.
 
 ```sh
-npm run test:offline
+npm run skills:manifest
 npm run check
-node scripts/sync-skills.mjs ./creative-skills
+npm run test:offline
 ```
 
-The sync source must be committed and clean. Review the changed manifest and documents before committing the runtime snapshot. Live tests under `tests/e2e` have separate prerequisites; offline success does not prove rendering on your AE installation. See [VALIDATION.md](docs/VALIDATION.md) for the actual checks performed on this fork.
+Edit `skills/` directly, then regenerate `skills/manifest.json` and commit it together with the skill changes. Generation writes only the manifest, works with uncommitted edits and requires no Git metadata. `npm run skills:check` rejects stale descriptions, hashes, missing entries and invalid reference links. The version 2 manifest uses document hashes instead of `sourceCommit`; `ae_get_skill` no longer returns that obsolete snapshot field. Live tests under `tests/e2e` have separate prerequisites; offline success does not prove rendering on your AE installation. See [VALIDATION.md](docs/VALIDATION.md) for the actual checks performed on this fork.
 
 This is a private fork, not a published npm package. Do not use the upstream package name when installing this version. Historical upstream documentation is preserved in `docs/UPSTREAM-README.md` for reference.

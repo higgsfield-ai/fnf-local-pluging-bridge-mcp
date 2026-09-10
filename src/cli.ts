@@ -39,7 +39,7 @@ try {
       checks.push({
         name: "skills",
         ok: true,
-        detail: `${store.manifest.skills.length} skills at ${store.manifest.sourceCommit}`,
+        detail: `${store.manifest.skills.length} skills verified`,
       });
     } catch (error) {
       checks.push({ name: "skills", ok: false, detail: String(error) });
