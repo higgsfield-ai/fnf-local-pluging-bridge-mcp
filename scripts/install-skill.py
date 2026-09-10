@@ -4,7 +4,10 @@ parser = argparse.ArgumentParser(description='Install the local After Effects en
 parser.add_argument('--skills-dir', type=Path, default=Path.home() / '.agents/skills')
 args = parser.parse_args()
 source = Path(__file__).resolve().parents[1] / 'skills/use-after-effects'
+legacy_source = Path(__file__).resolve().parents[1] / 'creative-skills/skills/use-after-effects'
 target = args.skills_dir.expanduser().absolute() / 'use-after-effects'
+if target.is_symlink() and target.resolve() == legacy_source:
+    target.unlink()
 if target.exists() or target.is_symlink():
     if target.resolve() != source:
         raise SystemExit(f'Refusing to overwrite existing skill: {target}')

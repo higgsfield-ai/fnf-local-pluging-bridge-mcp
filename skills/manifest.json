@@ -1,8 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "sourceRepository": "higgsfield-ai/fnf-local-pluging-bridge-mcp",
-  "sourcePath": "creative-skills",
-  "sourceCommit": "a4719cd22552300477d0c536f92c90c40288fc7f",
+  "sourcePath": "skills",
   "skills": [
     {
       "name": "ae-animation-principles",

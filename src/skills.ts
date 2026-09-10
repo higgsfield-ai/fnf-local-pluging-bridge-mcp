@@ -6,9 +6,9 @@ import { PACKAGE_ROOT } from "./config.js";
 
 const documentName = /^(SKILL\.md|references\/[a-zA-Z0-9/_-]+\.md)$/;
 const manifestSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   sourceRepository: z.string(),
-  sourceCommit: z.string().regex(/^[a-f0-9]{40}$/),
+  sourcePath: z.literal("skills"),
   skills: z
     .array(
       z.object({
@@ -39,7 +39,6 @@ export class SkillStore {
 
   index() {
     return {
-      sourceCommit: this.manifest.sourceCommit,
       skills: this.manifest.skills.map(({ name, description, documents }) => ({
         name,
         description,
@@ -66,14 +65,13 @@ export class SkillStore {
     const sha256 = createHash("sha256").update(bytes).digest("hex");
     if (sha256 !== skill.documents[document])
       throw new Error(
-        `Skill integrity mismatch: ${name}/${document}. Restore or resync the pinned bundle.`,
+        `Skill integrity mismatch: ${name}/${document}. Restore the bundled files or run npm run skills:manifest after editing skills.`,
       );
     return {
       name,
       document,
       content: bytes.toString("utf8"),
       sha256,
-      sourceCommit: this.manifest.sourceCommit,
       references: Object.keys(skill.documents).filter((p) => p !== "SKILL.md"),
     };
   }
