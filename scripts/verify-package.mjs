@@ -16,7 +16,14 @@ try {
     }),
   )[0];
   assert(packed.files.some((x) => x.path === "skills/manifest.json"));
-  assert(!packed.files.some((x) => x.path.startsWith("archive/") || x.path.startsWith("runtime/")));
+  assert(
+    !packed.files.some(
+      (x) =>
+        x.path.startsWith("archive/") ||
+        x.path.startsWith("runtime/") ||
+        x.path.startsWith("creative-skills/"),
+    ),
+  );
   mkdirSync(join(temp, "extracted"));
   execFileSync("tar", ["-xzf", join(temp, packed.filename), "-C", join(temp, "extracted")]);
   const pkg = join(temp, "extracted/package");
@@ -46,7 +53,7 @@ try {
         ok: true,
         packedFiles: packed.files.length,
         tools: tools.tools.length,
-        sourceCommit: skill.structuredContent.sourceCommit,
+        sha256: skill.structuredContent.sha256,
         dependencies:
           "Shared installed dependencies; package content extracted independently, cwd outside checkout.",
       },

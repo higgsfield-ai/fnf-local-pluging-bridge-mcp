@@ -1,11 +1,11 @@
 ---
 name: ae-depth-space
-description: Create consistent depth and parallax in After Effects with native 3D or layered 2D, perspective, shadows, atmospheric cues and restrained motion.
+description: Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers depth and parallax with native 3D or layered 2D, perspective, shadows, atmospheric cues and restrained motion.
 ---
 
 # Depth and space
 
-Use the local `fnf-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
+Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
 
 Choose depth representation from the task. Native 3D layers and cameras are available when the catalog and installed renderer support the needed operation; do not inherit the old bridge's blanket ban on cameras. Layered 2D is sufficient for many UI and illustration scenes. Do not introduce a camera merely to move flat text.
 

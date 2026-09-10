@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from "vitest";
+import { execFileSync, spawnSync } from "node:child_process";
 import {
   cpSync,
+  mkdirSync,
   mkdtempSync,
   readFileSync,
   rmSync,
@@ -27,11 +29,103 @@ function copyCorpus() {
   return root;
 }
 
-describe("pinned AE skills", () => {
-  it("loads every pinned entry/reference and validates documented tool names", () => {
+function copySkillTools() {
+  const root = mkdtempSync(join(tmpdir(), "fnf-skill-tools-test-"));
+  temporary.push(root);
+  cpSync(resolve("skills"), join(root, "skills"), { recursive: true });
+  mkdirSync(join(root, "scripts"));
+  for (const script of ["generate-skills-manifest.mjs", "install-skill.py"])
+    cpSync(resolve("scripts", script), join(root, "scripts", script));
+  return root;
+}
+
+describe("single skill source tooling", () => {
+  it("generates without Git, detects drift and preserves entry metadata", () => {
+    const root = copySkillTools();
+    const script = join(root, "scripts/generate-skills-manifest.mjs");
+    const manifestPath = join(root, "skills/manifest.json");
+    const entryPath = join(root, "skills/ae-clean-rig/SKILL.md");
+    const metadataPath = join(root, "skills/use-after-effects/agents/openai.yaml");
+    const metadata = readFileSync(metadataPath, "utf8");
+    const originalManifest = readFileSync(manifestPath, "utf8");
+    execFileSync(process.execPath, [script], { cwd: tmpdir() });
+    expect(readFileSync(manifestPath, "utf8")).toBe(originalManifest);
+
+    const edited = readFileSync(entryPath, "utf8").replace(
+      "description: Primary entry point",
+      "description: Updated entry point",
+    );
+    writeFileSync(entryPath, edited);
+    const check = spawnSync(process.execPath, [script, "--check"], { encoding: "utf8" });
+    expect(check.status).not.toBe(0);
+    expect(check.stderr).toContain("Skill manifest is stale");
+    expect(readFileSync(manifestPath, "utf8")).toBe(originalManifest);
+
+    execFileSync(process.execPath, [script]);
+    execFileSync(process.execPath, [script, "--check"]);
+    const store = new SkillStore(join(root, "skills"));
+    expect(store.read("ae-clean-rig").content).toBe(edited);
+    expect(
+      store.manifest.skills.find((skill) => skill.name === "ae-clean-rig")?.description,
+    ).toContain("Updated entry point");
+    expect(readFileSync(metadataPath, "utf8")).toBe(metadata);
+  });
+
+  it("detects added and removed skill entries", () => {
+    const root = copySkillTools();
+    const script = join(root, "scripts/generate-skills-manifest.mjs");
+    const added = join(root, "skills/ae-test");
+    mkdirSync(added);
+    writeFileSync(join(added, "SKILL.md"), "---\nname: ae-test\ndescription: Test skill\n---\n");
+    expect(spawnSync(process.execPath, [script, "--check"]).status).not.toBe(0);
+    execFileSync(process.execPath, [script]);
+    expect(new SkillStore(join(root, "skills")).read("ae-test").content).toContain("Test skill");
+    rmSync(added, { recursive: true });
+    expect(spawnSync(process.execPath, [script, "--check"]).status).not.toBe(0);
+    execFileSync(process.execPath, [script]);
+    expect(() => new SkillStore(join(root, "skills")).read("ae-test")).toThrow("Unknown skill");
+  });
+
+  it.skipIf(process.platform === "win32")("rejects symlinked skill directories", () => {
+    const root = copySkillTools();
+    const script = join(root, "scripts/generate-skills-manifest.mjs");
+    symlinkSync(join(root, "skills/ae-clean-rig"), join(root, "skills/ae-test"));
+    const result = spawnSync(process.execPath, [script], { encoding: "utf8" });
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain("Symlink forbidden");
+  });
+
+  it.skipIf(process.platform === "win32")("installs, migrates and protects existing skills", () => {
+    const root = copySkillTools();
+    const targetDirectory = join(root, "installed");
+    const target = join(targetDirectory, "use-after-effects");
+    const installerArguments = [
+      join(root, "scripts/install-skill.py"),
+      "--skills-dir",
+      targetDirectory,
+    ];
+    execFileSync("python3", installerArguments);
+    expect(readFileSync(join(target, "SKILL.md"), "utf8")).toContain("name: use-after-effects");
+    expect(execFileSync("python3", installerArguments, { encoding: "utf8" })).toContain(
+      "Already installed",
+    );
+    unlinkSync(target);
+    symlinkSync(join(root, "creative-skills/skills/use-after-effects"), target);
+    execFileSync("python3", installerArguments);
+    expect(readFileSync(join(target, "agents/openai.yaml"), "utf8")).toContain("interface:");
+    unlinkSync(target);
+    mkdirSync(target);
+    writeFileSync(join(target, "SKILL.md"), "user skill");
+    expect(spawnSync("python3", installerArguments).status).not.toBe(0);
+    expect(readFileSync(join(target, "SKILL.md"), "utf8")).toBe("user skill");
+  });
+});
+
+describe("bundled AE skills", () => {
+  it("loads every bundled entry/reference and validates documented tool names", () => {
     const store = new SkillStore();
     const tools = new Set(ALL_TOOLS.map((tool) => tool.name));
-    expect(store.index().skills).toHaveLength(10);
+    expect(store.index().skills).toHaveLength(11);
     for (const skill of store.manifest.skills) {
       for (const document of Object.keys(skill.documents)) {
         const result = store.read(skill.name, document);
@@ -107,7 +201,7 @@ describe("pinned AE skills", () => {
     await client.connect({ AE_MCP_READONLY: "1" });
     try {
       const index = await client.call<{ skills: unknown[] }>("ae_get_skill");
-      expect(index.skills).toHaveLength(10);
+      expect(index.skills).toHaveLength(11);
       const entry = await client.call<{ content: string; references: string[] }>("ae_get_skill", {
         name: "ae-clean-rig",
       });

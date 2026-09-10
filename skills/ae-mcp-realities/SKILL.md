@@ -1,11 +1,11 @@
 ---
 name: ae-mcp-realities
-description: Understand local After Effects MCP capabilities, operation discovery, policy restrictions, error recovery and differences from the cloud bridge.
+description: Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers local MCP capabilities, operation discovery, policy restrictions, error recovery and differences from the cloud bridge.
 ---
 
 # Local MCP realities
 
-Use the local `fnf-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
+Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
 
 ## Connection and scope
 

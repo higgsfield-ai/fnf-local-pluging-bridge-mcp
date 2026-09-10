@@ -1,6 +1,6 @@
 ---
 name: ae-clean-rig
-description: Build and edit clean native After Effects projects, preserve reference appearance and motion, expose useful controls, and verify rendered results through the local MCP.
+description: Primary entry point for every native After Effects task through the local MCP. Use whenever the user asks to build, create, edit, rebuild, animate, fix, inspect, verify or render an After Effects project, composition, layer, text, shape, mask, effect, expression, keyframe or frame — including reference recreation and cleanup work. Builds clean native projects, preserves reference appearance and motion, exposes useful controls, and verifies rendered results. Load this before any other ae- skill; it routes to the companion modules itself through ae_get_skill, so those must not be selected on their own. When another ae- skill names the specific subject of the request in its own description, that skill takes precedence over this one.
 ---
 
 # Clean native AE rigs

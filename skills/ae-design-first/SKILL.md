@@ -1,11 +1,11 @@
 ---
 name: ae-design-first
-description: Plan After Effects scene geometry and typography before animation, translating visual references or approved designs into native editable components.
+description: Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers scene geometry and typography planned before animation, translating visual references or approved designs into native editable components.
 ---
 
 # Design first
 
-Use the local `fnf-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
+Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
 
 Resolve the static design before investing in detailed motion. Read the reference as geometry and hierarchy: output aspect ratio, safe areas, baseline grid, dominant blocks, text wrapping, contrast and layer order. Build a compact scene specification with named components, positions/sizes, typography, colors, media sources and controller intent.
 

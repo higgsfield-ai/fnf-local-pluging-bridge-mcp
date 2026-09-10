@@ -1,11 +1,11 @@
 ---
 name: ae-liquid-glass
-description: Build and tune editable glass surfaces in After Effects with refraction, edge light, restrained tint, shadows and verified alpha/matte behavior.
+description: Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers editable glass surfaces with refraction, edge light, restrained tint, shadows and verified alpha/matte behavior.
 ---
 
 # Liquid glass
 
-Use the local `fnf-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
+Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
 
 Treat glass as a coordinated response to the background: slight distortion, edge light, transmission, a restrained tint and a contact shadow. A white translucent rectangle alone does not communicate refraction. Inspect installed native effects and their parameter names before constructing the stack; the recipe is not proof of availability or a validated preset for this AE installation.
 
