@@ -7,7 +7,7 @@ Tested on macOS with Node 24.14.0 and Adobe After Effects 2026 on 2026-09-10.
 - Offline Vitest suite (276 tests): operation schemas, transport behavior, errors, policy, JSX compatibility, pinned skills and real MCP stdio discovery.
 - TypeScript source and test typechecks, lint, formatting, generated tool documentation drift check.
 - Ten skill frontmatter validations and all active local Markdown reference links.
-- Package verification: extract the npm tarball to a temporary directory, start its server from an unrelated working directory, discover 12 tools and read a bundled reference. Dependencies are linked from the installed runtime; this checks packaged content, not a fresh network dependency installation.
+- Package verification: install the npm tarball and fresh production dependencies into a temporary global prefix with install scripts disabled. Verify the generated client configuration, start its server outside the checkout, discover 12 tools, read a bundled reference and query the native catalog. Confirm the installer rejects temporary npx cache paths.
 - Codex registration and entry-skill installation are idempotent on this Mac.
 
 ## Live AE smoke test
