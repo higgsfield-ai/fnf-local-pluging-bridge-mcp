@@ -1,6 +1,6 @@
 # FNF Creative Apps Skills
 
-Skill sources for the `fnf-local-pluging-bridge-mcp` repository, adapted from FNF bridge skills. The `skills/` directory is the active corpus; `archive/bridge-ae/` preserves the original source and is never served or installed. No license to redistribute the archived source is assumed; keep this repository private until ownership and licensing are settled.
+Skill sources for the `fnf-local-pluging-bridge-mcp` repository, adapted from FNF bridge skills. The `skills/` directory is the active corpus; `archive/bridge-ae/` preserves the original source and is never served or installed. The archive is excluded from the npm runtime package. Its licensing is separate from the upstream runtime; see [provenance and licensing](../UPSTREAM.md).
 
 ## Install
 
