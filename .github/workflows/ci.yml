@@ -48,6 +48,9 @@ jobs:
         # offline suites (schema validation, fixtures, jsx ES3 lint) run fully.
         run: npm test
 
+      - name: Verify packaged MCP and offline skills
+        run: npm run test:package
+
       - name: Tool docs drift
         run: node scripts/generate-tools-doc.mjs --check
 

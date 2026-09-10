@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "fnf-creative-apps-skills",
+  "sourceCommit": "21b7913a23b140ae1e01e6c18a3526a04d42f8c6",
+  "skills": [
+    {
+      "name": "ae-animation-principles",
+      "description": "Design and refine intentional After Effects animation with timing, easing, staging, anticipation, follow-through and loop validation.",
+      "documents": {
+        "SKILL.md": "94c30a7f3998e0f6e38ea06a3781515de1125ecd2b4f45898312f49ba5d96911"
+      }
+    },
+    {
+      "name": "ae-build-orchestration",
+      "description": "Plan and execute multi-step native After Effects builds with small verified batches, stable references, recoverable checkpoints and editable delivery.",
+      "documents": {
+        "SKILL.md": "e824c5408361b89fdd67fb64b8a67184231d95b0bbdd11c45b063da85fcb9252"
+      }
+    },
+    {
+      "name": "ae-clean-rig",
+      "description": "Build and edit clean native After Effects projects, preserve reference appearance and motion, expose useful controls, and verify rendered results through the local MCP.",
+      "documents": {
+        "SKILL.md": "3518659f3090768c293bf12a9f63ec4d2c92076f05f5155b3d70063a98e9d2f1",
+        "references/01-construction.md": "c1a72fa0a20cb2b082abdc8b7581d4060814620cd439b97d14596ed8c0bed52f",
+        "references/02-reference-motion.md": "88808a66deccc7e2ed3b9f83b52ff66d2241d77c038736f11f9a3c82fecb9dc3",
+        "references/03-typography.md": "a20b74746d65fd13e24daf35e182a14d3dc6b63114e6a93d6a82e188b6561b4b",
+        "references/04-gradients-effects.md": "0535b44f26d66705580777d2e338077cb7421c2889c7ac0f709f3374e7a27398",
+        "references/05-higgsfield-media.md": "1d1184d8b2ba6847b10c8ea92cb4dd9c84f53f71261459aa88980297d9d49333",
+        "references/06-editable-rigs.md": "c419d637dd38cd09d9d612650284341f750c2bfa1422297da81e6d12015e059d",
+        "references/07-sliders.md": "a4d7171d1d6b9ab40b440bd1a16b24cb5205d9d493b41c117653afed82df24b4",
+        "references/08-characters.md": "d302df7e467cd95ea9bb31ed9329facb113af2c801f5a5de44995ead7d68696e",
+        "references/09-validation-delivery.md": "0e0fe66c5dbce64b93adae4799d09e6c51205f00ec0a4a826a42b93551847953",
+        "references/10-ae-scripting.md": "c43a8fb29f5ecbe4eaf44dcdcc09bb9458727c8b29465cccb0bc4243dc753b02"
+      }
+    },
+    {
+      "name": "ae-depth-space",
+      "description": "Create consistent depth and parallax in After Effects with native 3D or layered 2D, perspective, shadows, atmospheric cues and restrained motion.",
+      "documents": {
+        "SKILL.md": "f21941b28543401e184ddcc828d3512fd33d3e2d1066df9f10a26734dd3ec5e9"
+      }
+    },
+    {
+      "name": "ae-design-first",
+      "description": "Plan After Effects scene geometry and typography before animation, translating visual references or approved designs into native editable components.",
+      "documents": {
+        "SKILL.md": "8917f449991d06d789b94957875357ce242e21a1e0f70334371f1e382b8000fb"
+      }
+    },
+    {
+      "name": "ae-liquid-glass",
+      "description": "Build and tune editable glass surfaces in After Effects with refraction, edge light, restrained tint, shadows and verified alpha/matte behavior.",
+      "documents": {
+        "SKILL.md": "48fb97503c4e5e1462a2c7b1e953e088bf1646e50c09940462e8b3f43373ce57"
+      }
+    },
+    {
+      "name": "ae-mcp-realities",
+      "description": "Understand local After Effects MCP capabilities, operation discovery, policy restrictions, error recovery and differences from the cloud bridge.",
+      "documents": {
+        "SKILL.md": "a41e3d7dccff56eb485e6d30d2999d62cfe15007d3e44d0e29378c5b29c6abcf",
+        "references/bridge-mapping.md": "7562f31c209ed3c7a614c3e0a6034555a60e0efb102f0de321c45e22bb18a823"
+      }
+    },
+    {
+      "name": "ae-transition-kit",
+      "description": "Build reusable editable After Effects transitions with independent placeholders, continuous boundary frames and resolution-aware controls.",
+      "documents": {
+        "SKILL.md": "c3909cfe9dee40b5208006eacd5b6c47ed252a32fe1f809a673dd2952d4f3b06"
+      }
+    },
+    {
+      "name": "ae-ui-mastery",
+      "description": "Create coherent editable interface layouts in After Effects using typography, spacing, component anatomy, contrast and reusable design tokens.",
+      "documents": {
+        "SKILL.md": "3a0db9b23abb4539b02509b0ba645c5d94b83d11428d5ba89c815c89a1ab4a0a"
+      }
+    },
+    {
+      "name": "after-effects",
+      "description": "Set up and use the local FNF After Effects MCP when the user asks to connect After Effects, install its local integration, or create and edit native AE projects.",
+      "documents": {
+        "SKILL.md": "e4f2c2a07d581fd8dc3d7ebff769810b277fae70540c1e9876735c49d54edbfd"
+      }
+    }
+  ]
+}

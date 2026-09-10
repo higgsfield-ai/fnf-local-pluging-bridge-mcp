@@ -6,7 +6,7 @@
 import { promises as fs } from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   BUSY_LOCK_PATH,
@@ -20,21 +20,46 @@ import {
 } from "../src/config.js";
 import { FileIpcTransport } from "../src/transport/FileIpcTransport.js";
 
-/**
- * An executable that exists and starts, but will never write a response.
- *
- * Per-platform because `resolveAfterFxPath` stats it: a Windows-only path made
- * every timeout and busy-lock test fail with AE_NOT_FOUND on Linux CI, before
- * the behaviour under test could run at all.
- */
-const INERT_EXE = process.platform === "win32" ? "C:/Windows/System32/cmd.exe" : "/bin/true";
-
-const savedExe = process.env.AE_MCP_EXE;
-
-afterEach(() => {
-  if (savedExe === undefined) delete process.env.AE_MCP_EXE;
-  else process.env.AE_MCP_EXE = savedExe;
+const launchState = vi.hoisted(() => ({ exe: "" }));
+const isolated = await vi.hoisted(async () => {
+  const fs = await import("node:fs");
+  const os = await import("node:os");
+  const path = await import("node:path");
+  return fs.mkdtempSync(path.join(os.tmpdir(), "fnf-offline-transport-"));
 });
+
+// Offline tests must never share the live executable mailbox or launch AppleScript.
+vi.mock("../src/config.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/config.js")>();
+  const path = await import("node:path");
+  const defaultDir = path.join(isolated, "runtime");
+  const runtimeDir = defaultDir;
+  return {
+    ...actual,
+    resolveAfterFxPath: () => launchState.exe,
+    RUNTIME_DIR_IS_CUSTOM: false,
+    RUNTIME_ROOT: isolated,
+    DEFAULT_RUNTIME_DIR: defaultDir,
+    RUNTIME_DIR: runtimeDir,
+    RUNTIME_POINTER_PATH: path.join(isolated, "runtime-pointer.txt"),
+    BUSY_LOCK_PATH: path.join(runtimeDir, "dispatcher-busy.lock"),
+    requestPathFor: (id: string) => path.join(runtimeDir, `${actual.REQUEST_PREFIX}${id}.json`),
+    responsePathFor: (id: string) => path.join(runtimeDir, `${actual.RESPONSE_PREFIX}${id}.json`),
+  };
+});
+vi.mock("../src/transport/launcher.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/transport/launcher.js")>();
+  return {
+    ...actual,
+    buildLaunchPlan: (exe: string) => ({ command: exe, args: ["-e", ""], diagnoseExit: false }),
+  };
+});
+afterAll(async () => {
+  await fs.rm(isolated, { recursive: true, force: true });
+});
+
+// The current Node executable exists on every supported test platform.
+const INERT_EXE = process.execPath;
 
 async function mailboxEntries(prefix: string): Promise<string[]> {
   try {
@@ -91,7 +116,7 @@ describe("mailbox location", () => {
     process.env.AE_MCP_RUNTIME_DIR = custom;
     try {
       vi.resetModules();
-      const mod = await import("../src/config.js");
+      const mod = await vi.importActual<typeof import("../src/config.js")>("../src/config.js");
       expect(mod.RUNTIME_DIR).toBe(path.resolve(custom));
       expect(mod.RUNTIME_DIR_IS_CUSTOM).toBe(true);
     } finally {
@@ -105,7 +130,7 @@ describe("timeout", () => {
   let transport: FileIpcTransport;
 
   beforeEach(() => {
-    process.env.AE_MCP_EXE = INERT_EXE;
+    launchState.exe = INERT_EXE;
     transport = new FileIpcTransport();
   });
 
@@ -118,7 +143,7 @@ describe("timeout", () => {
     });
 
     expect(res.ok).toBe(false);
-    expect(res.errorCode).toBe("TIMEOUT");
+    expect(res.errorCode, res.error ?? "").toBe("TIMEOUT");
     // A request nobody picked up must not survive the call: leaving it behind
     // is how a "failed" mutation used to get executed minutes later by an
     // unrelated spawn.
@@ -140,7 +165,7 @@ describe("timeout", () => {
 
 describe("busy lock", () => {
   beforeEach(() => {
-    process.env.AE_MCP_EXE = INERT_EXE;
+    launchState.exe = INERT_EXE;
   });
 
   afterEach(async () => {
@@ -165,7 +190,7 @@ describe("busy lock", () => {
     });
 
     expect(res.ok).toBe(false);
-    expect(res.errorCode).toBe("TIMEOUT");
+    expect(res.errorCode, res.error ?? "").toBe("TIMEOUT");
     expect(res.error).toContain("busy lock");
     // The request must be reclaimed, and the FOREIGN lock must be left alone.
     expect(await mailboxEntries(REQUEST_PREFIX)).toEqual(before);
@@ -186,7 +211,7 @@ describe("busy lock", () => {
 
     // The stale lock did not block the call: it went through the normal
     // dispatch path (and timed out only because the stand-in exe never answers).
-    expect(res.errorCode).toBe("TIMEOUT");
+    expect(res.errorCode, res.error ?? "").toBe("TIMEOUT");
     expect(res.error).toContain("never picked up");
     // Our own lock is released on the way out.
     await expect(fs.access(BUSY_LOCK_PATH)).rejects.toThrow();
@@ -226,14 +251,14 @@ describe("busy lock", () => {
       timeoutMs: 6_000,
     });
 
-    expect(res.errorCode).toBe("TIMEOUT");
+    expect(res.errorCode, res.error ?? "").toBe("TIMEOUT");
     expect(res.error).toMatch(/after 2 launch attempts/);
   }, 15_000);
 });
 
 describe("undo group flag", () => {
   beforeEach(() => {
-    process.env.AE_MCP_EXE = INERT_EXE;
+    launchState.exe = INERT_EXE;
   });
 
   it("travels to the dispatcher as an explicit field", async () => {
@@ -271,9 +296,9 @@ describe("spawn failure", () => {
   it("fails fast instead of burning the full timeout", async () => {
     // A file that exists but cannot be executed: spawn emits 'error', which
     // used to be swallowed — every such call waited out the whole timeout.
-    const notAnExe = path.join(os.tmpdir(), "mcp-ae-not-an-exe.txt");
+    const notAnExe = path.join(isolated, "not-an-exe.txt");
     await fs.writeFile(notAnExe, "not a program", "utf8");
-    process.env.AE_MCP_EXE = notAnExe;
+    launchState.exe = notAnExe;
 
     const transport = new FileIpcTransport();
     const before = await mailboxEntries(REQUEST_PREFIX);

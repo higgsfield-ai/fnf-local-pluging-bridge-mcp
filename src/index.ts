@@ -16,14 +16,20 @@ import { ALL_TOOLS, type AnyTool } from "./tools/index.js";
 // stale literal. dist/index.js sits one level below package.json in both the
 // repo and the published tarball.
 const require = createRequire(import.meta.url);
-const { version } = require("../package.json") as { version: string };
+const { name, version } = require("../package.json") as { name: string; version: string };
 
 const transport = new FileIpcTransport();
 
-const server = new McpServer({
-  name: "mcp-aftereffects",
-  version,
-});
+const server = new McpServer(
+  {
+    name,
+    version,
+  },
+  {
+    instructions:
+      "Local After Effects integration. Read ae_get_skill(name: ae-clean-rig) before creating or editing a project; load only relevant references. Discover exact operations through ae_catalog, inspect existing state, execute with ae_do, and verify rendered results. Skills and catalog work offline without AE. A batch is not transactional; inspect partial results or uncertain completion before retrying mutations. This server does not provide cloud generation or Blender/Premiere control.",
+  },
+);
 
 /**
  * MCP behaviour hints, derived from each tool's declared `effect` rather than
@@ -78,16 +84,16 @@ for (const tool of ALL_TOOLS) {
 }
 
 async function main(): Promise<void> {
-  console.error(`[mcp-aftereffects] policy: ${policySummary()}`);
-  console.error(`[mcp-aftereffects] mailbox: ${RUNTIME_DIR}`);
+  console.error(`[fnf-after-effects-mcp] policy: ${policySummary()}`);
+  console.error(`[fnf-after-effects-mcp] mailbox: ${RUNTIME_DIR}`);
   if (readOnlyMode()) {
     console.error(
-      `[mcp-aftereffects] read-only mode — ${skipped.length > 0 ? `tools withheld: ${skipped.join(", ")}; ` : ""}` +
+      `[fnf-after-effects-mcp] read-only mode — ${skipped.length > 0 ? `tools withheld: ${skipped.join(", ")}; ` : ""}` +
         "ae_do accepts only operations that cannot modify the project.",
     );
   } else {
     console.error(
-      "[mcp-aftereffects] WRITE ACCESS IS ON — tools can create, mutate and delete project content. " +
+      "[fnf-after-effects-mcp] WRITE ACCESS IS ON — tools can create, mutate and delete project content. " +
         "Set AE_MCP_READONLY=1 for inspection-only sessions.",
     );
   }
@@ -96,6 +102,8 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  process.stderr.write(`mcp-aftereffects fatal: ${err && err.stack ? err.stack : String(err)}\n`);
+  process.stderr.write(
+    `fnf-after-effects-mcp fatal: ${err && err.stack ? err.stack : String(err)}\n`,
+  );
   process.exit(1);
 });

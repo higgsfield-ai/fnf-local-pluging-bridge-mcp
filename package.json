@@ -1,7 +1,8 @@
 {
-  "name": "@kumoproductions/mcp-aftereffects",
-  "version": "0.2.0",
-  "description": "TypeScript MCP server for Adobe After Effects (Windows & macOS) — project/comp/layer introspection, atomic undo-grouped operations, JSON project export/import, and single-frame rendering via file IPC.",
+  "name": "fnf-after-effects-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local FNF After Effects MCP with native operations and offline creative skills.",
   "keywords": [
     "adobe",
     "after-effects",
@@ -13,35 +14,27 @@
     "model-context-protocol",
     "motion-graphics"
   ],
-  "homepage": "https://github.com/kumoproductions/mcp-aftereffects#readme",
-  "bugs": {
-    "url": "https://github.com/kumoproductions/mcp-aftereffects/issues"
-  },
-  "license": "MIT",
+  "license": "SEE LICENSE IN UPSTREAM.md",
   "author": {
     "name": "kumo.productions, Inc.",
     "url": "https://github.com/kumoproductions"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kumoproductions/mcp-aftereffects.git"
-  },
   "bin": {
-    "mcp-aftereffects": "dist/index.js"
+    "fnf-after-effects": "dist/cli.js",
+    "fnf-after-effects-mcp": "dist/index.js"
   },
   "files": [
     "dist",
     "jsx",
     "fixtures",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "skills",
+    "UPSTREAM.md",
+    "docs"
   ],
   "type": "module",
   "main": "dist/index.js",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -56,14 +49,14 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint:jsx": "vitest run tests/lint-jsx.test.ts",
-    "check:server-json": "node scripts/check-server-json.mjs",
     "docs:tools": "npm run build && node scripts/generate-tools-doc.mjs",
     "docs:tools:check": "npm run build && node scripts/generate-tools-doc.mjs --check",
-    "check": "npm run typecheck && npm run typecheck:test && npm run lint && npm run format:check && npm run lint:jsx && npm run check:server-json && npm run docs:tools:check",
-    "prepare": "lefthook install",
+    "check": "npm run typecheck && npm run typecheck:test && npm run lint && npm run format:check && npm run lint:jsx && npm run docs:tools:check",
     "prepublishOnly": "npm run build",
-    "preversion": "node scripts/release-changelog.mjs --check",
-    "version": "node scripts/release-changelog.mjs && node scripts/sync-server-version.mjs && git add CHANGELOG.md server.json"
+    "test:offline": "vitest run --exclude \"tests/e2e/**\"",
+    "doctor": "node dist/cli.js doctor",
+    "sync:skills": "node scripts/sync-skills.mjs",
+    "test:package": "npm run build && node scripts/verify-package.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
@@ -80,6 +73,5 @@
   },
   "engines": {
     "node": ">=24.0.0"
-  },
-  "mcpName": "io.github.kumoproductions/mcp-aftereffects"
+  }
 }
