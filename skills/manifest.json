@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "sourceRepository": "higgsfield-ai/fnf-local-pluging-bridge-mcp",
   "sourcePath": "creative-skills",
-  "sourceCommit": "ac68cc0d8ccde6fe58cae28417a35fbdb879c909",
+  "sourceCommit": "9df4011495b61b461402f7e360277b886091bc59",
   "skills": [
     {
       "name": "ae-animation-principles",
@@ -82,7 +82,7 @@
       "name": "after-effects",
       "description": "Set up and use the local FNF After Effects MCP when the user asks to connect After Effects, install its local integration, or create and edit native AE projects.",
       "documents": {
-        "SKILL.md": "488793f1b30aab085a7a3cdea30ae8e55255618ae138b78901d4a6527ae286f2"
+        "SKILL.md": "56cf2c2059d18304b95df937a68faa983bc85eb67e7b4f7d27b8e621d6541c6e"
       }
     }
   ]
