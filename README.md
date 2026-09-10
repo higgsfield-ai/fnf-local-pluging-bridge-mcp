@@ -23,7 +23,7 @@ Both original Git histories are retained. The current adapter controls After Eff
 
 Requires Node 24+, macOS or Windows and After Effects (the upstream defaults probe 2024–2026). Check `node --version` and `npm --version` first. If either command is missing, install Node.js 24 LTS with npm from [nodejs.org](https://nodejs.org/en/download), then reopen the terminal. npm/npx cannot run before Node.js and npm are installed. An npm account is not needed to install a public package.
 
-The npm commands below require the first `0.1.0` release to be published. Maintainers: follow [RELEASING.md](docs/RELEASING.md).
+Maintainers: follow [RELEASING.md](docs/RELEASING.md) to publish and verify a release.
 
 ```sh
 npm install --global --ignore-scripts fnf-after-effects-mcp@0.1.0
