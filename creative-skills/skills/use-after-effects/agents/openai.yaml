@@ -1,0 +1,4 @@
+interface:
+  display_name: "Higgsfield use After Effects"
+  short_description: "Connect and edit native After Effects projects"
+  default_prompt: "Use $use-after-effects to connect the local MCP and work on my After Effects project."
