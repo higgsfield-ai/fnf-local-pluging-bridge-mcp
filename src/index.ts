@@ -23,11 +23,12 @@ const transport = new FileIpcTransport();
 const server = new McpServer(
   {
     name,
+    title: "Higgsfield use After Effects",
     version,
   },
   {
     instructions:
-      "Local After Effects integration. Read ae_get_skill(name: ae-clean-rig) before creating or editing a project; load only relevant references. Discover exact operations through ae_catalog, inspect existing state, execute with ae_do, and verify rendered results. Skills and catalog work offline without AE. A batch is not transactional; inspect partial results or uncertain completion before retrying mutations. This server does not provide cloud generation or Blender/Premiere control.",
+      "Higgsfield use After Effects. Read ae_get_skill(name: ae-clean-rig) before creating or editing a project; load only relevant references. Discover exact operations through ae_catalog, inspect existing state, execute with ae_do, and verify rendered results. Skills and catalog work offline without AE. A batch is not transactional; inspect partial results or uncertain completion before retrying mutations. This server does not provide cloud generation or Blender/Premiere control.",
   },
 );
 

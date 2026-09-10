@@ -1,4 +1,4 @@
-# FNF Local Plugin Bridge MCP
+# Higgsfield use After Effects
 
 Local control of Adobe After Effects, with offline creative skills adapted from the FNF bridge. Based on the MIT-licensed [mcp-aftereffects](https://github.com/kumoproductions/mcp-aftereffects) runtime; see [attribution](UPSTREAM.md).
 
@@ -30,7 +30,9 @@ node dist/cli.js doctor
 node dist/cli.js install-codex
 ```
 
-`doctor` inspects installation and verifies the bundled skills without launching AE. `install-codex` registers absolute paths under `fnf-after-effects` and refuses to overwrite a conflicting configuration. Refresh the MCP connection in your client after registration. Keep this checkout at its registered path. To remove only this registration: `codex mcp remove fnf-after-effects`.
+`doctor` inspects installation and verifies the bundled skills without launching AE. `install-codex` registers absolute paths under `higgsfield-use-after-effects` and refuses to overwrite a conflicting configuration. Refresh the MCP connection in your client after registration. Keep this checkout at its registered path. To remove only this registration: `codex mcp remove higgsfield-use-after-effects`.
+
+When replacing an existing `fnf-after-effects` registration, review it with `codex mcp get fnf-after-effects`, remove the old entry with `codex mcp remove fnf-after-effects`, then rerun the installer.
 
 For another desktop MCP client, `node dist/cli.js config` prints a JSON configuration using the current Node and server paths. For nonstandard AE installs, set `AE_MCP_EXE` in the MCP server environment. On macOS, allow the relevant host app's Automation request when first connecting. Enable AE's **Allow Scripts to Write Files and Access Network** preference if AE reports file access denied.
 

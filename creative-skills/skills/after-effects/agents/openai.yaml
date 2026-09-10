@@ -1,4 +1,0 @@
-interface:
-  display_name: "After Effects Local"
-  short_description: "Connect and edit native After Effects projects"
-  default_prompt: "Use $after-effects to connect the local MCP and work on my After Effects project."

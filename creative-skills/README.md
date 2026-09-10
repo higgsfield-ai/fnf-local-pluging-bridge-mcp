@@ -4,7 +4,7 @@ Skill sources for the `fnf-local-pluging-bridge-mcp` repository, adapted from FN
 
 ## Install
 
-From the repository root, `python3 creative-skills/scripts/install.py` installs the `after-effects` entry skill into `~/.agents/skills/after-effects` as a symlink. It refuses to overwrite an unrelated skill. The runtime serves all companion skills through `ae_get_skill`; installing ten overlapping global skills is unnecessary.
+From the repository root, `python3 creative-skills/scripts/install.py` installs the `use-after-effects` entry skill into `~/.agents/skills/use-after-effects` as a symlink. It refuses to overwrite an unrelated skill. The runtime serves all companion skills through `ae_get_skill`; installing ten overlapping global skills is unnecessary.
 
 ## Maintain
 

@@ -29,6 +29,7 @@ try {
       stderr: "pipe",
     }),
   );
+  assert.equal(client.getServerVersion().title, "Higgsfield use After Effects");
   const tools = await client.listTools();
   assert.equal(tools.tools.length, 12);
   const skill = await client.callTool({
