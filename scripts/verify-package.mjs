@@ -47,10 +47,11 @@ try {
   const config = JSON.parse(
     execFileSync(process.execPath, [cli, "config"], { cwd: temp, encoding: "utf8" }),
   );
-  const server = config.mcpServers["fnf-after-effects"];
+  const server = config.mcpServers["higgsfield-use-after-effects"];
   assert.equal(server.command, process.execPath);
   assert.deepEqual(server.args, [join(pkg, "dist/index.js")]);
   await client.connect(new StdioClientTransport({ ...server, cwd: temp, stderr: "pipe" }));
+  assert.equal(client.getServerVersion().title, "Higgsfield use After Effects");
   const tools = await client.listTools();
   assert.equal(tools.tools.length, 12);
   const skill = await client.callTool({

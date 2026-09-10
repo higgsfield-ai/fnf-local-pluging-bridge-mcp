@@ -1,4 +1,4 @@
-# FNF Local Plugin Bridge MCP
+# Higgsfield use After Effects
 
 Local control of Adobe After Effects, with offline creative skills adapted from the FNF bridge. Based on the MIT-licensed [mcp-aftereffects](https://github.com/kumoproductions/mcp-aftereffects) runtime; see [attribution](UPSTREAM.md).
 
@@ -33,14 +33,16 @@ fnf-after-effects install-codex
 
 The package contains the built server, JSX and offline skills; installation requires no Git, compiler, Python or AE panel. `doctor` checks installation and bundled skill integrity without launching AE. A successful check does not prove a live AE connection.
 
-`install-codex` requires the Codex CLI on PATH. It registers absolute Node and server paths under `fnf-after-effects`, leaves matching registrations alone and refuses to overwrite a conflict. Refresh the client's MCP connection after registration. Keep the installed package and Node at those paths; after moving or replacing either, review the registration with `codex mcp get fnf-after-effects`. Remove the old entry with `codex mcp remove fnf-after-effects` only when intentionally replacing it, then rerun the installer.
+`install-codex` requires the Codex CLI on PATH. It registers absolute Node and server paths under `higgsfield-use-after-effects`, leaves matching registrations alone and refuses to overwrite a conflict. Refresh the client's MCP connection after registration. Keep the installed package and Node at those paths; after moving or replacing either, review the registration with `codex mcp get higgsfield-use-after-effects`. Remove the old entry with `codex mcp remove higgsfield-use-after-effects` only when intentionally replacing it, then rerun the installer.
+
+For an existing `fnf-after-effects` registration, review it with `codex mcp get fnf-after-effects`, remove that old entry with `codex mcp remove fnf-after-effects`, then rerun `fnf-after-effects install-codex`. The installer refuses to create a duplicate legacy connection.
 
 For another desktop MCP client, `fnf-after-effects config` prints the same JSON configuration. For a client that supports launching commands from PATH, a version-pinned npx configuration is also available:
 
 ```json
 {
   "mcpServers": {
-    "fnf-after-effects": {
+    "higgsfield-use-after-effects": {
       "command": "npx",
       "args": ["--yes", "fnf-after-effects-mcp@0.1.0"]
     }

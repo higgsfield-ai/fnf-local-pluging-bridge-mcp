@@ -5,7 +5,7 @@ import { resolve, sep } from "node:path";
 import { PACKAGE_ROOT, DISPATCHER_JSX, resolveAfterFxPath } from "./config.js";
 import { SkillStore } from "./skills.js";
 
-const serverName = "fnf-after-effects";
+const serverName = "higgsfield-use-after-effects";
 const entry = resolve(PACKAGE_ROOT, "dist/index.js");
 const config = { command: process.execPath, args: [entry] };
 const command = process.argv[2] ?? "help";
@@ -80,6 +80,10 @@ try {
     if (!Array.isArray(servers))
       throw new Error("Unexpected Codex MCP list format; no configuration changed.");
     const existing = servers.find((s) => s.name === serverName);
+    if (!existing && servers.some((s) => s.name === "fnf-after-effects"))
+      throw new Error(
+        "Legacy fnf-after-effects registration found. Review it with codex mcp get fnf-after-effects, then remove it with codex mcp remove fnf-after-effects before rerunning install-codex. No configuration changed.",
+      );
     if (existing) {
       if (
         existing.enabled !== false &&
