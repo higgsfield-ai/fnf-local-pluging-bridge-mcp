@@ -1,11 +1,11 @@
 ---
 name: ae-ui-mastery
-description: Create coherent editable interface layouts in After Effects using typography, spacing, component anatomy, contrast and reusable design tokens.
+description: Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers coherent editable interface layouts using typography, spacing, component anatomy, contrast and reusable design tokens.
 ---
 
 # UI composition
 
-Use the local `fnf-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
+Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
 
 Extract the reference or brand system first. For new work, choose one coherent visual direction and define spacing, type, palette, radii, strokes and elevation before creating layers. Use the same tokens across sibling components. Defaults are adaptable, not a requirement to impose a particular brand.
 

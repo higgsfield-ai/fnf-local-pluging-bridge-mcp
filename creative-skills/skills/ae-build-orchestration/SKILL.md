@@ -1,11 +1,11 @@
 ---
 name: ae-build-orchestration
-description: Plan and execute multi-step native After Effects builds with small verified batches, stable references, recoverable checkpoints and editable delivery.
+description: Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers multi-step native builds with small verified batches, stable references, recoverable checkpoints and editable delivery.
 ---
 
 # Build orchestration
 
-Use the local `fnf-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
+Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
 
 1. Inspect the existing project and collect dimensions, fps, duration, assets, fonts and the user's constraints. Classify work as new build, reference match or local correction; preserve unrelated content.
 2. Make a scene plan: comp hierarchy, layer names, independent content sources, visual tokens, controllers and motion beats. Separate constant layout values from animated controls. Prefer the smallest useful rig.

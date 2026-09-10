@@ -23,4 +23,5 @@ for name, expected in provenance['originalFiles'].items():
         errors.append(f'Archived source differs from recorded provenance: {name}')
 if errors:
     raise SystemExit('\n'.join(errors))
-print('Validated 10 skills and their local reference links.')
+skills = sorted((root / 'skills').iterdir())
+print(f'Validated {len(skills)} skills and their local reference links.')

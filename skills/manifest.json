@@ -6,23 +6,23 @@
   "skills": [
     {
       "name": "ae-animation-principles",
-      "description": "Design and refine intentional After Effects animation with timing, easing, staging, anticipation, follow-through and loop validation.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers timing, easing, staging, anticipation, follow-through and loop validation for After Effects motion.",
       "documents": {
-        "SKILL.md": "94c30a7f3998e0f6e38ea06a3781515de1125ecd2b4f45898312f49ba5d96911"
+        "SKILL.md": "ca0b5bc2323ccd054c4fa0c3f513e9e009a1a0df07a7a3512e6b254c39bc7ce8"
       }
     },
     {
       "name": "ae-build-orchestration",
-      "description": "Plan and execute multi-step native After Effects builds with small verified batches, stable references, recoverable checkpoints and editable delivery.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers multi-step native builds with small verified batches, stable references, recoverable checkpoints and editable delivery.",
       "documents": {
-        "SKILL.md": "e824c5408361b89fdd67fb64b8a67184231d95b0bbdd11c45b063da85fcb9252"
+        "SKILL.md": "99f0c2ad794728afbd5e6cc2049be7511e7c4d11cb677e922ccedf511981ae45"
       }
     },
     {
       "name": "ae-clean-rig",
-      "description": "Build and edit clean native After Effects projects, preserve reference appearance and motion, expose useful controls, and verify rendered results through the local MCP.",
+      "description": "Primary entry point for every native After Effects task through the local MCP. Use whenever the user asks to build, create, edit, rebuild, animate, fix, inspect, verify or render an After Effects project, composition, layer, text, shape, mask, effect, expression, keyframe or frame — including reference recreation and cleanup work. Builds clean native projects, preserves reference appearance and motion, exposes useful controls, and verifies rendered results. Load this before any other ae- skill; it routes to the companion modules itself through ae_get_skill, so those must not be selected on their own. When another ae- skill names the specific subject of the request in its own description, that skill takes precedence over this one.",
       "documents": {
-        "SKILL.md": "3518659f3090768c293bf12a9f63ec4d2c92076f05f5155b3d70063a98e9d2f1",
+        "SKILL.md": "e9c6e8badadf8c2334fef344c10b213ae24fa5646b44cca93a9633215018fd91",
         "references/01-construction.md": "c1a72fa0a20cb2b082abdc8b7581d4060814620cd439b97d14596ed8c0bed52f",
         "references/02-reference-motion.md": "88808a66deccc7e2ed3b9f83b52ff66d2241d77c038736f11f9a3c82fecb9dc3",
         "references/03-typography.md": "a20b74746d65fd13e24daf35e182a14d3dc6b63114e6a93d6a82e188b6561b4b",
@@ -37,45 +37,55 @@
     },
     {
       "name": "ae-depth-space",
-      "description": "Create consistent depth and parallax in After Effects with native 3D or layered 2D, perspective, shadows, atmospheric cues and restrained motion.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers depth and parallax with native 3D or layered 2D, perspective, shadows, atmospheric cues and restrained motion.",
       "documents": {
-        "SKILL.md": "f21941b28543401e184ddcc828d3512fd33d3e2d1066df9f10a26734dd3ec5e9"
+        "SKILL.md": "5fdf4cd19e42386056715aa45d14ed68e27f68696a99121006f93d65344292b5"
       }
     },
     {
       "name": "ae-design-first",
-      "description": "Plan After Effects scene geometry and typography before animation, translating visual references or approved designs into native editable components.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers scene geometry and typography planned before animation, translating visual references or approved designs into native editable components.",
       "documents": {
-        "SKILL.md": "8917f449991d06d789b94957875357ce242e21a1e0f70334371f1e382b8000fb"
+        "SKILL.md": "412eaa925f408aaa1971f7e8dedd21dfe571093e7b76df3f634bf7609ed9be37"
       }
     },
     {
       "name": "ae-liquid-glass",
-      "description": "Build and tune editable glass surfaces in After Effects with refraction, edge light, restrained tint, shadows and verified alpha/matte behavior.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers editable glass surfaces with refraction, edge light, restrained tint, shadows and verified alpha/matte behavior.",
       "documents": {
-        "SKILL.md": "48fb97503c4e5e1462a2c7b1e953e088bf1646e50c09940462e8b3f43373ce57"
+        "SKILL.md": "f788979f20ea9541fc5392c33f818597e68fee2e8a14d39a8d10326b051403cc"
       }
     },
     {
       "name": "ae-mcp-realities",
-      "description": "Understand local After Effects MCP capabilities, operation discovery, policy restrictions, error recovery and differences from the cloud bridge.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers local MCP capabilities, operation discovery, policy restrictions, error recovery and differences from the cloud bridge.",
       "documents": {
-        "SKILL.md": "a41e3d7dccff56eb485e6d30d2999d62cfe15007d3e44d0e29378c5b29c6abcf",
+        "SKILL.md": "dbd1eef3af77b2b719c9845ac0a89f6cd65c6744acbd7fed111effed9fb1dcf3",
         "references/bridge-mapping.md": "7562f31c209ed3c7a614c3e0a6034555a60e0efb102f0de321c45e22bb18a823"
       }
     },
     {
       "name": "ae-transition-kit",
-      "description": "Build reusable editable After Effects transitions with independent placeholders, continuous boundary frames and resolution-aware controls.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers reusable editable transitions with independent placeholders, continuous boundary frames and resolution-aware controls.",
       "documents": {
-        "SKILL.md": "c3909cfe9dee40b5208006eacd5b6c47ed252a32fe1f809a673dd2952d4f3b06"
+        "SKILL.md": "2098c9ba8fcf086900c874d6e348565fbe4addeb4e74b446c5b875f802f21775"
       }
     },
     {
       "name": "ae-ui-mastery",
-      "description": "Create coherent editable interface layouts in After Effects using typography, spacing, component anatomy, contrast and reusable design tokens.",
+      "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers coherent editable interface layouts using typography, spacing, component anatomy, contrast and reusable design tokens.",
       "documents": {
-        "SKILL.md": "3a0db9b23abb4539b02509b0ba645c5d94b83d11428d5ba89c815c89a1ab4a0a"
+        "SKILL.md": "d9ac8862a36313795a99ea15cf38fc8db3fbdac2150b600c18edc72ef94f93fd"
+      }
+    },
+    {
+      "name": "ae-whiteboard-animation",
+      "description": "Whiteboard and collaboration-board scenes in After Effects. Use only when the user explicitly names a whiteboard, sticky-note board, Miro- or FigJam-style canvas, or a collaboration UI board as the subject of the work. Covers board construction, note and cursor motion, camera routes over a flat board, interpolation matching and project-wide font replacement. For any other After Effects work — general motion, interface layout, glass, depth, transitions or reference recreation — use ae-clean-rig instead.",
+      "documents": {
+        "SKILL.md": "0d0a38162c04ad63dcfc0f4cc7f298a0199fcd257f2b114af437dfaa37bb582b",
+        "references/artwork-and-interaction.md": "87f29df5dd0e6e8fdb3342c36834b321bbd1e0f5fdec2456f88d0c32d523e2d4",
+        "references/camera-and-easing.md": "107775337df71d5ce40481b6a21eed3231a10d9dca9b0b27355b1f8a485be279",
+        "references/native-execution.md": "38f8afc51263b9bb9bb57d801b0803f5f90ac3f970d6ca2faa63939c73bdc273"
       }
     },
     {

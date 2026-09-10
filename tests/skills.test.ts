@@ -31,7 +31,7 @@ describe("pinned AE skills", () => {
   it("loads every pinned entry/reference and validates documented tool names", () => {
     const store = new SkillStore();
     const tools = new Set(ALL_TOOLS.map((tool) => tool.name));
-    expect(store.index().skills).toHaveLength(10);
+    expect(store.index().skills).toHaveLength(11);
     for (const skill of store.manifest.skills) {
       for (const document of Object.keys(skill.documents)) {
         const result = store.read(skill.name, document);
@@ -107,7 +107,7 @@ describe("pinned AE skills", () => {
     await client.connect({ AE_MCP_READONLY: "1" });
     try {
       const index = await client.call<{ skills: unknown[] }>("ae_get_skill");
-      expect(index.skills).toHaveLength(10);
+      expect(index.skills).toHaveLength(11);
       const entry = await client.call<{ content: string; references: string[] }>("ae_get_skill", {
         name: "ae-clean-rig",
       });

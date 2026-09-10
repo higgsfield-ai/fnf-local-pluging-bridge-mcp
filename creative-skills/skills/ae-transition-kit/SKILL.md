@@ -1,11 +1,11 @@
 ---
 name: ae-transition-kit
-description: Build reusable editable After Effects transitions with independent placeholders, continuous boundary frames and resolution-aware controls.
+description: Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers reusable editable transitions with independent placeholders, continuous boundary frames and resolution-aware controls.
 ---
 
 # Reusable transitions
 
-Use the local `fnf-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
+Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for exact operation arguments before calling `ae_do`; availability depends on server policy and the installed AE version. Load `ae-clean-rig` as the shared construction and delivery standard. User instructions and existing project constraints take precedence over recipe defaults.
 
 Use two independently replaceable content sources, A and B, inside a clear transition comp. Define duration and the invariant at each boundary: before the transition only A is visible; after it only B is visible. At a reused seam, placement, opacity and motion should agree with the adjacent scene.
 
