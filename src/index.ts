@@ -16,13 +16,13 @@ import { ALL_TOOLS, type AnyTool } from "./tools/index.js";
 // stale literal. dist/index.js sits one level below package.json in both the
 // repo and the published tarball.
 const require = createRequire(import.meta.url);
-const { name, version } = require("../package.json") as { name: string; version: string };
+const { version } = require("../package.json") as { version: string };
 
 const transport = new FileIpcTransport();
 
 const server = new McpServer(
   {
-    name,
+    name: "higgsfield-use-after-effects",
     title: "Higgsfield use After Effects",
     version,
   },
