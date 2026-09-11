@@ -1,4 +1,8 @@
-# Higgsfield use After Effects
+# Higgsfield local application MCPs
+
+Independent local MCP packages for After Effects (repository root) and [Blender](blender/README.md). Each package has its own dependencies, build, tests and release.
+
+## After Effects
 
 Local control of Adobe After Effects, with offline creative skills adapted from the FNF bridge. Based on the MIT-licensed [mcp-aftereffects](https://github.com/kumoproductions/mcp-aftereffects) runtime; see [attribution](UPSTREAM.md).
 
@@ -8,16 +12,17 @@ Codex / desktop MCP client → local stdio server → OS scripting → After Eff
                             bundled AE skills     local file mailbox
 ```
 
-No Higgsfield account, cloud relay or installed AE panel is required. Adobe licensing, an installed AE application, OS Automation permissions and AE's scripting file access preference are separate requirements. This integration controls AE; Blender and Premiere require their own adapters. A remote web client cannot directly launch a local stdio process.
+No Higgsfield account, cloud relay or installed AE panel is required. Adobe licensing, an installed AE application, OS Automation permissions and AE's scripting file access preference are separate requirements. The root integration controls AE; the separate `blender/` package controls Blender over authenticated loopback HTTP. A remote web client cannot directly launch a local stdio process.
 
 ## Repository layout
 
 - Root: the local After Effects MCP runtime, tests and setup CLI.
+- `blender/`: the independent `fnf-blender-mcp` package, Python add-on, CLI, skills and tests.
 - `skills/`: the single source of editable skills, also bundled with the runtime.
 - `scripts/`: skill installation, manifest generation and validation.
 - `creative-skills/archive/bridge-ae/`: original bridge knowledge retained for migration review.
 
-Both original Git histories are retained. The current adapter controls After Effects; future application adapters can be added separately.
+Both original Git histories are retained. After Effects and Blender run as separate MCP servers; neither package requires the other. Root npm commands apply to After Effects. Run Blender commands from `blender/`.
 
 ## Setup
 
@@ -67,4 +72,16 @@ npm run test:offline
 
 Edit `skills/` directly, then regenerate `skills/manifest.json` and commit it together with the skill changes. Generation writes only the manifest, works with uncommitted edits and requires no Git metadata. `npm run skills:check` rejects stale descriptions, hashes, missing entries and invalid reference links. The version 2 manifest uses document hashes instead of `sourceCommit`; `ae_get_skill` no longer returns that obsolete snapshot field. Live tests under `tests/e2e` have separate prerequisites; offline success does not prove rendering on your AE installation. See [VALIDATION.md](docs/VALIDATION.md) for the actual checks performed on this fork.
 
-This is a private fork, not a published npm package. Do not use the upstream package name when installing this version. Historical upstream documentation is preserved in `docs/UPSTREAM-README.md` for reference.
+The root After Effects package remains marked private in this checkout. Do not use the upstream package name when installing this fork. Historical upstream documentation is preserved in `docs/UPSTREAM-README.md` for reference.
+
+## Blender development and releases
+
+```sh
+cd blender
+npm ci
+npm test
+npm run typecheck
+npm run test:package
+```
+
+See [Blender setup and verification](blender/README.md) and the [Blender release procedure](blender/RELEASING.md). The published npm identifiers stay `fnf-after-effects-mcp` and `fnf-blender-mcp`; `/use-blender` continues installing from npm. CI validates and packs each package independently.
