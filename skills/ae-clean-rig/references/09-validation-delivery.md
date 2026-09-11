@@ -17,6 +17,16 @@ Before expensive rendering, inspect expression errors and missing dependencies i
 
 Deliver the saved AEP with relative packaged media dependencies and a usable preview. Retain any required editable 3D sources. List needed fonts and plugin/renderer dependencies; include font files only when redistribution is permitted and their terms are included. State material substitutions and remaining match differences without describing an unverified result as exact. Explain how to replace content and which control to animate.
 
+## Check both resemblance and regressions
+
+Keep two comparisons distinct: current AE versus the original tests fidelity; current AE versus the saved previous render finds unintended changes. A shared character can be correct in its import scene but broken much later. After changing a shared source, review its other consumers even if their scene layers were untouched.
+
+Use a sparse full-timeline comparison to locate differences, then inspect original-resolution consecutive frames at each suspicious event. A sampled pixel-difference threshold is a triage tool, not proof of motion quality or pixel identity. Record the sampling rate, expected change ranges, exceptions reviewed and actual checks performed; do not widen an exclusion range merely to make a scan pass. Sampled checks cannot certify every intervening frame.
+
+For the changed behavior, include entrance, full pose, pose changes, contact/extrema, exit and both sides of cuts. Inspect complete-frame layout and character/detail crops together. Verify advertised manual pose/build/phase controls, normal transforms and a real text or content edit; restore intended values even if a check fails. Keep visual acceptance separate from the absence of expression errors.
+
+Validate delivered media metadata: concrete dimensions, frame rate, frame count/duration and audio alignment. A corrupt or unfinished movie can exist on disk. Confirm exported stills exist and decode too. If assembling a review from separately rendered native segments, preserve exact frame ranges, colour interpretation, audio continuity and provenance; this must not introduce an external-only fix absent from the saved AEP. Package current previews clearly, keeping superseded comparisons out of the primary review set.
+
 ## Learn from feedback without overstating the result
 
 Carry the user's confirmed corrections into future work: simpler semantic geometry, editable source text/media, reference-supported motion, deliberate gradients, controller-driven rigs and real rendered checks. An accepted iteration does not establish that every creative style has been mastered. The open-ended Apple-style text exercise and the ALL IN font substitution case received weaker feedback; use their concrete failure lessons, not a promise that a similar effect stack will produce an approved result.

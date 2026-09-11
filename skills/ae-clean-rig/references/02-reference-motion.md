@@ -1,5 +1,15 @@
 # Reference analysis and faithful motion
 
+## Establish reliable frame evidence
+
+Label each input's role: original reference, approved result, or screenshot of a defect. A screenshot of the failed AE recreation is evidence of a problem, not the geometry to reproduce. Resolve conflicting stills against the original video and the user's explicit designation.
+
+Record the source frame index and presentation timestamp alongside observations. Decode the original stream for decisive poses and cuts; a contact sheet made after seeking and resampling to another frame rate may duplicate or omit frames. Sparse time sampling is useful for navigation, but return to original frame indices for the motion decision. For variable-frame-rate media, retain actual presentation timestamps instead of deriving time solely as index / average fps.
+
+Extract frames yourself when FFmpeg and ffprobe are available; this corpus ships prose, not executables. Read the stream's real frame list with `ffprobe -select_streams v -show_frames -show_entries frame=coded_picture_number,pkt_pts_time`, then pull the wanted indices with a single `ffmpeg` pass that selects on `coded_picture_number` and writes one image per selected frame — for example a `select` filter listing the indices, with `-vsync 0` so nothing is duplicated or dropped. Record each written image next to its own presentation timestamp. Do not seek-and-resample to a round frame rate: that is the step that silently duplicates or omits the frames the motion decision depends on. Keep extracted images as analysis material, never as source artwork.
+
+For each cut, record the last outgoing frame, first incoming frame and any deliberate overlap. Use half-open layer intervals: if frame N is the last visible frame, the out-point belongs at frame N+1. Map global time through the instance's start time, stretch and time remap; subtracting the shot start alone is valid only for an unretimed instance. Check the rendered boundary even when the property values appear correct.
+
 ## Preserve animation while changing construction
 
 1. Inspect the actual open AE project and active comp through the available bridge/API before editing. Record dimensions, frame rate, duration, media dependencies, and the current composition structure. Before structural changes, save the current state to a separate backup and create a clearly named working iteration. Do not overwrite the sole original or accidentally change unrelated compositions.
@@ -17,3 +27,22 @@ Separate camera/world movement, object transforms, genuine deformation, and chan
 Do not invent wing flaps, tail cycles, button pressure, text rebounds, star rotation, breathing scale, or evolving noise. Add anticipation, overlap, overshoot, and settling only when supported by the reference. Repeated motion needs a measured cycle; a single gesture needs a single intentional curve. Preserve supported secondary animation when simplifying geometry.
 
 Simplify noisy pose fits into a coherent trajectory, while retaining measured entry, contact, and exit beats. Fit 3D orientation continuously and verify projected points between poses; independently fitted Euler angles can introduce unwanted precession. Review position, orientation, scale, and apparent screen size together. Compare a real-time preview before calling the motion smoother. Check the sign changes of each visible motion against the reference: skipping a turnaround pose can make an object reverse early even when the retained poses match.
+
+## Match cuts: preserve the action across the edit
+
+Treat neighboring shots as one motion design problem. A hard cut is not proof that its elements are static. Motion may be in stroke length, tracking, a pose, or a moving anchor while the layer Position remains unchanged. Do not replace a moving glyph with a static font character just because a still frame looks close.
+
+1. Inspect at least 6–12 actual source frames on each side of a candidate cut, plus the entire gesture in real time. Mark the exact cut frame and global-to-local time mapping. Record the outgoing and incoming element, attention point, silhouette, stroke weight, direction, motion phase, and visible speed. Distinguish a continuous action match, a change of framing, a repeated gesture, and an intentional unrelated cut.
+2. For a continuous action match, continue the next trajectory sample after the edit. The incoming object must not repeat the outgoing last frame, restart at rest, or run the gesture twice. Compare projected anchor position, size, orientation and velocity; also compare acceleration when it is visible. A camera/framing change can change screen speed, so compare in the appropriate coordinate space instead of forcing numerically identical pixels per second.
+3. Prefer a shared object precomp and motion control with time offsets, or explicitly matched handoff keys on the two shots. Use one source for the same head, arrow, bracket or glyph. When geometry genuinely differs, match its visible contact or attention point; matching precomp centers is insufficient. For arrows, keep the head angle and stroke weight intact while extending the shaft. For an articulated character, coordinate body translation with leg extension and contact, then hand off the same pose to the next layout.
+4. Fit sparse temporal Bezier keys to the observed trajectory. Do not apply zero-speed Easy Ease at every retained key or at the edit: it creates stops between otherwise correct poses. Give an intermediate handoff key the required nonzero speed and spatial tangent. If the reference intentionally rests before a graphic cut, preserve that rest. A repeated gesture after a cut can have its own launch while sharing geometry, direction logic and the curve's character.
+5. Preserve intended cuts in framing and typography. Do not add a dissolve, morph, spin, or a long flying reposition to disguise a mismatch. A replacement layer must inherit the state and timing of its predecessor. Check for double visibility, one-frame holes, premature incoming poses, reset source time and different bounds caused by fonts or anchor expressions.
+6. Render the nested main composition. Review consecutive frames around the boundary and a real-time clip; still comparisons alone do not validate a match cut. Test a real control edit and restore it. Record which cuts were changed, which are deliberate graphic cuts, and any remaining difference. Do not claim all motion matches solely because expressions have no errors.
+
+Regression examples from DevDay:
+- Down arrows to small up arrows: the reference cuts scale/direction on a fixed frame, but the shafts extend with fast-to-slow motion on both sides. Preserve the cut and reconstruct the moving geometry; static arrows discard the essential gesture.
+- Loading to empty brackets: retain the same bracket geometry while closing and shrinking, then carry its actual bounds into the next precomp.
+- Frog to sprite strip: body lift must agree with leg extension; the selected strip pose starts at the outgoing frog's screen position and pose before the row travels.
+- Constructed snake to travelling snake: use the same head/body/tail sources and coordinates at the handoff. Do not reset the right bracket's position or leave it on top of the moving head.
+
+Technique sources: [School of Motion — Match Cuts](https://www.schoolofmotion.com/blog/match-cuts), [Adobe — Match cuts](https://www.adobe.com/creativecloud/video/post-production/cuts-in-film/match-cut.html). These explain action/framing continuity; the measurements and implementation decisions must come from the actual supplied reference.

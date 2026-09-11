@@ -21,17 +21,23 @@
       "name": "ae-clean-rig",
       "description": "Primary entry point for every native After Effects task through the local MCP. Use whenever the user asks to build, create, edit, rebuild, animate, fix, inspect, verify or render an After Effects project, composition, layer, text, shape, mask, effect, expression, keyframe or frame — including reference recreation and cleanup work. Builds clean native projects, preserves reference appearance and motion, exposes useful controls, and verifies rendered results. Load this before any other ae- skill; it routes to the companion modules itself through ae_get_skill, so those must not be selected on their own. When another ae- skill names the specific subject of the request in its own description, that skill takes precedence over this one.",
       "documents": {
-        "SKILL.md": "e9c6e8badadf8c2334fef344c10b213ae24fa5646b44cca93a9633215018fd91",
-        "references/01-construction.md": "c1a72fa0a20cb2b082abdc8b7581d4060814620cd439b97d14596ed8c0bed52f",
-        "references/02-reference-motion.md": "88808a66deccc7e2ed3b9f83b52ff66d2241d77c038736f11f9a3c82fecb9dc3",
+        "SKILL.md": "9602f344e926998fad7f52ad0301f654fe43d41e33a74b77ffcc5482fddbd530",
+        "references/01-construction.md": "55bb5d6b1c6c47d781785887acc6a2756141d376b6d14288d5896083bc99858a",
+        "references/02-reference-motion.md": "2ce67d51d84e9d1a69276cab4189995f709a74cd864ba76b77b57f421a15a6f2",
         "references/03-typography.md": "a20b74746d65fd13e24daf35e182a14d3dc6b63114e6a93d6a82e188b6561b4b",
         "references/04-gradients-effects.md": "0535b44f26d66705580777d2e338077cb7421c2889c7ac0f709f3374e7a27398",
-        "references/05-higgsfield-media.md": "1d1184d8b2ba6847b10c8ea92cb4dd9c84f53f71261459aa88980297d9d49333",
-        "references/06-editable-rigs.md": "c419d637dd38cd09d9d612650284341f750c2bfa1422297da81e6d12015e059d",
+        "references/05-media-generation.md": "08a00124a15bf7f95c06dba7ba1856d4e6b5079da50364e763ab4d66130cffd9",
+        "references/06-editable-rigs.md": "09485b002a3dd2c5bd5c48f961b111251ae338fb967c8812410d80bfd35ac7e0",
         "references/07-sliders.md": "a4d7171d1d6b9ab40b440bd1a16b24cb5205d9d493b41c117653afed82df24b4",
-        "references/08-characters.md": "d302df7e467cd95ea9bb31ed9329facb113af2c801f5a5de44995ead7d68696e",
-        "references/09-validation-delivery.md": "0e0fe66c5dbce64b93adae4799d09e6c51205f00ec0a4a826a42b93551847953",
-        "references/10-ae-scripting.md": "c43a8fb29f5ecbe4eaf44dcdcc09bb9458727c8b29465cccb0bc4243dc753b02"
+        "references/08-characters.md": "1a73b02cd1f631ea7048c6cbbd084ddb72230a1f9898a2b0dc56e3d0ae9f46b7",
+        "references/09-validation-delivery.md": "98ba25736d608628165d517396654feae7b7d50a865abeab2336559d0ab4e586",
+        "references/10-ae-scripting.md": "7b17a4100e8832bce1b780c9c59b063546038ff25b4cd6ba13a2c0ffcff5f40f",
+        "references/11-character-production.md": "9bc944486fa71df226630d40530ae022f914eecec377ddc275a1c427eef5de5d",
+        "references/12-symbol-characters.md": "01206e7c98f4efffbaaa2ecd81b2ad5e4d53d59dc4b99a626034c2df95853353",
+        "references/13-localization.md": "a4b401b0fcfcbd9ef7084c76da744f1253547e811e3fa1d3db370e88c0feefbe",
+        "references/14-localization-typography.md": "0d20d9cb5b0acbdff7f875e286c975335212fd76988424474d8d24b9fd5d94ff",
+        "references/15-localization-collect.md": "0c7cccd3d867c4bfcb3f4dbfaac45b721ed5bc2665cca29ff67efb4aa8afa9ad",
+        "references/16-localization-recut.md": "71afd97692a7e0a16ad023d5b788e4288ede8242038765420a066a8edd5edcaf"
       }
     },
     {
@@ -46,6 +52,19 @@
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers scene geometry and typography planned before animation, translating visual references or approved designs into native editable components.",
       "documents": {
         "SKILL.md": "412eaa925f408aaa1971f7e8dedd21dfe571093e7b76df3f634bf7609ed9be37"
+      }
+    },
+    {
+      "name": "ae-figma-transfer",
+      "description": "Transfer Figma frames into editable native layers in the open After Effects project. Use for a layered import, a repeat of a verified unchanged import, or an explicitly requested update to an existing mapped import. Requires actual Figma node data. Exclude screenshot reconstruction, animation creation, and skill maintenance.",
+      "documents": {
+        "SKILL.md": "3de46ab21283ae33e5623776933a15086636fbb17b9275e491ecd56d4b286635",
+        "references/connection-notes.md": "b1fa387203e0d2b45cac3fb07779aae79a3ac7310cb83fa0ea6888ecc39e1f8b",
+        "references/geometry-and-crop.md": "ebe809e497bf41872d804e6c0c5750e49a17a082a54e83ebf48c0d6f8cccc744",
+        "references/native-layers.md": "a9be44fdaffbf79b065fefbc288888919985d0ab7f65dac527e05119129f98f1",
+        "references/overlord.md": "fc8b73cfa4e499003da453e8cdf4edfe7ca467e6950a359df67572c318c0c952",
+        "references/reuse-and-updates.md": "d20756bd90c659ecdfb2485565a348124956d63f3635145ef56fbcc1743f8273",
+        "references/source.md": "ed710520a643466a13d46201bffd89ae9ef7793f29c0382d517a31ffbb1f090e"
       }
     },
     {
@@ -75,16 +94,6 @@
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers coherent editable interface layouts using typography, spacing, component anatomy, contrast and reusable design tokens.",
       "documents": {
         "SKILL.md": "d9ac8862a36313795a99ea15cf38fc8db3fbdac2150b600c18edc72ef94f93fd"
-      }
-    },
-    {
-      "name": "ae-whiteboard-animation",
-      "description": "Whiteboard and collaboration-board scenes in After Effects. Use only when the user explicitly names a whiteboard, sticky-note board, Miro- or FigJam-style canvas, or a collaboration UI board as the subject of the work. Covers board construction, note and cursor motion, camera routes over a flat board, interpolation matching and project-wide font replacement. For any other After Effects work — general motion, interface layout, glass, depth, transitions or reference recreation — use ae-clean-rig instead.",
-      "documents": {
-        "SKILL.md": "0d0a38162c04ad63dcfc0f4cc7f298a0199fcd257f2b114af437dfaa37bb582b",
-        "references/artwork-and-interaction.md": "87f29df5dd0e6e8fdb3342c36834b321bbd1e0f5fdec2456f88d0c32d523e2d4",
-        "references/camera-and-easing.md": "107775337df71d5ce40481b6a21eed3231a10d9dca9b0b27355b1f8a485be279",
-        "references/native-execution.md": "38f8afc51263b9bb9bb57d801b0803f5f90ac3f970d6ca2faa63939c73bdc273"
       }
     },
     {

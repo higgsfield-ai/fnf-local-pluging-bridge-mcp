@@ -19,3 +19,15 @@ Preserve unique media/source identity where independent editing is requested. Du
 Keep the main comp readable: semantic object precomps, a small number of clearly named controls, a camera if relevant, and scene/background layers. Within a component, keep independently meaningful body parts, captions and media easy to find. Keep technical helpers unobtrusive without hiding the controls the user needs.
 
 Package an internal shared motion library as an actual project dependency when one is used. Do not rely on a comp-name expression alone to make another comp portable; verify that exporting or importing the character/rig retains its required source comps. Avoid unexplained hard-coded references to unrelated projects.
+
+## Separate artwork reuse from playback reuse
+
+Before replacing a shared source, enumerate its instances and inspect time remap, source-time assumptions, per-instance effects and overrides. An import scene may build a character from zero; a later montage may sample source time zero expecting a complete character. Reusing the new entrance at that time can erase most of the later character without producing an expression error.
+
+Keep complete pose sources independently addressable from entrance choreography. Use instance overrides or explicit pose remapping when sufficient; duplicate a small pose library when the two scenes require independent timing/artwork. Preserve intentional shared palette and artwork relationships. Do not duplicate every dependency blindly, and do not freeze all instances merely to repair one montage shot. Check every affected consumer at its actual visible time.
+
+## Keep ordinary transforms and content edits working
+
+Prefer automatic motion on a parent/helper so the advertised Position, Scale and Rotation remain free for keys. When the rig must express the same property, retain an authored neutral value and combine the automatic result with the user's raw value: additive offsets for Position/Rotation and component-wise ratios for Scale with nonzero neutral components. Use matching dimensionality and one declared coordinate space. Avoid measuring the current animated bounds to redefine that neutral value.
+
+Test the combined behavior during an automatic pose, not just with playback off: move the instance or a promised editable part by a known amount, verify the visible change, then restore it. Protect manual source-text edits from expressions that unconditionally rewrite the original string. Selection backgrounds should follow the visible label's rendered bounds, padding and intentional horizontal scale; a guide input and visible label may have different transforms.
