@@ -1,5 +1,7 @@
 # Character families, blink, gaze and parallax
 
+For a character with articulated arms/legs, clothing, props and compositing passes, also read [11 · Character production](11-character-production.md). This module covers the simpler avatar/face rig.
+
 ## Character families and silhouette quality
 
 For a named avatar or mascot system, inspect the actual product's base-shape set and primary design examples before inventing variants. Prefer clean source vector geometry when available. A set of twenty characters does not necessarily need twenty unrelated silhouette categories: use controlled proportion, orientation, colour and eye variations within the observed family unless the user explicitly needs distinct base geometries. When the user flags repeated silhouettes, recolouring, stretching or rotating the same base shape does not resolve that feedback. Develop visibly different silhouettes with consistent curve quality, and compare their outlines before animating.

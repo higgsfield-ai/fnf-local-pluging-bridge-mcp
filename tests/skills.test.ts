@@ -139,7 +139,7 @@ describe("bundled AE skills", () => {
   it("returns only the selected entry or reference", () => {
     const store = new SkillStore();
     const entry = store.read("ae-clean-rig");
-    expect(entry.references).toHaveLength(10);
+    expect(entry.references).toHaveLength(16);
     expect(entry.content).not.toContain("# Practical editability and exposed controls");
     expect(store.read("ae-clean-rig", "references/06-editable-rigs.md").content).toContain(
       "# Practical editability and exposed controls",
@@ -205,7 +205,7 @@ describe("bundled AE skills", () => {
       const entry = await client.call<{ content: string; references: string[] }>("ae_get_skill", {
         name: "ae-clean-rig",
       });
-      expect(entry.content).toContain("Clean native AE rigs");
+      expect(entry.content).toContain("After Effects: clean construction, faithful motion");
       expect(entry.references).toContain("references/07-sliders.md");
       expect(await client.callExpectError("ae_get_skill", { name: "missing" })).toContain(
         "INVALID_ARGS",
