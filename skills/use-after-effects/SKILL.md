@@ -7,6 +7,8 @@ description: Set up and use the local Higgsfield use After Effects MCP when the 
 
 Connect the desktop MCP client to the local Node server, which runs bundled ExtendScript inside After Effects through OS scripting and a local file mailbox. No cloud bridge, Higgsfield login, or installed AE panel is required. Adobe licensing and OS Automation permissions remain separate requirements.
 
+Use **Higgsfield use After Effects** as the user-facing integration name. `fnf-after-effects-mcp` and `fnf-after-effects` are package/CLI identifiers, not display names. Register the server as `higgsfield-use-after-effects`. When migrating an existing `fnf-after-effects` registration, preserve its command, arguments, environment and other client settings before replacing it; refresh the connection afterward.
+
 ## Setup
 
 1. Locate the `fnf-local-pluging-bridge-mcp` checkout (or the legacy `fnf-after-effects-mcp` checkout) from the current workspace or user-provided path. Do not assume another user's home directory. Require Node 24+ and macOS or Windows with After Effects installed.
