@@ -1,9 +1,13 @@
 ---
 name: blender-greybox
-description: Build, animate, and render a greybox scene — static stills and 2-30s motion-reference video via bl_render / bl_render_motion_reference, with shot planning and verification.
+description: Build and animate a local Blender greybox, render camera stills, and export verified motion video when a native or host encoder is available.
 ---
 
 # Greybox
+
+Read [blender-scene](../blender-scene/SKILL.md) for the local session contract.
+Tool names below use its capability mapping when the named interface is absent;
+read only the relevant rows in [blender-volatile](../blender-volatile/SKILL.md).
 
 Requires: `blender-lighting-camera` for framing; `blender-animation`
 when the scene is animated.
@@ -16,12 +20,16 @@ the scene is built, animated, and rendered.
 
 ## Static still
 
-1. Frame from the active camera; check composition with `bl_screenshot`
-   before spending a render.
-2. `bl_render` with an explicit output path (e.g. `/tmp/<name>.png`) — the
-   default temp directory is hard for the user to find (see
-   `blender-volatile`).
+1. Frame from the active camera and check composition with a low-resolution
+   local render; this session has no viewport screenshot.
+2. `bl_render` with an explicit output path (e.g. `/tmp/<name>.png`);
+   the local tool requires this path (see `blender-volatile`).
 3. View the result. A written file is not a verified render.
+
+If `bl_render` is absent or its optional engine enum disagrees with Blender,
+use the active-camera render procedure and engine guidance in
+`blender-volatile`. Restore temporary output/resolution settings after
+collecting evidence.
 
 ## Motion video — shot planning
 
@@ -48,9 +56,38 @@ Each shot records:
    no random per-object movement.
 4. Run `bl_validate_scene`, `bl_audit_motion`, `bl_render_contact_sheet`, and
    fix the scene until spatial and timing checks pass.
-5. Call `bl_render_motion_reference` for the shot: native H.264 MP4 plus its
-   exact first-frame PNG, default `1280x720`, 2–30 s, prior render settings
-   restored.
+5. Follow the local motion export route below and verify an H.264 MP4 plus
+   its decoded first-frame PNG against the shot specification.
+
+## Local motion export
+
+This server exposes still rendering, not bl_render_motion_reference. Before
+promising video, identify an available encoding and verification route:
+
+- Native: inspect the running Blender build for FFMPEG output and the required
+  container/codec, then render through bl_execute. Do not assume GUI and
+  background builds expose identical formats.
+- Image sequence: render numbered PNGs using bl_set_frame/bl_render (or bpy
+  for a bounded batch), then use an encoder actually available through the
+  host's tools. Verify it can access those files; a host sandbox and the
+  Blender machine need not share a filesystem. Do not assume FFmpeg/PyAV
+  or shell access is bundled by this MCP.
+
+For either route, record the camera, frame range/step, current frame,
+fps/fps_base, resolution and percentage, paths, format and codec settings;
+restore temporary scene settings in a finally block. Use fresh output paths
+unless replacement is intended. Long local calls follow the core timeout/job
+recovery contract; never rerun an uncertain render blindly.
+
+Verify the encoded frame count, dimensions, effective fps (fps/fps_base),
+duration and H.264 MP4 format. Extract the first PNG from the encoded video
+through an available decoder, and view start/middle/end. A separate scene
+rerender is not evidence of the encoded first frame.
+
+If no encoder is available, the MP4 delivery is blocked; report any completed
+sample PNGs as partial output. If encoding succeeds but decoding/viewing is
+unavailable, report the actual MP4 path with verification blocked. Do not
+claim the export failed merely because its visual verification is incomplete.
 
 An MP4 existing is not a pass. View start/middle/end and verify camera axis,
 collisions, ground contact, screen direction, beat timing, and subject scale.

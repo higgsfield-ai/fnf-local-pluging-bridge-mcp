@@ -5,6 +5,10 @@ description: Scene Passport and Scene Manifest templates — the contract for sc
 
 # Scene Passport and Scene Manifest
 
+Read [blender-scene](../blender-scene/SKILL.md) for the local session contract.
+Tool names below use its capability mapping when the named interface is absent;
+read only the relevant rows in [blender-volatile](../blender-volatile/SKILL.md).
+
 The Scene Passport is written before any whole-scene build and becomes the
 contract everything else answers to — modeling, generation, lighting,
 animation, and the final audit all measure against it.
@@ -110,7 +114,10 @@ blockers, gobos, and reflections stay coherent across it.
 
 ## Scene Manifest
 
-`bl_build_scene` and `bl_build_blockout` accept one JSON object:
+For connector builds exposing `bl_build_scene` or `bl_build_blockout`, the
+following is a manifest example. Validate its shape against the chosen
+tool's current schema. If these interfaces are absent, keep the same Passport
+and use the staged local-operation fallback in `blender-scene`:
 
 ```json
 {
@@ -143,29 +150,25 @@ blockers, gobos, and reflections stay coherent across it.
 }
 ```
 
-Manifest ids persist as custom properties, so re-running the same manifest
-updates the managed datablocks instead of duplicating them. Broad builds get
-a `dry_run: true` first, and complex calls get their exact field set from
-`bl_describe_tool`, not from memory.
+For an implementation documenting persistent manifest ids, verify that
+re-running the same manifest updates managed datablocks without duplicates.
+Manual fallbacks must explicitly look up their semantic names/ids before
+creating. Use `dry_run: true` and `bl_describe_tool` when exposed; otherwise
+validate the advertised schema and inspect before/after state. Read the
+runtime engine and use the compatibility guidance in `blender-volatile`.
 
 ## Checkpoint manifest
 
-Immediately before mutation, capture:
+Immediately before mutation, capture fresh bl_health and bl_get_scene_summary,
+bl_get_object for edited/protected objects, and additional read-only bpy state
+for camera, frame range, fps, engine, collections and material links. Use a
+viewed camera render for composition; no desktop viewport exists here. Record
+planned created/modified/deleted names.
 
-- fresh `bl_health` and `bl_scene_snapshot`;
-- `bl_get_object` for protected or edited objects;
-- active camera, frame range, render engine, current frame;
-- `bl_screenshot` in solid or material shading;
-- the planned created/modified/deleted names.
-
-Before destructive or broad edits, also `bl_checkpoint` with a meaningful
-label — a timestamped recovery copy that leaves the active filepath alone.
-For risky edits, prefer new collections/datablocks and keep the replaced
-originals until the audit passes.
-
-Checkpoint after every step that lands, not only before broad ones — a live
-file can lose objects between calls with no undo behind it. The label states
-the state reached; copies named only by time carry no recovery information.
+Before broad/destructive edits, follow blender-scene's recovery copy procedure.
+Keep replaced datablocks until the audit passes, and checkpoint completed major
+stages before the next risky edit. Verify recovery paths; no undo or automatic
+rollback is implied by a successful call.
 
 ## Gate
 

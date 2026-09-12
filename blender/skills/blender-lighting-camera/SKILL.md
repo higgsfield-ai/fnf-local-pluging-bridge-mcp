@@ -5,6 +5,10 @@ description: Camera gate first, then motivated one-role-at-a-time lighting — d
 
 # Lighting and camera
 
+Read [blender-scene](../blender-scene/SKILL.md) for the local session contract.
+Tool names below use its capability mapping when the named interface is absent;
+read only the relevant rows in [blender-volatile](../blender-volatile/SKILL.md).
+
 Camera and broad lighting are solved before final detail. Cinematic light is a
 hierarchy with controlled darkness: the craft is choosing what stays dark, not
 adding lights. Typed tools first — `bl_camera_frame_objects`,
@@ -175,9 +179,12 @@ Numeric state approves nothing. View the renders.
 
 ## Proof
 
-Iterate composition on viewport screenshots, then `bl_render_preview`. For a
-dynamic scene, `bl_render_contact_sheet` covering at least the opening, a
-motion midpoint, and the final/rest frame.
+Iterate composition with low-resolution local bl_render output. For a
+dynamic scene, view sampled camera renders covering at least the opening,
+a motion midpoint, and the final/rest frame; assembling a contact sheet is
+optional. Keep view transform and exposure fixed across light-isolation
+comparisons and restore temporary render state. Use blender-volatile for
+engine/schema differences; this background session has no viewport.
 
 If the existing file's active camera, resolution, render engine, or exposure
 looks intentional, changing it silently is forbidden — record the change in

@@ -1,9 +1,13 @@
 ---
 name: blender-audit-finalize
-description: Structural + motion + visual audit against the passport, measuring a complaint, specialist audit hand-offs, the repair loop, and non-destructive bl_finalize_build (save only on explicit request).
+description: Audit a local Blender scene against its specification, measure structural, motion and visual failures, repair them, and save requested deliverables under the local recovery policy.
 ---
 
 # Audit and finalize
+
+Read [blender-scene](../blender-scene/SKILL.md) for the local session contract.
+Tool names below use its capability mapping when the named interface is absent;
+read only the relevant rows in [blender-volatile](../blender-volatile/SKILL.md).
 
 The audit compares the scene to the Scene Passport — not to memory, and not to
 the arguments of the calls that built it. A build passes only when structural,
@@ -42,7 +46,8 @@ A still image cannot pass this audit.
 
 ## Visual audit
 
-1. Viewport screenshot for composition and editability.
+1. Viewed camera render for composition; inspect datablocks, modifiers and
+   rigs for editability. A desktop viewport check is unavailable locally.
 2. `bl_audit_render` for active-camera material, light, shadow, transparency,
    and engine-specific proof.
 3. `bl_render_contact_sheet` for dynamic scenes.
@@ -50,12 +55,16 @@ A still image cannot pass this audit.
    And view it at scale: image previews downsample, so few-pixel features
    average away to nothing. Crop 1:1 and count bright pixels numerically
    before concluding something did not render.
-5. **Unreachable evidence fallback** — when the render/screenshot URL cannot
-   be opened from the agent's environment (network policy, expired link), say
-   so explicitly, hand the URL and on-disk render paths to the user, and mark
-   the visual audit `blocked` — never `passed`. Also write renders to disk
-   via `scene.render.filepath` + `bpy.ops.render.render(write_still=True)` so
-   the user has local files. Numeric proxies cover structure and motion only.
+5. **Unreachable evidence fallback** — when a render/screenshot URL cannot
+   be opened (network policy, expired link), report that retrieval failure
+   and obtain equivalent evidence at an accessible local path. Write camera
+   renders via `scene.render.filepath` +
+   `bpy.ops.render.render(write_still=True)`; obtain a local viewport capture
+   if the claim specifically concerns viewport state. Actually view the
+   replacement evidence. If it cannot be viewed either, mark the relevant
+   visual check `blocked`, give the user the available paths/URL, and never
+   substitute numeric proxies for appearance. Numeric proxies cover
+   structure and motion only.
    One useful framing proxy:
    `bpy_extras.object_utils.world_to_camera_view(scene, cam, world_co)`
    returns NDC — x/y in `[0,1]` **with z > 0** means in-frame (z ≤ 0 is
@@ -111,13 +120,17 @@ wrong. A blocked check is reported as blocked — never dressed up as a pass.
 - Record generated job ids, models, estimates, imported object names.
 - Report created/modified/deleted objects with the audit evidence.
 
-Run `bl_finalize_build` once, after repairs. Completion requires
-`valid=true`; anything else means fixing the reported structural/motion
-failures and rerunning.
+When `bl_finalize_build` is exposed, run it once after repairs and inspect
+its documented result; a `valid` field must be true when that is the contract.
+Otherwise use the core manual-finalize fallback and report each audit result
+with its actual evidence. Do not invent a tool response or silently convert a
+blocked generation, export, or visual check into a pass.
 
 ## Save policy
 
-No save, save-as, overwrite, resource packing, or filepath change without an
-explicit user request. When saving is requested: confirm the target
-path/overwrite intent if ambiguous, save after all audits pass, and report
-the actual saved path.
+Follow blender-scene's local save and recovery contract. Recovery copies
+precede broad/destructive edits; save requested .blend outputs before
+reconnecting or replacing the active project. Preserve useful partial work
+even when an audit is blocked, clearly reporting its status. Confirm an
+ambiguous overwrite target; do not overwrite or pack resources merely as a
+side effect of audit/finalize. Report the verified saved path.

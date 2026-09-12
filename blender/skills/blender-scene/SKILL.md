@@ -37,15 +37,43 @@ pretending that a link loaded its contents.
 | Generated tileable materials | [blender-pbr](../blender-pbr/SKILL.md), with blender-generation |
 | Greybox scene and motion-reference rendering | [blender-greybox](../blender-greybox/SKILL.md) |
 | Structural, motion and visual checks, then delivery | [blender-audit-finalize](../blender-audit-finalize/SKILL.md) |
-| Model catalog and Blender API/version differences | [blender-volatile](../blender-volatile/SKILL.md) |
+| Tool availability, local alternatives, model catalog and Blender API/version differences | [blender-volatile](../blender-volatile/SKILL.md) |
 
-These modules are preserved from the cloud connector export. Its `get_host_status`,
-panel/host `blr`, viewport, cloud generation and extended typed-tool instructions do
-not establish those capabilities in this local package. Inspect the actual exposed
-tools; retain this entry's background-session, save and job-recovery contract. Use
-available typed tools or `bl_execute` for supported local bpy work. A separate
-provider is required for generation; name a missing capability or external reference
-before dependent work instead of inventing a tool, connection or successful check.
+These modules adapt the cloud export's craft guidance to this local server.
+Read the relevant modules before their first scene mutation. Their pass order
+and quality gates apply; named cloud tools are not requirements to call absent
+interfaces. This entry owns connection, save and recovery behavior. If a
+module names an unavailable tool, use the local capability table in
+[blender-volatile](../blender-volatile/SKILL.md), then the specialist's checks.
+Do not load unrelated modules or build a full capability inventory per task.
+
+## Construction and checkpoints
+
+Reuse a clear existing asset before constructing a replacement. Local modeling
+is the default for new geometry; explicit blockout work never spends credits.
+Only assets covered by the user's generation request take the generated route;
+ask about the route only when the brief leaves a material choice unresolved.
+Whole-scene builds use the Passport in blender-scene-spec and these phases:
+
+1. Inspect and specify dimensions, protected objects, hierarchy, camera,
+   motion, asset routes and acceptance criteria. Focused edits need only
+   the relevant scope and checks; do not add motion to a still-only request.
+2. Record fresh state and intended changed names. Before broad/destructive
+   edits, write a uniquely named recovery copy through bl_execute using
+   bpy.ops.wm.save_as_mainfile(filepath=absolute_copy_path, copy=True).
+   Verify the file exists and the active filepath is unchanged. This copy is
+   a recovery checkpoint, not final delivery or permission to overwrite.
+3. Build in blender-modeling's spatial passes, reusing exact names; render
+   and record a continue/refine decision before advancing each pass.
+4. Refine assets, lookdev, lighting and motion through relevant modules.
+   Keep generated proxies until replacements pass their checks.
+5. Audit through blender-audit-finalize, repair failures, restore the intended
+   frame/camera and save the requested deliverables. Report blocked checks.
+
+Checkpoint completed major stages before another risky edit, not every tool
+call. Packing resources or overwriting an existing file must match the user's
+requested deliverable and overwrite intent; a checkpoint does not authorize
+those changes.
 
 ## Local execution and delivery
 

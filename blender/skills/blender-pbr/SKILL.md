@@ -1,22 +1,26 @@
 ---
 name: blender-pbr
-description: Generated tileable PBR — one seamless albedo tile with every map derived in Blender via bl_apply_pbr_maps, material-specific decisions, and the PBR audit gate.
+description: Generate a seamless albedo through a connected provider, derive aligned PBR maps locally, apply an editable Blender material and audit its scale, shading and repetition.
 ---
 
 # Generated tileable PBR materials
 
+Read [blender-scene](../blender-scene/SKILL.md) for the local session contract.
+Tool names below use its capability mapping when the named interface is absent;
+read only the relevant rows in [blender-volatile](../blender-volatile/SKILL.md).
+
 Requires: `blender-generation` (credit workflow),
 `blender-lookdev` (material integration),
 `blender-audit-finalize` (PBR audit), and
-`skill_view("image-generation", "references/pbr-albedo.md")` (prompt
-contract, model, generation parameters).
+`blender-volatile` (live capability and parameter contract).
+The prompt contract is below.
 
 Scope: a generated material, seamless texture, or PBR map set.
 
 ## Core method
 
 Generate **one** seamless flat albedo swatch, then derive every
-geometry/shading map from that same tile in Blender via `bl_apply_pbr_maps`.
+geometry/shading map from that same tile using the local processing route below.
 Never generate Base Color, Normal, Displacement, AO, and Specular as separate
 image jobs — independent generations do not align at the pixel level and
 cannot form a coherent set.
@@ -53,52 +57,61 @@ authored or scanned height/specular data instead.
 
 ## Prompt, model, and parameters
 
-The prompt contract, model choice, and generation parameters live in
-`skill_view("image-generation", "references/pbr-albedo.md")` — compose the
-material-specific prompt there. Then run the estimate-and-submit gate from
-`blender-generation` with that job type and those params through the
-connector's `bl_generate_image` — never through the image-generation skill's
-own tools. State the inferred-map limitation alongside the estimate.
+Before generation, establish a local file-transfer, processing and application
+route that can satisfy the checks below. The local server does not expose
+bl_apply_pbr_maps. Use supported bpy work through bl_execute and available
+host processing tools; verify dependencies before spending. If the complete
+required route is unavailable, report that gap and continue independent work.
 
-## Derive and apply
+Choose a compatible live image model through `blender-generation`. Compose
+the source prompt from the Passport:
 
-After completion, call `bl_apply_pbr_maps`:
+- one square, orthographic, front-facing albedo/base-color tile of the named
+  material, with the specified palette, wear and grain/fiber direction;
+- flat, even illumination; no baked directional shadows, highlights, AO,
+  perspective, depth of field, border, text, labels, or map atlas;
+- seamless repetition on both axes and restrained landmark features so the
+  required real-world tile size can repeat naturally;
+- color/pigment variation kept conceptually separate from intended relief.
 
-```json
-{
-  "object": "<exact mesh object>",
-  "image_url": "<result_url>",
-  "source_job_id": "<job_id>",
-  "map_resolution": 2048,
-  "seam_fraction": 0.05,
-  "tile_scale": 1,
-  "coordinate_mode": "auto",
-  "height_contrast": 1,
-  "invert_height": false,
-  "normal_strength": 2,
-  "ao_radius": 8,
-  "ao_strength": 2,
-  "specular_level": 0.5,
-  "specular_mode": "constant",
-  "displacement_scale": 0.05,
-  "bump_strength": 0.35,
-  "metallic": 0,
-  "roughness": 0.5
-}
-```
+Request square output only through supported aspect/resolution fields. Run
+the estimate-and-submit flow through the connected provider and state that the
+derived maps are inferred. Verify the delivered tile; a seamless-texture
+prompt does not establish seamlessness or physically accurate height.
 
-It center-crops square, repairs all four tile edges, writes Base
-Color/Normal/Displacement/AO/Specular PNGs under
-`~/.higgsfield/generations/pbr/<job-id>/`, optionally packs them, builds one
-repeatable Mapping-driven material (AO multiplied into Base Color, Specular
-wired to Principled, Normal combined with a Displacement-derived bump), and
-connects true displacement for Cycles where supported.
+## Local derivation and application
 
-No automatic destructive subdivision. True displacement needs Cycles plus
-sufficient non-destructive subdivision; EEVEE and unsubdivided meshes get the
-bump/normal result. Use UV coordinates whenever a valid UV map exists —
-Generated coordinates are a fallback, not a substitute for deliberate UVs on
-hero assets.
+1. Transfer the completed albedo to a path readable by Blender; preserve the
+   original. Use a square tile with smooth periodic boundaries on both axes.
+   If correction is needed, use available host image processing or bpy image
+   pixels, then inspect a 3x3 repetition before deriving maps.
+2. Derive maps from the same corrected tile: normalize luminance for height
+   with explicit polarity; compute wrapped central gradients for a normalized
+   tangent-space normal; estimate local cavity AO with periodic neighborhoods;
+   use a constant dielectric specular level unless another artistic rule was
+   explicitly chosen. Keep dimensions and pixel alignment identical. These
+   are inferred maps, not recovered physical measurements.
+3. Write and verify the requested Base Color, Normal, Height, AO and Specular
+   images. Use sRGB for base color and Non-Color for data maps. Read back
+   dimensions, finite ranges, edge continuity and the chosen normal convention.
+   If available processing cannot produce the requested set, report the gap;
+   an albedo-only material does not complete this workflow.
+4. Through bl_execute, create/reuse a named material on exact target objects.
+   Use UV/Mapping with the declared real-world tile size, Image Texture nodes,
+   Principled BSDF and Material Output. Decode the normal through a Normal Map
+   node; use Height for controlled bump/displacement only where needed.
+   Avoid doubling the same relief through both strong normal and bump.
+   Do not bake AO into the source albedo; if used as artistic shading, avoid
+   double-darkening with engine occlusion. Connect specular using the runtime's
+   supported IOR/specular inputs and respect dielectric/metallic intent.
+5. Preserve the previous material, return and read back map paths, assigned
+   objects and node links, and retain provider/job provenance. Audit under the
+   intended camera/light motion before accepting the replacement.
+
+Use version-matched Blender APIs, not an assumed bl_apply_pbr_maps payload.
+No destructive subdivision is automatic. True displacement requires a
+supporting engine and sufficient non-destructive subdivision; otherwise use
+bump/normal and report that distinction. Prefer valid UVs on hero assets.
 
 ## Material-specific decisions
 
@@ -119,7 +132,8 @@ hero assets.
 
 Approved only when viewed evidence confirms:
 
-1. `seam_error_after.horizontal` and `.vertical` zero or negligible;
+1. measured edge differences on both axes negligible at the working color
+   scale; record the measurement method;
 2. a plane with at least 3x3 repetitions shows no cross-shaped seams,
    mirrored edge bands, brightness drift, or an obvious repeated landmark;
 3. Base Color carries no baked directional shadows, highlights, AO, text,
@@ -136,6 +150,6 @@ Approved only when viewed evidence confirms:
 9. opening, midpoint, and final turntable frames expose no seams or texture
    swimming.
 
-Use `bl_render_preview`, plus `bl_render_contact_sheet` for dynamic scenes.
+Use local `bl_render` and viewed sampled-frame PNGs for dynamic scenes.
 Numeric seam equality does not prove the tile looks natural. If the rendered
 material cannot be viewed, the PBR audit is `blocked`, never `passed`.

@@ -5,6 +5,10 @@ description: Procedural, camera-aware blockout-first geometry — silhouette/pro
 
 # Modeling
 
+Read [blender-scene](../blender-scene/SKILL.md) for the local session contract.
+Tool names below use its capability mapping when the named interface is absent;
+read only the relevant rows in [blender-volatile](../blender-volatile/SKILL.md).
+
 Model from the Scene Passport, in metres, Z-up. Typed tools first —
 `bl_build_blockout`, `bl_batch`, `bl_create_collection`, `bl_parent_objects`,
 `bl_add_modifier`, the narrow primitive/transform tools; `bl_execute` is for
@@ -24,7 +28,8 @@ more detail is allowed:
    camera-visible thickness.
 4. **Contact** — nothing floats, nothing interpenetrates; support surfaces,
    pivots, and believable contact exist.
-5. **Camera read** — solid-shaded viewport evidence: subject, focal
+5. **Camera read** — viewed camera render with simple diagnostic materials:
+   subject, focal
    hierarchy, and major forms must read before bevels, topology, or
    generated replacements are allowed.
 6. **Detail** — every visible asset is brought to its passport `fidelity`
@@ -41,7 +46,8 @@ more detail is allowed:
 A failed gate stops the line: fix the largest silhouette or placement error
 before touching anything downstream.
 
-Run `bl_build_blockout` as a dry-run before committing a manifest, then rerun
+On a connector exposing `bl_build_blockout` with a documented dry-run and
+pass contract, validate its schema before committing a manifest, then rerun
 idempotently with `pass_id` in this locked order: `bounds`, `primary_masses`,
 `secondary_masses`, `silhouette_proportions`, `pivots_attachments`,
 `camera_review`. View each pass render/screenshot, then call
@@ -49,7 +55,10 @@ idempotently with `pass_id` in this locked order: `bounds`, `primary_masses`,
 unlocks the next pass; when continuing is not justified, the decision is
 `refine-spec`, `refine-code`, `request-input`, or `stop`. Confirm via
 `bl_scene_diff` against the checkpoint that only the intended semantic
-objects changed.
+objects changed. On a connector without these interfaces, use the core local
+fallbacks: perform the same spatial passes, view the evidence and record the
+continue/refine decision before progressing, and compare fresh snapshots.
+Do not pretend that a missing dry-run or review tool was executed.
 
 ## Editable construction
 
@@ -70,10 +79,13 @@ objects changed.
 - **Scaled object + Bevel modifier makes pillows.** Bevel works in local
   space, so a chamfer set on a unit cube gets stretched by `o.scale`.
   `bpy.ops.object.transform_apply(scale=True)` first.
-- **`matrix_parent_inverse = parent.matrix_world.inverted()` cancels the
-  parent.** That is the "keep transform" idiom. For a child positioned in the
-  parent's space that inherits its rotation, leave the parent inverse at
-  identity. Symptom: rotating the parent does nothing.
+- **Parent inverse compensates the initial parent transform; it does not
+  disable later inheritance.** For a child authored in the parent's local
+  space, use an identity parent inverse. To preserve an existing world pose
+  when assigning a parent, retain and restore the child's `matrix_world`.
+  A fixed inverse still allows subsequent parent motion to move the child.
+  If motion disappears, inspect constraints and evaluated world transforms;
+  do not diagnose it from a non-identity inverse alone.
 - **A rotation about the wrong axis silently does nothing visible.** A panel
   whose normal is +X does not change facing when rotated about X. Measure the
   world normal against the view vector rather than reasoning about it.
@@ -162,5 +174,6 @@ For hero and exported meshes:
 - density out of proportion to silhouette benefit;
 - naming, parenting, collection membership, material slots.
 
-`bl_get_object` supplies the structural evidence; the viewport supplies the
+`bl_get_object` and additional read-only bpy checks supply structural
+evidence; viewed camera renders supply the
 visual one. A script finishing is not approval.

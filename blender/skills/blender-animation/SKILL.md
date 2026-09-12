@@ -5,6 +5,10 @@ description: Dynamic-by-default motion — the motion plan, semantic rigs, delib
 
 # Animation
 
+Read [blender-scene](../blender-scene/SKILL.md) for the local session contract.
+Tool names below use its capability mapping when the named interface is absent;
+read only the relevant rows in [blender-volatile](../blender-volatile/SKILL.md).
+
 Motion is part of the default deliverable: unless the user explicitly asked
 for a static scene, the Scene Passport defines at least one purposeful beat.
 "Dynamic" means the viewer can watch something change and read it — not that
@@ -36,10 +40,12 @@ frame suitable for inspection and thumbnails.
   constant rates, constant for stepped switches.
 - Pick quaternion or Euler deliberately so rotations do not flip mid-move;
   connector boundaries speak radians.
-- Object animation and data animation are separate sets. Lens, focus,
-  `clip_start`, and `offset_factor` keys live on `camera.data`, so a retime
-  walking `scene.objects` never reaches them. The check: each camera's data
-  key range matches its own shot range.
+- Object animation and data animation are separate sets. Lens, `clip_start`,
+  and `dof.focus_distance` keys belong to `camera.data`. Follow Path
+  `offset_factor` belongs to the constraint and is animated on its owning
+  object, through `constraints[...].offset_factor`. Retime both object and
+  data actions, filtering their correct action slots (`blender-volatile`),
+  then check each shot's transform, path, lens, and focus key ranges.
 - Simulations must be deterministic enough that the audited frames reproduce.
 
 ## Constraints and drivers
@@ -65,8 +71,12 @@ For anything that must stay planted on uneven ground while it moves:
 
 1. One ray per support point gives the gaps.
 2. The mean gap is the height correction.
-3. Left/right difference over the half-span is roll; front/back difference
-   over the half-span is pitch.
+3. Compute the slope angle with `atan2(height_difference, support_distance)`.
+   Use the full horizontal distance between the two compared support points,
+   not the half-span. For points at `-a` and `+a`, the denominator is `2*a`.
+   Resolve the sign and roll/pitch axis in the rig's local frame and check
+   the resulting contact gaps; banked or uneven supports may need a fitted
+   support plane rather than two independent slopes.
 4. Two passes per frame for convergence.
 5. Ease in and out over roughly 20 frames with a quintic so no correction
    pops on entry.
