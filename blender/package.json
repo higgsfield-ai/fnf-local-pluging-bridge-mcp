@@ -1,0 +1,61 @@
+{
+  "name": "fnf-blender-mcp",
+  "version": "0.1.0",
+  "description": "Higgsfield use Blender: local stdio MCP and authenticated loopback Blender add-on.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "fnf-blender": "dist/cli.js",
+    "fnf-blender-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "addon/**/*.py",
+    "skills",
+    "README.md",
+    "RELEASING.md",
+    "UPSTREAM.md",
+    "LICENSE",
+    "scripts/*.py"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p \"test_*.py\"",
+    "prepack": "npm run build",
+    "test:package": "node scripts/verify-package.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@types/node": "^25.5.2",
+    "typescript": "^6.0.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://www.npmjs.com/package/fnf-blender-mcp",
+  "keywords": [
+    "blender",
+    "mcp",
+    "higgsfield",
+    "3d",
+    "bpy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/higgsfield-ai/fnf-local-pluging-bridge-mcp.git",
+    "directory": "blender"
+  },
+  "bugs": {
+    "url": "https://github.com/higgsfield-ai/fnf-local-pluging-bridge-mcp/issues"
+  }
+}

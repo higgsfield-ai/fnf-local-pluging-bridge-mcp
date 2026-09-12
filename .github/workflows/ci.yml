@@ -13,6 +13,27 @@ permissions:
   contents: read
 
 jobs:
+  blender:
+    name: Blender typecheck + tests + package
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: blender
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: blender/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run test:package
+
   ci:
     name: lint + typecheck + build
     runs-on: ubuntu-latest

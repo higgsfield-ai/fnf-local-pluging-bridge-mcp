@@ -19,6 +19,7 @@ try {
   assert(
     !packed.files.some(
       (x) =>
+        x.path.startsWith("blender/") ||
         x.path.startsWith("archive/") ||
         x.path.startsWith("runtime/") ||
         x.path.startsWith("creative-skills/"),
