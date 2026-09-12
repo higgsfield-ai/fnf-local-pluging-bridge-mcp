@@ -1,7 +1,7 @@
 {
   "name": "fnf-blender-mcp",
-  "version": "0.1.0",
-  "description": "Higgsfield use Blender: local stdio MCP and authenticated loopback Blender add-on.",
+  "version": "0.2.0",
+  "description": "Higgsfield use Blender: local stdio MCP controlling a background Blender process without add-ons.",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -13,7 +13,6 @@
   },
   "files": [
     "dist",
-    "addon/**/*.py",
     "skills",
     "README.md",
     "RELEASING.md",
@@ -27,7 +26,8 @@
     "typecheck": "tsc --noEmit",
     "test": "npm run build && node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p \"test_*.py\"",
     "prepack": "npm run build",
-    "test:package": "node scripts/verify-package.mjs"
+    "test:package": "node scripts/verify-package.mjs",
+    "test:live": "npm run build && node scripts/verify-live.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "^2.0.0",

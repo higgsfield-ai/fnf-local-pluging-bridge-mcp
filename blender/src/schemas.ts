@@ -7,7 +7,7 @@ export const executeShape = {
   code: z
     .string().min(1).max(1_000_000)
     .describe(
-      "Python source executed inside the connected Blender with full `bpy` "
+      "Python source executed inside this MCP session’s background Blender with full `bpy` "
       + "access. To return data, assign a JSON-serialisable value to a variable "
       + "named `result`.",
     ),
@@ -73,7 +73,8 @@ export const setFrameShape = {
 };
 
 export const renderShape = {
-  output_path: z.string().min(1).describe("Absolute path for the PNG. Default a temp file."),
+  output_path: z.string().min(1).describe("Absolute path for the PNG output."),
+  overwrite: z.boolean().default(false).describe("Allow replacing an existing output file."),
   resolution: z
     .tuple([z.number().int().min(1).max(16384), z.number().int().min(1).max(16384)])
     .optional()
@@ -81,19 +82,6 @@ export const renderShape = {
   engine: z.enum(["BLENDER_EEVEE_NEXT", "CYCLES", "BLENDER_WORKBENCH"]).optional()
     .describe("Render engine. Default the scene's current engine."),
   samples: z.number().int().min(1).max(65536).optional().describe("Cycles sample count; requires the CYCLES engine."),
-};
-
-export const screenshotShape = {
-  max_size: z
-    .number()
-    .int()
-    .min(64).max(2048)
-    .optional()
-    .describe("Longest-edge pixel cap for the capture (keeps it under the 1MB message limit). Default 1280."),
-  shading: z
-    .enum(["SOLID", "MATERIAL", "RENDERED", "WIREFRAME"])
-    .optional()
-    .describe("Viewport shading to capture with. Default keeps the current viewport shading."),
 };
 
 export const getObjectShape = {

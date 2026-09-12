@@ -1,47 +1,29 @@
 # Higgsfield use Blender
 
-The independent Blender package in `fnf-local-pluging-bridge-mcp/blender`, for editing native Blender scenes. No WebSocket, Cloudflare Worker, R2 bucket or cloud bridge account is required.
+The independent `fnf-blender-mcp` package in `fnf-local-pluging-bridge-mcp/blender` controls a dedicated background Blender process. No add-on, HTTP listener, WebSocket, cloud account or open Blender window is required.
 
 ```text
-Desktop MCP client ── stdio ── Node MCP server
-                                  │
-                     authenticated HTTP on 127.0.0.1
-                                  │
-                        Blender Python add-on
-                                  │
-                       main-thread timer → bpy
+Desktop MCP client → stdio → Node MCP → process pipes → Blender --background → bpy
 ```
 
-Install the public [fnf-blender-mcp](https://www.npmjs.com/package/fnf-blender-mcp) package, published by `arsu_higgsfield_ai`. No source checkout or build is needed for installation.
+Each MCP connection owns one process. Its scene persists between commands; it cannot access unsaved work in an already-open desktop Blender. Open saved input with `bl_open_project`, edit and render, then save a `.blend` output to inspect in the desktop UI. Disconnecting loses unsaved session changes. The After Effects package at the repository root is independent.
 
-## Quick start
+## Setup
 
-Requires Node.js 24+ with npm and Blender 4.2+. Blender supplies the add-on's Python runtime; a separate Python installation is only needed for development tests.
-
-Install into a persistent user directory (macOS/Linux):
+Requires Node.js 24+ with npm and Blender 4.2+. Version 0.2.0 introduces the background runtime; version 0.1.0 uses the previous add-on. Verify that 0.2.0 is published before installing it; this source change alone does not publish a release.
 
 ```sh
-bridgeDir="$HOME/.higgsfield/blender-mcp"
-npm install --prefix "$bridgeDir" --registry=https://registry.npmjs.org/ fnf-blender-mcp@0.1.0
-bridgeCli="$bridgeDir/node_modules/fnf-blender-mcp/dist/cli.js"
-node "$bridgeCli" launch --blender "/absolute/path/to/blender"
-node "$bridgeCli" doctor
-node "$bridgeCli" config --format json
+npm view fnf-blender-mcp@0.2.0 version --registry=https://registry.npmjs.org/
+blenderDir="$HOME/.higgsfield/blender-mcp"
+npm install --prefix "$blenderDir" --registry=https://registry.npmjs.org/ fnf-blender-mcp@0.2.0
+blenderCli="$blenderDir/node_modules/fnf-blender-mcp/dist/cli.js"
+node "$blenderCli" doctor --blender "/absolute/path/to/blender"
+node "$blenderCli" config --blender "/absolute/path/to/blender" --format json
 ```
 
-For Windows PowerShell, use `$bridgeDir = Join-Path $env:LOCALAPPDATA 'Higgsfield/blender-mcp'`, install with `npm.cmd install --prefix $bridgeDir --registry=https://registry.npmjs.org/ fnf-blender-mcp@0.1.0`, then set `$bridgeCli = Join-Path $bridgeDir 'node_modules/fnf-blender-mcp/dist/cli.js'` and invoke `node $bridgeCli` with the commands above. The [installation skill](skills/use-blender/references/installation.md) contains the full setup procedure.
+Use the executable inside `Blender.app/Contents/MacOS/Blender` on macOS, or `blender.exe` on Windows. `config --format toml` prints a Codex entry. Both formats include absolute Node/server paths and `BLENDER_EXECUTABLE`; merge the entry into the intended client and refresh its connection. The helper prints configuration but does not register a server. See the [installation skill](skills/use-blender/references/installation.md) for PowerShell and migration steps.
 
-`launch` opens a **new** Blender process with the bundled bridge. It does not attach to an existing process or change saved preferences. Wait for startup before running `doctor`. Use the actual executable, such as `Blender.app/Contents/MacOS/Blender` on macOS or `blender.exe` on Windows.
-
-For an existing installation and automatic startup:
-
-```sh
-node "$bridgeCli" install-addon --blender "/absolute/path/to/blender"
-```
-
-Enable **Higgsfield use Blender** in Blender's Preferences → Add-ons, then save preferences if desired. The installer only copies the add-on into that version's user scripts directory. It never saves or resets preferences, and refuses to overwrite an unrecognized add-on directory. An already-running instance may need refreshing or restarting; preserve unsaved work.
-
-Merge the generated JSON entry into the desktop client's MCP configuration. For Codex use `node "$bridgeCli" config --format toml`. This helper prints configuration; it does not register or enable a client connection. Both formats use absolute Node and server paths. Keep the installed package at that persistent location. Refresh the client's MCP connection, then call `bl_health` and `bl_get_scene_summary` from the conversation. A shell `doctor` success alone does not establish conversation tool availability.
+The server starts Blender on its first execution call. `doctor` checks a separate temporary background process and terminates it afterward. Verify conversation access with `bl_health` and `bl_get_scene_summary`. `BLENDER_EXECUTABLE` can be set directly; without it the runtime tries standard installation locations and PATH. No separate Python installation is needed at runtime.
 
 ## Tools
 
@@ -52,45 +34,35 @@ Merge the generated JSON entry into the desktop client's MCP configuration. For 
 | Camera/light | `bl_add_camera`, `bl_set_active_camera`, `bl_add_light` |
 | Animation | `bl_set_frame`, `bl_insert_keyframe` |
 | Files | `bl_save_project`, `bl_open_project` |
-| Evidence | `bl_screenshot`, `bl_render` |
+| Evidence | `bl_render` |
 | Python/status | `bl_execute`, `bl_job_status` |
 | Offline guidance | `bl_get_skill` |
 
-Start with `bl_get_skill(name: "blender-scene")`. It routes to modeling, materials, lighting/camera and animation guidance. Use `bl_execute` for bpy operations beyond the typed tools; assign a JSON-compatible value to `result`. stdout and stderr are returned with a 64 KiB cap each. Results are limited to 4 MiB; return a file path for larger data.
+Start with `bl_get_skill(name: "blender-scene")`. Python runs sequentially on the process's main thread. Scene datablocks persist, while script-local variables do not. Assign a JSON-compatible `result` to return data. Python stdout/stderr are capped at 64 Ki characters each; JSON results are limited to 4 MiB. Native Blender diagnostics do not enter the MCP stdout protocol.
 
-Screenshots return inline MCP images without cloud uploads and need a VIEW_3D area. Camera renders write a local PNG and include a preview for files up to 4 MiB. Render overrides are restored afterward; an explicit sample override currently requires Cycles. Saving or rendering over an existing file requires `overwrite: true`. Opening a project refuses unsaved changes unless `discard_unsaved: true`.
+Render a camera frame to PNG; files up to 4 MiB receive an inline preview. Cycles supports sample overrides. Save/render require `overwrite: true` for existing output files; opening a different project refuses unsaved changes unless explicitly discarded. Arbitrary Python is not sandboxed and can bypass these typed-tool guards. Automatic execution of Python embedded in opened `.blend` files is disabled.
 
-This package does not bundle cloud generation, offline Blender API/manual search, or the original connector's model-generation and motion-import handlers. Use a separate Higgsfield MCP for generation, download finished assets, and import an absolute local path. Local Python has the full permissions of the Blender process; it is not a sandbox.
+## Session lifecycle
 
-## Connection and timeout behavior
+A timed-out job continues and keeps its `job_id`. Query `bl_job_status` before retrying; additional execution commands are rejected while it runs. No automatic retries or rollbacks occur. Status retains at most 128 jobs within the MCP process. If Blender crashes, the session fails and is not restarted automatically: inspect output files before reconnecting to a new empty session. Closing the MCP terminates its child process, including a running job; save needed changes first.
 
-- The add-on binds an ephemeral loopback port and generates a random bearer token. Discovery files live in `~/.higgsfield/blender/bridge-<pid>.json`, with owner-only file permissions on POSIX. Windows uses the user's profile-directory ACLs.
-- Browser-origin requests, incorrect Host headers and missing/incorrect tokens are rejected. Do not expose the endpoint or share its token.
-- The server refuses ambiguous multi-instance discovery. Set `BLENDER_MCP_PID` in the MCP server environment to select the intended instance.
-- Override `BLENDER_MCP_RUNTIME_DIR` on **both** the Blender process and MCP process when a custom directory is needed. `config` does not include these environment overrides automatically.
-- HTTP only queues work. A persistent Blender timer executes Python on the main thread. Rendering or long scripts can block Blender's UI.
-- Commands are accepted once and receive a job ID. Pending jobs expire before execution after their deadline. A running script cannot be safely interrupted; timeout does not mean cancellation or rollback.
-- After a timeout, use `bl_job_status` on the original PID before retrying. A script exception can leave partial changes. If submission failed before the job ID was received, inspect the scene first.
-- Up to 128 job records are retained in memory, with old completed jobs evicted as new jobs arrive. Restarting Blender loses history. A client-side MCP timeout may occur before the tool returns its job ID; set tool timeouts above 300 seconds for long renders and inspect state before retrying.
+In 0.2.0, `launch`, `install-addon`, `bl_screenshot`, bridge discovery, PID selection and runtime-directory overrides are removed. Use camera renders for visual evidence. No existing desktop scenes, preferences or installed add-ons are modified during startup. Multiple MCP connections have separate background scenes.
 
-## Development and verification
+## Development and validation
 
-From a source checkout, run `cd blender` and `npm ci` first. Development checks:
+From the repository root:
 
 ```sh
+cd blender
+npm ci
 npm test
 npm run typecheck
 npm run test:package
+BLENDER_EXECUTABLE=/absolute/path/to/blender npm run test:live
 ```
 
-The automated tests cover a real stdio MCP subprocess talking to the real Python HTTP bridge, authenticated discovery, multiple instances, execution errors, result images, input validation, queue overload, expiration, timeouts and status recovery. A minimal bpy fixture supplies metadata in those tests. Every typed Python script is syntax-compiled. `test:package` builds a local `.tgz`, installs it in an isolated directory, and checks the shipped runtime, skills and setup files; it does not publish anything.
+Offline tests exercise actual MCP and child-process pipes using a Python CLI fixture, persistent session state, isolation, timeout recovery, process death, bounded results/history, output formatting, CLI configuration and typed-script guards. They do not replace live Blender validation. `test:package` installs the archive independently and verifies 19 tools, offline guidance and the absence of add-on files. `test:live` uses real Blender for geometry, materials, keyframes, file guards and a small Cycles render in disposable files.
 
-**These tests do not prove live Blender behavior.** Blender was not found on the development Mac, so real geometry, viewport rendering, installer behavior inside Blender and Windows/Linux integration remain unverified. For a live check, run `doctor`, inspect a disposable scene, create a primitive, set a material and camera, render/view a small PNG, save/reopen a temporary `.blend`, and confirm unsaved-file guards. Never use an existing unsaved project as the test fixture.
+Verified on macOS arm64 with Blender 4.2.23 LTS: persistent scene, mesh/material/camera/light edits, keyframes, save/reopen guards and a Cycles PNG preview. Windows/Linux native Blender execution has not been verified locally.
 
-## Slash command
-
-The matching `/use-blender` bundle is added to `fnf-mcp-server` under `src/tools/preset-instructions/resources/commands/use-blender`. It returns installation and verification instructions before any remote preset lookup. The standalone source lives in `skills/use-blender`; keep their bodies synchronized when editing setup instructions. The server command adds a `title` frontmatter field for its catalog.
-
-See [UPSTREAM.md](UPSTREAM.md) for provenance and [LICENSE](LICENSE) for the MIT license.
-
-The source was imported from standalone revision `2517549`; npm installation paths and the `/use-blender` command are unchanged. See [RELEASING.md](RELEASING.md) for package releases.
+See [RELEASING.md](RELEASING.md) for release steps. The setup skill is mirrored in fnf-mcp-server's `/use-blender` command; keep its body and references synchronized. See [UPSTREAM.md](UPSTREAM.md) for provenance and [LICENSE](LICENSE) for the MIT license.

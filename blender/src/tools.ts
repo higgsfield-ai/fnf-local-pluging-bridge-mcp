@@ -23,7 +23,7 @@ export const BL_TOOLS: BlenderTool[] = [
   scriptTool(
     "bl_execute",
     "Execute Python (bpy)",
-    "Run arbitrary Python inside the connected Blender with full `bpy` access. "
+    "Run arbitrary Python inside this MCP session’s background Blender with full `bpy` access. "
     + "Assign a JSON-serialisable value to `result` to return data. This is the "
     + "escape hatch — prefer a specific bl_* tool when one exists.",
     schemas.executeShape,
@@ -260,66 +260,6 @@ finally:
   ),
 
   scriptTool(
-    "bl_screenshot",
-    "Screenshot Viewport",
-    "Capture what the 3D viewport currently shows (the agent's eyes) as an "
-    + "OpenGL viewport render, and return an inline PNG. Use this to SEE the scene "
-    + "before and after edits instead of guessing.",
-    schemas.screenshotShape,
-    `import base64, os, tempfile
-_scene = bpy.context.scene
-_orig_res = (_scene.render.resolution_x, _scene.render.resolution_y, _scene.render.resolution_percentage)
-_orig_fp = _scene.render.filepath
-_orig_fmt = _scene.render.image_settings.file_format
-_cap = int(_args.get("max_size") or 1280)
-_w, _h = _scene.render.resolution_x, _scene.render.resolution_y
-_longest = max(_w, _h) or _cap
-_scale = min(1.0, _cap / _longest)
-_area = None
-_win = None
-for _wnd in bpy.context.window_manager.windows:
-    for _a in _wnd.screen.areas:
-        if _a.type == "VIEW_3D":
-            _area, _win = _a, _wnd
-            break
-    if _area:
-        break
-_shading_prev = None
-if _args.get("shading") and _area is not None:
-    _sp = _area.spaces.active
-    _shading_prev = _sp.shading.type
-    _sp.shading.type = _args["shading"]
-_fd, _path = tempfile.mkstemp(suffix=".png", prefix="hf_shot_")
-os.close(_fd)
-try:
-    _scene.render.resolution_x = max(1, int(_w * _scale))
-    _scene.render.resolution_y = max(1, int(_h * _scale))
-    _scene.render.resolution_percentage = 100
-    _scene.render.filepath = _path
-    _scene.render.image_settings.file_format = "PNG"
-    if _area is not None:
-        _region = next((_r for _r in _area.regions if _r.type == "WINDOW"), None)
-        with bpy.context.temp_override(window=_win, area=_area, region=_region):
-            bpy.ops.render.opengl(write_still=True)
-    else:
-        raise RuntimeError("No VIEW_3D area is available; use bl_render with a scene camera")
-    with open(_path, "rb") as _fh:
-        _raw = _fh.read()
-    result = {"pngBase64": base64.b64encode(_raw).decode("ascii"),
-              "width": _scene.render.resolution_x, "height": _scene.render.resolution_y}
-finally:
-    _scene.render.resolution_x, _scene.render.resolution_y, _scene.render.resolution_percentage = _orig_res
-    _scene.render.filepath = _orig_fp
-    _scene.render.image_settings.file_format = _orig_fmt
-    if _shading_prev is not None and _area is not None:
-        _area.spaces.active.shading.type = _shading_prev
-    try:
-        os.remove(_path)
-    except OSError:
-        pass`,
-  ),
-
-  scriptTool(
     "bl_get_object",
     "Get Object Detail",
     "Detailed inspection of one object: transform, dimensions, bounding box, "
@@ -351,7 +291,7 @@ result = _info`,
 ];
 
 BL_TOOLS.push(
-  scriptTool("bl_health", "Inspect Blender", "Read the live Blender version, process, active file and scene; proves main-thread execution.", {}, `import os
+  scriptTool("bl_health", "Inspect Blender", "Start or inspect this MCP session’s background Blender. Returns its version, PID, active file and scene; does not inspect an open desktop window.", {}, `import os
 result = {"version": bpy.app.version_string, "pid": os.getpid(), "background": bpy.app.background,
           "file": bpy.data.filepath, "dirty": bpy.data.is_dirty, "scene": bpy.context.scene.name}`),
   scriptTool("bl_save_project", "Save Blender Project", "Save the current scene to an absolute .blend path. Existing files require overwrite=true.", {
@@ -372,7 +312,7 @@ if not os.path.isabs(_path) or not os.path.isfile(_path) or not _path.lower().en
     raise ValueError("Provide an existing absolute .blend path")
 if bpy.data.is_dirty and not _args["discard_unsaved"]:
     raise ValueError("The current project has unsaved changes; save first or explicitly set discard_unsaved=true")
-bpy.ops.wm.open_mainfile(filepath=_path)
+bpy.ops.wm.open_mainfile(filepath=_path, use_scripts=False)
 result = {"path": bpy.data.filepath, "scene": bpy.context.scene.name}`),
   scriptTool("bl_insert_keyframe", "Insert Object Keyframe", "Key the current location, Euler rotation or scale of a named object at a frame.", {
     name: z.string().min(1), property: z.enum(["location", "rotation_euler", "scale"]), frame: z.number().int(),

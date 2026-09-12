@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict';
+import { mkdtemp, rm, stat, readFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { Client } from '@modelcontextprotocol/client';
+import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
+
+if (!process.env.BLENDER_EXECUTABLE) throw new Error('Set BLENDER_EXECUTABLE to a real Blender 4.2+ executable.');
+const directory=await mkdtemp(join(tmpdir(),'fnf-blender-live-'));
+const client=new Client({name:'live-blender-check',version:'1'});
+const call=async (name,args={},ok=true) => {
+  const result=await client.callTool({name,arguments:args},undefined,{timeout:360000});
+  assert.equal(Boolean(result.isError),!ok,JSON.stringify(result));
+  return result;
+};
+try {
+  await client.connect(new StdioClientTransport({command:process.execPath,args:[fileURLToPath(new URL('../dist/index.js',import.meta.url))],env:{BLENDER_EXECUTABLE:process.env.BLENDER_EXECUTABLE},stderr:'pipe'}));
+  const health=(await call('bl_health')).structuredContent.result;
+  assert.equal(health.background,true);
+  const path=join(directory,'scene.blend'), png=join(directory,'preview.png');
+  await call('bl_add_primitive',{kind:'cube',name:'MCP Validation Cube',location:[0,0,1]});
+  await call('bl_set_material',{object:'MCP Validation Cube',color:[0.1,0.4,0.8,1],metallic:0.2,roughness:0.3});
+  await call('bl_set_transform',{name:'MCP Validation Cube',scale:[0.5,0.5,0.5]});
+  const summary=(await call('bl_get_scene_summary')).structuredContent.result;
+  assert.ok(summary.objects.some(item=>item.name==='MCP Validation Cube'));
+  await call('bl_insert_keyframe',{name:'MCP Validation Cube',property:'location',frame:1});
+  await call('bl_set_frame',{frame:10});
+  await call('bl_add_camera',{name:'MCP Validation Camera'});
+  await call('bl_add_light',{type:'AREA',location:[2,-2,4],energy:500});
+  await call('bl_save_project',{path});
+  await call('bl_save_project',{path},false);
+  await call('bl_set_transform',{name:'MCP Validation Cube',location:[0,0,2]});
+  await call('bl_open_project',{path},false);
+  await call('bl_open_project',{path,discard_unsaved:true});
+  const object=(await call('bl_get_object',{name:'MCP Validation Cube'})).structuredContent.result;
+  assert.deepEqual(object.location,[0,0,1]);
+  const rendered=await call('bl_render',{output_path:png,resolution:[64,64],engine:'CYCLES',samples:1});
+  assert.ok(rendered.content.some(item=>item.type==='image'));
+  assert.ok((await stat(png)).size>100);
+  assert.equal((await readFile(png)).subarray(1,4).toString(),'PNG');
+  await call('bl_render',{output_path:png},false);
+  await call('bl_render',{output_path:png,overwrite:true,resolution:[64,64],engine:'CYCLES',samples:1});
+  console.log(JSON.stringify({ok:true,version:health.version,background:true,tools:(await client.listTools()).tools.length,checks:['persistent scene','geometry','material','camera','light','keyframe','save/open','unsaved and overwrite guards','Cycles PNG preview']},null,2));
+} finally { await client.close(); await rm(directory,{recursive:true,force:true}); }
