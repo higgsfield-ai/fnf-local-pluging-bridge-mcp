@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { spawn, execFileSync } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { mkdtemp, rm, writeFile, readFile, chmod } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { once } from 'node:events';
+import { fileURLToPath } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
 import { Client } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
@@ -13,79 +13,18 @@ import { BL_TOOLS } from '../dist/tools.js';
 
 const root = new URL('../', import.meta.url);
 const python = process.env.PYTHON || 'python3';
+const fixture = fileURLToPath(new URL('tests/fake_blender.py', root));
 
-async function startHarness(directory) {
-  const child = spawn(python, [new URL('tests/bridge_harness.py', root).pathname], {
-    env: { ...process.env, BLENDER_MCP_RUNTIME_DIR: directory }, stdio: ['ignore', 'pipe', 'inherit'],
-  });
-  await Promise.race([once(child.stdout, 'data'), once(child, 'exit').then(() => { throw new Error('Bridge harness exited'); })]);
-  return child;
+async function launcher(directory) {
+  const path = join(directory, 'fixture blender');
+  const executable = execFileSync(python, ['-c', 'import sys; print(sys.executable)'], {encoding:'utf8'}).trim();
+  await writeFile(path, `#!${executable}
+import runpy
+runpy.run_path(${JSON.stringify(fixture)}, run_name="__main__")
+`);
+  await chmod(path, 0o755);
+  return path;
 }
-
-test('stdio MCP reaches authenticated Python bridge and preserves errors/images', { timeout: 20000 }, async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'fnf-blender-test-'));
-  const bridge = await startHarness(directory);
-  const client = new Client({ name: 'test', version: '1' });
-  try {
-    await client.connect(new StdioClientTransport({ command: process.execPath, args: [new URL('dist/index.js', root).pathname], env: { BLENDER_MCP_RUNTIME_DIR: directory }, stderr: 'pipe' }));
-    const listed = await client.listTools();
-    assert.equal(listed.tools.length, BL_TOOLS.length + 2);
-    assert.equal(listed.tools.find(t => t.name === 'bl_execute').annotations.readOnlyHint, false);
-    assert.equal(listed.tools.find(t => t.name === 'bl_health').annotations.readOnlyHint, true);
-    const health = await client.callTool({ name: 'bl_health', arguments: {} });
-    assert.equal(health.structuredContent.result.version, 'fixture-4.2');
-    const result = await client.callTool({ name: 'bl_execute', arguments: { code: "print('hello')\nresult = {'answer': 6 * 7}" } });
-    assert.deepEqual(result.structuredContent.result, { answer: 42 });
-    const polled = await client.callTool({ name: 'bl_job_status', arguments: { job_id: result.structuredContent.job_id } });
-    assert.deepEqual(polled.structuredContent.result, { answer: 42 });
-    const failure = await client.callTool({ name: 'bl_execute', arguments: { code: "raise ValueError('expected')" } });
-    assert.equal(failure.isError, true);
-    assert.match(failure.structuredContent.error, /expected/);
-    const unknownArg = await client.callTool({ name: 'bl_health', arguments: { unexpected: true } });
-    assert.equal(unknownArg.isError, true);
-    const png = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aP9sAAAAASUVORK5CYII=';
-    const image = await client.callTool({ name: 'bl_execute', arguments: { code: `result = {'pngBase64': '${png}', 'width': 1, 'height': 1}` } });
-    assert.equal(image.content.find(c => c.type === 'image').data, png);
-    assert.equal(image.structuredContent.result.pngBase64, undefined);
-    const skill = await client.callTool({ name: 'bl_get_skill', arguments: { name: 'modeling' } });
-    assert.match(skill.content[0].text, /Modeling/);
-  } finally {
-    await client.close();
-    bridge.kill();
-    await once(bridge, 'exit');
-    await rm(directory, { recursive: true, force: true });
-  }
-});
-
-test('discovery rejects ambiguity; timeout recovers the same job without resubmission', { timeout: 20000 }, async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'fnf-blender-select-'));
-  const a = await startHarness(directory);
-  const b = await startHarness(directory);
-  const previousDir = process.env.BLENDER_MCP_RUNTIME_DIR;
-  const previousPid = process.env.BLENDER_MCP_PID;
-  process.env.BLENDER_MCP_RUNTIME_DIR = directory;
-  delete process.env.BLENDER_MCP_PID;
-  try {
-    const transport = new BlenderTransport();
-    await assert.rejects(transport.connection(), /Multiple Blender/);
-    process.env.BLENDER_MCP_PID = String(a.pid);
-    const marker = join(directory, 'executions.txt');
-    const code = `import time\nwith open(${JSON.stringify(marker)}, 'a') as f: f.write('once\\n')\ntime.sleep(1.5)\nresult = 42`;
-    let job;
-    try { await transport.execute(code, 1); assert.fail('Expected a timeout'); }
-    catch (error) { job = /job_id=([a-f0-9]{32})/.exec(error.message)?.[1]; assert.ok(job, error.message); }
-    await delay(800);
-    assert.equal((await transport.status(job)).result, 42);
-    const { readFile } = await import('node:fs/promises');
-    assert.equal(await readFile(marker, 'utf8'), 'once\n');
-  } finally {
-    if (previousDir === undefined) delete process.env.BLENDER_MCP_RUNTIME_DIR; else process.env.BLENDER_MCP_RUNTIME_DIR = previousDir;
-    if (previousPid === undefined) delete process.env.BLENDER_MCP_PID; else process.env.BLENDER_MCP_PID = previousPid;
-    a.kill(); b.kill();
-    await Promise.all([once(a, 'exit'), once(b, 'exit')]);
-    await rm(directory, { recursive: true, force: true });
-  }
-});
 
 test('typed bpy scripts compile, including unicode and hostile-looking argument strings', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'fnf-blender-compile-'));
@@ -94,19 +33,6 @@ test('typed bpy scripts compile, including unicode and hostile-looking argument 
     const path = join(directory, 'scripts.json');
     await writeFile(path, JSON.stringify(scripts));
     execFileSync(python, ['-c', 'import json,sys\nfor code in json.load(open(sys.argv[1])): compile(code, "<test>", "exec")', path]);
-  } finally { await rm(directory, { recursive: true, force: true }); }
-});
-
-test('CLI config uses persistent absolute paths and missing Blender is actionable', async () => {
-  const config = JSON.parse(execFileSync(process.execPath, ['dist/cli.js', 'config'], { cwd: root, encoding: 'utf8' }));
-  assert.equal(config.mcpServers['higgsfield-use-blender'].command, process.execPath);
-  assert.match(config.mcpServers['higgsfield-use-blender'].args[0], /\/dist\/index.js$/);
-  const directory = await mkdtemp(join(tmpdir(), 'fnf-blender-missing-'));
-  try {
-    assert.throws(() => execFileSync(process.execPath, ['dist/cli.js', 'doctor'], { cwd: root, env: { ...process.env, BLENDER_MCP_RUNTIME_DIR: directory }, stdio: 'pipe' }), error => {
-      assert.match(error.stderr.toString(), /No live Blender bridge/);
-      return true;
-    });
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
 
@@ -146,4 +72,102 @@ else: raise AssertionError('Expected overwrite guard')
 assert output.read_text() == 'preserve' and len(calls) == 1
 `, file, output]);
   } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+test('stdio MCP owns a persistent process, returns images/errors, and cleans up on disconnect', {timeout:20000}, async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'fnf-background-mcp-'));
+  const executable = await launcher(directory);
+  const client = new Client({name:'fixture-client', version:'1'});
+  let pid;
+  try {
+    await client.connect(new StdioClientTransport({command:process.execPath,args:[fileURLToPath(new URL('dist/index.js',root))],env:{BLENDER_EXECUTABLE:executable},stderr:'pipe'}));
+    const tools = (await client.listTools()).tools;
+    assert.equal(tools.length,19);
+    assert.equal(tools.some(tool => tool.name === 'bl_screenshot'),false);
+    const call = async (name,args={}) => client.callTool({name,arguments:args});
+    const health = await call('bl_health');
+    assert.equal(health.structuredContent.result.background,true);
+    pid = health.structuredContent.result.pid;
+    assert.equal(health.structuredContent.result.version,'fixture-4.2');
+    await call('bl_execute',{code:"import bpy\nbpy.context.scene.name = 'persisted'\nprint('hello')\nresult = 42"});
+    assert.equal((await call('bl_health')).structuredContent.result.scene,'persisted');
+    const result = await call('bl_execute',{code:"result = {'answer':42}"});
+    assert.deepEqual((await call('bl_job_status',{job_id:result.structuredContent.job_id})).structuredContent.result,{answer:42});
+    assert.equal((await call('bl_execute',{code:"raise ValueError('expected')"})).isError,true);
+    assert.equal((await call('bl_health',{unexpected:true})).isError,true);
+    const png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aP9sAAAAASUVORK5CYII=';
+    const image=await call('bl_execute',{code:`result = {'pngBase64': '${png}'}`});
+    assert.equal(image.content.find(c=>c.type==='image').data,png);
+    assert.equal(image.structuredContent.result.pngBase64,undefined);
+    assert.match((await call('bl_get_skill',{name:'modeling'})).content[0].text,/Modeling/);
+  } finally {
+    await client.close();
+    if (pid) {
+      for(let i=0;i<30;i++) { try { process.kill(pid,0); } catch { break; } await delay(100); }
+      assert.throws(()=>process.kill(pid,0), {code:'ESRCH'});
+    }
+    await rm(directory,{recursive:true,force:true});
+  }
+});
+
+test('timeout retains the original job, rejects overlapping edits, and isolates MCP sessions', {timeout:15000}, async () => {
+  const directory=await mkdtemp(join(tmpdir(),'fnf-background-jobs-'));
+  const executable=await launcher(directory);
+  const a=new BlenderTransport({executable}), b=new BlenderTransport({executable});
+  try {
+    const marker=join(directory,'once');
+    let id;
+    try { await a.execute(`import time\nwith open(${JSON.stringify(marker)}, 'a') as f: f.write('once\\n')\ntime.sleep(0.5)\nimport bpy\nbpy.context.scene.name = 'changed'\nresult = 42`,0.05); assert.fail('expected timeout'); }
+    catch(error) { id=/job_id=([a-f0-9]{32})/.exec(error.message)?.[1]; assert.ok(id,error.message); }
+    await assert.rejects(a.execute('result = 9'),/Blender is busy/);
+    assert.equal((await a.status(id)).state,'running');
+    await delay(600);
+    assert.equal((await a.status(id)).result,42);
+    assert.equal(await readFile(marker,'utf8'),'once\n');
+    assert.equal((await a.execute('import bpy\nresult = bpy.context.scene.name')).result,'changed');
+    assert.equal((await b.execute('import bpy\nresult = bpy.context.scene.name')).result,'Scene');
+  } finally { await Promise.all([a.close(),b.close()]); await rm(directory,{recursive:true,force:true}); }
+});
+
+test('process death preserves uncertain job status and never restarts silently', {timeout:15000}, async () => {
+  const directory=await mkdtemp(join(tmpdir(),'fnf-background-crash-'));
+  const transport=new BlenderTransport({executable:await launcher(directory)});
+  try {
+    const result=await transport.execute('import os\nos._exit(7)');
+    assert.equal(result.ok,false);
+    assert.match(result.error,/Completion is uncertain/);
+    assert.equal((await transport.status(result.job_id)).ok,false);
+    await assert.rejects(transport.execute('result = 42'),/Restart the MCP connection/);
+  } finally { await transport.close(); await rm(directory,{recursive:true,force:true}); }
+});
+
+test('CLI persists executable paths and rejects removed commands or missing executables', async () => {
+  const directory=await mkdtemp(join(tmpdir(),'fnf-background-cli-'));
+  try {
+    const executable=await launcher(directory);
+    const config=JSON.parse(execFileSync(process.execPath,['dist/cli.js','config','--blender',executable],{cwd:root,encoding:'utf8'}));
+    assert.equal(config.mcpServers['higgsfield-use-blender'].env.BLENDER_EXECUTABLE,executable);
+    assert.equal(config.mcpServers['higgsfield-use-blender'].command,process.execPath);
+    const doctor=JSON.parse(execFileSync(process.execPath,['dist/cli.js','doctor','--blender',executable],{cwd:root,encoding:'utf8'}));
+    assert.equal(doctor.result.background,true);
+    for(const args of [['install-addon'],['launch'],['doctor','--blender',directory],['doctor','--blender',join(directory,'missing')]]) {
+      assert.throws(()=>execFileSync(process.execPath,['dist/cli.js',...args],{cwd:root,stdio:'pipe'}));
+    }
+  } finally { await rm(directory,{recursive:true,force:true}); }
+});
+
+test('startup failures time out and bounded history evicts old results', {timeout:15000}, async () => {
+  const directory=await mkdtemp(join(tmpdir(),'fnf-background-limits-'));
+  const executable=await launcher(directory);
+  const hung=join(directory,'hung');
+  const pythonPath=execFileSync(python,['-c','import sys; print(sys.executable)'],{encoding:'utf8'}).trim();
+  await writeFile(hung,`#!${pythonPath}\nimport time\ntime.sleep(60)\n`); await chmod(hung,0o755);
+  const bad=new BlenderTransport({executable:hung,startupTimeoutMs:50});
+  const transport=new BlenderTransport({executable});
+  try {
+    await assert.rejects(bad.execute('result = 1'),/startup timed out/);
+    const first=await transport.execute('result = 0');
+    for(let i=0;i<128;i++) assert.equal((await transport.execute(`result = ${i}`)).ok,true);
+    await assert.rejects(transport.status(first.job_id),/Unknown job_id/);
+  } finally { await Promise.all([bad.close(),transport.close()]); await rm(directory,{recursive:true,force:true}); }
 });

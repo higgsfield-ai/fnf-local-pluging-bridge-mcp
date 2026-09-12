@@ -32,7 +32,7 @@ export async function formatResult(job: JobResult): Promise<CallToolResult> {
 
 export function createServer(transport = new BlenderTransport()): McpServer {
   const server = new McpServer({ name: "higgsfield-use-blender", title: "Higgsfield use Blender", version: packageInfo.version }, {
-    instructions: "Local Blender control. Read bl_get_skill(blender-scene), then bl_health and bl_get_scene_summary before edits. Prefer typed tools; use bl_execute for other bpy operations. Commands can partially mutate before errors. On timeout, query bl_job_status; never blindly retry. Render and view results. Cloud generation is provided by a separate Higgsfield MCP, not this server.",
+    instructions: "Control a dedicated background Blender process; it cannot access an open desktop window. Save .blend files before disconnecting; unsaved state is lost on reconnect. Read bl_get_skill(blender-scene), then bl_health and bl_get_scene_summary before edits. Prefer typed tools; use bl_execute for other bpy operations. Commands can partially mutate before errors. On timeout, query bl_job_status; never blindly retry. Render and view results. Cloud generation is provided by a separate Higgsfield MCP, not this server.",
   });
   for (const tool of BL_TOOLS) {
     server.registerTool(tool.name, {
@@ -45,7 +45,7 @@ export function createServer(transport = new BlenderTransport()): McpServer {
     });
   }
   server.registerTool("bl_job_status", {
-    title: "Check Blender Job", description: "Check a previously accepted job after timeout without repeating its mutations. Select the original Blender PID when multiple instances are open. Completed results expire after 128 newer accepted jobs or Blender exits.",
+    title: "Check Blender Job", description: "Check a previously accepted job after timeout without repeating its mutations. Use the same MCP session. Results expire after 128 accepted jobs or reconnecting.",
     inputSchema: z.object({ job_id: z.string().regex(/^[a-f0-9]{32}$/) }).strict(),
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
   }, async ({ job_id }) => {

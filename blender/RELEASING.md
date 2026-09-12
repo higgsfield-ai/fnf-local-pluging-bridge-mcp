@@ -1,11 +1,11 @@
 # Release fnf-blender-mcp
 
-Run commands from this `blender/` directory. Its package.json and package-lock.json are independent of the root After Effects package.
+Run commands from this `blender/` directory. Its package and lockfile are independent of After Effects.
 
-1. Run `npm ci`, `npm test`, `npm run typecheck`, and `npm run test:package`.
-2. For a new release, bump the version here with `npm version patch --no-git-tag-version` (or the intended version). npm versions are immutable; `0.1.0` is already published.
-3. Update the version in README.md and skills/use-blender/references/installation.md, and synchronize that skill with fnf-mcp-server’s use-blender command bundle. Commit the version, lockfile and instructions together.
-4. Run `npm pack --json` and review its file list. Publish the reviewed archive with `npm publish ./fnf-blender-mcp-<version>.tgz --access public --registry=https://registry.npmjs.org/` when release publication is authorized.
-5. Verify the registry version and checksum, then install it into an isolated directory and check the MCP tools and offline skill. Report live Blender validation separately.
+1. Run `npm ci`, `npm test`, `npm run typecheck`, `npm run test:package`, and `test:live` with a real `BLENDER_EXECUTABLE` when available.
+2. Version 0.2.0 is prepared for the transition to a background process. Verify that it is unpublished with `npm view fnf-blender-mcp versions --json`. Never overwrite an existing npm version; bump both manifests for subsequent releases.
+3. Keep the version in README.md and skills/use-blender aligned with the fnf-mcp-server command bundle. Review migration instructions for removed commands and tools.
+4. Run `npm pack --json`, review the contents, then publish the reviewed archive with `npm publish ./fnf-blender-mcp-0.2.0.tgz --access public --registry=https://registry.npmjs.org/` when publication is authorized.
+5. Verify the public version and checksum and test a fresh registry installation. Publish the package before deploying the fnf-mcp-server instructions that require it.
 
-The source migration does not republish version 0.1.0. Its existing npm archive remains usable; repository.directory metadata takes effect in the next release.
+Merging the source MR does not publish npm. Version 0.1.0 still requires the old add-on; it is not a fallback for 0.2.0 setup. New clients need a refreshed configuration containing BLENDER_EXECUTABLE. Existing desktop files and add-ons are not removed by this release.

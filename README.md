@@ -12,12 +12,12 @@ Codex / desktop MCP client → local stdio server → OS scripting → After Eff
                             bundled AE skills     local file mailbox
 ```
 
-No Higgsfield account, cloud relay or installed AE panel is required. Adobe licensing, an installed AE application, OS Automation permissions and AE's scripting file access preference are separate requirements. The root integration controls AE; the separate `blender/` package controls Blender over authenticated loopback HTTP. A remote web client cannot directly launch a local stdio process.
+No Higgsfield account, cloud relay or installed AE panel is required. Adobe licensing, an installed AE application, OS Automation permissions and AE's scripting file access preference are separate requirements. The root integration controls AE; the separate `blender/` package controls a dedicated background Blender process over stdin/stdout pipes. A remote web client cannot directly launch a local stdio process.
 
 ## Repository layout
 
 - Root: the local After Effects MCP runtime, tests and setup CLI.
-- `blender/`: the independent `fnf-blender-mcp` package, Python add-on, CLI, skills and tests.
+- `blender/`: the independent `fnf-blender-mcp` package, background Python runner, CLI, skills and tests.
 - `skills/`: the single source of editable skills, also bundled with the runtime.
 - `scripts/`: skill installation, manifest generation and validation.
 - `creative-skills/archive/bridge-ae/`: original bridge knowledge retained for migration review.
