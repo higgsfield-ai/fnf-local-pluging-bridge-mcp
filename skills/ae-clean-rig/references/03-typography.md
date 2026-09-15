@@ -13,3 +13,11 @@ For reveals, cuts, and montage cards, record the first visible frame and final h
 For construction diagrams, bind anchors, tangents, dimensions, and labels to the geometry they describe. Keep independent rules as separate paths; joining two vertical rules with one polyline introduces an unintended diagonal. Match circle proportions and shared angular phase before adding motion. A graph that grows along a curve must use a progressive path and related values, not a rotating pointer. Verify the actual font weight against the reference contour before compensating with scale or strokes. For typographic echoes, measure each copy’s offset, scale, first outline, first fill, and disappearance; a uniform offset stack can produce the wrong silhouette even with the correct text.
 
 When showing typographic construction, use the meaningful curve extrema and corner anchors visible in the reference. A font may contain intermediate quadratic points that should not all become visible diagram controls. Preserve optical stroke and node sizes after fitting or scaling text: a correct pre-scale stroke width can become nearly invisible on a small glyph. Validate the final nested render at its intended viewing scale.
+
+## Spatial typography and motion with a destination
+
+Keep phrases together with a clear reading order and a readable hold. Use negative space and a deliberate contrast between supporting text and selected keywords. Take the type treatment from the chosen visual direction and any applicable reference; do not require one font pair across unrelated pieces.
+
+When it serves the scene, attach text to a page, wall, card or object and match that surface's perspective, movement and occlusion. Keep phrases complete and do not cover meaningful faces or evidence. Solve legibility through placement, scale, timing and timed changes of text contrast before reaching for heavy decorative treatments.
+
+Give continuous motion a destination that reveals or connects information. Inspect easing, stops, inertia and motion blur. Balance energetic passages with time to read and understand, and do not apply the same word bounce or camera pulse to every moment unless the requested treatment calls for it.
