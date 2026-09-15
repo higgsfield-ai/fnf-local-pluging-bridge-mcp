@@ -5,7 +5,8 @@ Use the local `higgsfield-use-after-effects` MCP tools. Read `ae_catalog` for ex
 This is the complete pipeline for animating drawn or illustrated characters: read it first, and treat the numbered character modules as optional add-ons rather than substitutes.
 
 - `references/08-characters.md` — reach for it when a single mascot or agent needs a compact rig with blink, gaze and head-turn parallax, and the drawn-artwork pipeline below is more than the task needs.
-- `references/11-character-production.md` — reach for it when a jointed figure must hold repeatable poses and you need controller and coordinate design, hand and foot IK, or pose libraries.
+- `references/rigging/overview.md` — reach for it when the rig itself must be built or repaired: artwork separation, face and body controls, native Puppet, dimensional turns.
+- `references/11-character-production.md` — reach for it for the production wrap: motion measured before the rig, reference playback that leaves manual controls free, compositing passes.
 - `references/12-symbol-characters.md` — unrelated to drawn artwork; it covers characters assembled out of glyphs and type.
 
 Do not run two of these as competing plans. This module owns the artwork, the deformation, the cadence and the delivery; the others contribute one technique each.
