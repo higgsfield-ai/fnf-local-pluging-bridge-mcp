@@ -45,4 +45,4 @@ Plan and inspect through the evaluated camera. Keep approaching panels and foreg
 
 Load [Validation and delivery](references/validation-delivery.md) for final comparison, sequential rendering, export, and transmission. Finish with the agreed native scene, a verified preview in the requested shading, and the authorized deliverables. State the meaningful changes, preservation result, and any unresolved limitation.
 
-When the user also requests a process case study inside an existing media template, read [Case-template handoff](references/case-template-handoff.md). This is an optional delivery step, not a reason to alter every assembly task or publish to an external channel automatically.
+When the user also requests a process case study inside an existing media template, read [Case template](references/case-template.md). This is an optional delivery step, not a reason to alter every assembly task or publish to an external channel automatically.
