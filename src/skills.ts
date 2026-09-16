@@ -6,13 +6,14 @@ import { PACKAGE_ROOT } from "./config.js";
 
 const documentName = /^(SKILL\.md|references\/[a-zA-Z0-9/_-]+\.md)$/;
 const manifestSchema = z.object({
-  schemaVersion: z.literal(2),
+  schemaVersion: z.literal(3),
   sourceRepository: z.string(),
   sourcePath: z.literal("skills"),
   skills: z
     .array(
       z.object({
         name: z.string().regex(/^[a-z0-9-]+$/),
+        path: z.string().regex(/^[a-z0-9-]+\/[a-z0-9-]+$/),
         description: z.string().min(1),
         documents: z.record(z.string().regex(documentName), z.string().regex(/^[a-f0-9]{64}$/)),
       }),
@@ -57,7 +58,7 @@ export class SkillStore {
       throw new RangeError(
         `Unknown reference '${document}' for '${name}'. Load the entry to list references.`,
       );
-    const file = realpathSync(resolve(this.root, name, document));
+    const file = realpathSync(resolve(this.root, skill.path, document));
     const local = relative(this.root, file);
     if (local === ".." || local.startsWith("../") || local.startsWith("..\\") || isAbsolute(local))
       throw new Error("Skill path escapes the bundled corpus");

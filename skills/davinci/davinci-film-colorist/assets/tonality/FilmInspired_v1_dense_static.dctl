@@ -1,0 +1,86 @@
+// Static preset dense; no UI parameters.
+// Film-inspired positive tone curve v1.0.0 — CREATIVE, not a measured Kodak emulation.
+// INPUT AND OUTPUT: DaVinci Wide Gamut / DaVinci Intermediate (encoded RGB).
+// CST IN -> DWG/DI correction -> global LOOK (this DCTL) -> CST OUT last.
+// No display transform, gamut conversion, LUT, density inversion, or clipping to 0..1.
+// Same scalar function on R/G/B: preserves neutral axis, NOT chromatic hue/saturation.
+// Finite operating domain: DI channels [-16,16]; negatives use tangent extension.
+// See README.md for proof, creative-control interactions, and validation limits.
+
+
+__DEVICE__ float fi_bound(float x, float lo, float hi)
+{
+    return _fminf(hi, _fmaxf(lo, x));
+}
+
+// Integral of a positive slope smoothly changing from a to b over width w.
+// Its derivative is a + (b-a)*(3*t*t - 2*t*t*t), a convex combination.
+__DEVICE__ float fi_transition(float t, float w, float a, float b)
+{
+    float t2 = t * t;
+    float h = t2 * t * (1.0f - 0.5f * t);
+    return w * (a * t + (b - a) * h);
+}
+
+__DEVICE__ float fi_integral(float x, float a, float b, float c)
+{
+    if (x <= 0.04f)
+    {
+        return a * x;
+    }
+    float area = 0.04f * a;
+    if (x < 0.28f)
+    {
+        return area + fi_transition((x - 0.04f) / 0.24f, 0.24f, a, b);
+    }
+    area += 0.12f * (a + b);
+    if (x <= 0.42f)
+    {
+        return area + b * (x - 0.28f);
+    }
+    area += 0.14f * b;
+    if (x < 0.80f)
+    {
+        return area + fi_transition((x - 0.42f) / 0.38f, 0.38f, b, c);
+    }
+    area += 0.19f * (b + c);
+    return area + c * (x - 0.80f);
+}
+
+__DEVICE__ float fi_channel(float x, float a, float b, float c, float scale, float mix)
+{
+    float shaped = scale * fi_integral(x, a, b, c);
+    return (1.0f - mix) * x + mix * shaped;
+}
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float strength = 1.0f;
+    float shadows = 0.4f;
+    float midtones = 0.1f;
+    float highlights = 0.25f;
+    float soft = 0.1f;
+    float dense = 0.55f;
+    float bold = 0.15f;
+    float mix = fi_bound(strength, 0.0f, 1.0f);
+    float sh = fi_bound(shadows, -1.0f, 1.0f);
+    float mi = fi_bound(midtones, -1.0f, 1.0f);
+    float hi = fi_bound(highlights, -1.0f, 1.0f);
+    float so = fi_bound(soft, 0.0f, 1.0f);
+    float de = fi_bound(dense, 0.0f, 1.0f);
+    float bo = fi_bound(bold, 0.0f, 1.0f);
+    if (mix == 0.0f || (sh == 0.0f && mi == 0.0f && hi == 0.0f && so == 0.0f && de == 0.0f && bo == 0.0f))
+    {
+        return make_float3(p_R, p_G, p_B);
+    }
+    float a = _exp2f(-0.9f * sh - 0.7f * de + 0.35f * so);
+    float b = _exp2f(0.5f * mi + 0.65f * bo - 0.35f * so);
+    float c = _exp2f(-1.1f * hi - 0.9f * so - 0.25f * bo);
+    // DI encode(0.18) from Blackmagic Design's August 2021 specification.
+    float pivot = 0.3360432724f;
+    float scale = pivot / fi_integral(pivot, a, b, c);
+    return make_float3(
+        fi_channel(p_R, a, b, c, scale, mix),
+        fi_channel(p_G, a, b, c, scale, mix),
+        fi_channel(p_B, a, b, c, scale, mix));
+}
