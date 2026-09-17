@@ -3,7 +3,7 @@ from pathlib import Path
 parser = argparse.ArgumentParser(description='Install the local After Effects entry skill without overwriting existing files.')
 parser.add_argument('--skills-dir', type=Path, default=Path.home() / '.agents/skills')
 args = parser.parse_args()
-source = Path(__file__).resolve().parents[1] / 'skills/use-after-effects'
+source = Path(__file__).resolve().parents[1] / 'skills/after-effects/use-after-effects'
 legacy_source = Path(__file__).resolve().parents[1] / 'creative-skills/skills/use-after-effects'
 target = args.skills_dir.expanduser().absolute() / 'use-after-effects'
 if target.is_symlink() and target.resolve() == legacy_source:

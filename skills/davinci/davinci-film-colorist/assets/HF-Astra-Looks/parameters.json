@@ -1,0 +1,508 @@
+{
+  "name": "HF-Astra-Looks",
+  "source_version": "v04 Optimized",
+  "mapping_note": "OFX indices observed in Resolve Studio 21; re-check in other versions. Switching DCTL can reset controls.",
+  "parameters": [
+    {
+      "identifier": "lm_master",
+      "label": "Master Strength",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam0",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Linear DWG blend with the original input. Zero is exact finite bypass."
+    },
+    {
+      "identifier": "lm_original",
+      "label": "Original",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam1",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Post-Curve/Tetra base in Normal mode. Default one makes the first color-weight move smooth. Zero delta in Additive mode."
+    },
+    {
+      "identifier": "lm_coldgreen",
+      "label": "🔵 Cold Green",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam2",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Blue: color palette without baked contrast. Shared Contrast, Toe and Shoulder still apply. Normal mode uses relative weights."
+    },
+    {
+      "identifier": "lm_petrol",
+      "label": "🔵 Petrol",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam3",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_steel",
+      "label": "🔵 Steel",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam4",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_warmprint",
+      "label": "🔵 Warm Print",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam5",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_softneutral",
+      "label": "🔵 Soft Neutral",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam6",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_fb_portra",
+      "label": "🟠 Portra 400",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam7",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Orange: baked color and contrast from the supplied 65-cube. Shared curve controls still apply. Needs the corresponding DaVinci SDR output DRT. Normal mode uses relative weights including Original. No grain or halation."
+    },
+    {
+      "identifier": "lm_fb_ektachrome",
+      "label": "🟠 Ektachrome",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam8",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Supplied custom look includes camera, lab, print and split-tone choices; not a neutral stock profile. Warm Hue Protection does not protect LUT changes."
+    },
+    {
+      "identifier": "lm_fb_vision2",
+      "label": "🟠 Vision2 500T 5299",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam9",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_fb_vision3d",
+      "label": "🟠 Vision3 250D",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam10",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_fb_vision3t",
+      "label": "🟠 Vision3 500T",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam11",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_contrast",
+      "label": "Contrast",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam12",
+      "min": 0.65,
+      "max": 1.35,
+      "step": 0.01,
+      "tooltip": "One signed monotonic Y curve before palettes. Adjustable linear-light pivot; neutral default is 18 percent. Not a display transform."
+    },
+    {
+      "identifier": "lm_saturation",
+      "label": "Saturation",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam13",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01,
+      "tooltip": "Radial linear DWG chroma gain around equal Y. One is neutral."
+    },
+    {
+      "identifier": "lm_hue",
+      "label": "Hue Degrees",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam14",
+      "min": -15.0,
+      "max": 15.0,
+      "step": 0.1,
+      "tooltip": "Opponent hue rotation. Warm protection applies. This is not a calibrated perceptual hue angle."
+    },
+    {
+      "identifier": "lm_split",
+      "label": "Cool Shadow Warm Highlight Split",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam15",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Positive: cool shadows and warm highlights. Negative reverses. Intentionally tints neutrals."
+    },
+    {
+      "identifier": "lm_density",
+      "label": "Chroma Density Stops",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam16",
+      "min": -0.5,
+      "max": 0.5,
+      "step": 0.01,
+      "tooltip": "Equal RGB exposure gain selected by INPUT chroma and warm protection. Positive darkens."
+    },
+    {
+      "identifier": "lm_warm_protect",
+      "label": "Warm Hue Protection",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam17",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Soft warm hue and chroma mask, not face or skin recognition. Protects analytical/shared color changes, not baked LUTs, Curve or Tetra."
+    },
+    {
+      "identifier": "lm_additive",
+      "label": "Additive Experimental",
+      "type": "DCTLUI_CHECK_BOX",
+      "default": 0,
+      "observed_resolve_ofx_parameter": "checkBoxParam0",
+      "tooltip": "Adds weighted palette deltas without normalization. May exceed every individual look. Master remains 0 to 1."
+    },
+    {
+      "identifier": "lm_pivot",
+      "label": "Curve Pivot Linear",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.18,
+      "observed_resolve_ofx_parameter": "sliderFloatParam18",
+      "min": 0.02,
+      "max": 0.8,
+      "step": 0.001,
+      "tooltip": "Scene-linear luminance anchor. Default 0.18. Pivot has no effect at unity contrast with Toe and Shoulder at zero."
+    },
+    {
+      "identifier": "lm_toe",
+      "label": "Curve Toe Strength",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam19",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Shapes the low end below the pivot. Zero preserves the legacy curve. Shared luminance gain keeps RGB ratios."
+    },
+    {
+      "identifier": "lm_toe_length",
+      "label": "Curve Toe Length",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.1,
+      "observed_resolve_ofx_parameter": "sliderFloatParam20",
+      "min": 0.01,
+      "max": 0.5,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_shoulder",
+      "label": "Curve Shoulder Strength",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam21",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Soft compression above the pivot without a hard clip. Zero preserves the legacy curve."
+    },
+    {
+      "identifier": "lm_shoulder_length",
+      "label": "Curve Shoulder Length",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 2.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam22",
+      "min": 0.25,
+      "max": 16.0,
+      "step": 0.05
+    },
+    {
+      "identifier": "lm_tetra_strength",
+      "label": "Tetra Strength",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam23",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "tooltip": "Six RGB color vertices with fixed black and white. Independent of Warm Hue Protection. Neutral axes stay neutral before split toning."
+    },
+    {
+      "identifier": "lm_t_red_r",
+      "label": "Tetra Red R",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam24",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_red_g",
+      "label": "Tetra Red G",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam25",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_red_b",
+      "label": "Tetra Red B",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam26",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_green_r",
+      "label": "Tetra Green R",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam27",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_green_g",
+      "label": "Tetra Green G",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam28",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_green_b",
+      "label": "Tetra Green B",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam29",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_blue_r",
+      "label": "Tetra Blue R",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam30",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_blue_g",
+      "label": "Tetra Blue G",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam31",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_blue_b",
+      "label": "Tetra Blue B",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam32",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_cyan_r",
+      "label": "Tetra Cyan R",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam33",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_cyan_g",
+      "label": "Tetra Cyan G",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam34",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_cyan_b",
+      "label": "Tetra Cyan B",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam35",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_magenta_r",
+      "label": "Tetra Magenta R",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam36",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_magenta_g",
+      "label": "Tetra Magenta G",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam37",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_magenta_b",
+      "label": "Tetra Magenta B",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam38",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_yellow_r",
+      "label": "Tetra Yellow R",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam39",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_yellow_g",
+      "label": "Tetra Yellow G",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam40",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_t_yellow_b",
+      "label": "Tetra Yellow B",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam41",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_show_ramp",
+      "label": "View Ramp",
+      "type": "DCTLUI_CHECK_BOX",
+      "default": 0,
+      "observed_resolve_ofx_parameter": "checkBoxParam1",
+      "tooltip": "Diagnostic image overlay. Switch off for delivery. Downstream nodes and CST still affect it."
+    },
+    {
+      "identifier": "lm_ramp_compare",
+      "label": "Ramp Reference Curve Look",
+      "type": "DCTLUI_CHECK_BOX",
+      "default": 1,
+      "observed_resolve_ofx_parameter": "checkBoxParam2",
+      "tooltip": "Three stacked strips: input reference at top, curve only in middle, full look at bottom. Off shows full look only."
+    },
+    {
+      "identifier": "lm_ramp_fullscreen",
+      "label": "Ramp Fullscreen",
+      "type": "DCTLUI_CHECK_BOX",
+      "default": 0,
+      "observed_resolve_ofx_parameter": "checkBoxParam3"
+    },
+    {
+      "identifier": "lm_ramp_stops",
+      "label": "Ramp Exposure Stops",
+      "type": "DCTLUI_CHECK_BOX",
+      "default": 0,
+      "observed_resolve_ofx_parameter": "checkBoxParam4",
+      "tooltip": "On: minus ten to plus eight scene stops around 18 percent gray. Off: uniform DaVinci Intermediate code zero to one."
+    },
+    {
+      "identifier": "lm_ramp_height",
+      "label": "Ramp Height",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 0.18,
+      "observed_resolve_ofx_parameter": "sliderFloatParam42",
+      "min": 0.05,
+      "max": 0.5,
+      "step": 0.01
+    },
+    {
+      "identifier": "lm_ramp_position",
+      "label": "Ramp Vertical Position",
+      "type": "DCTLUI_SLIDER_FLOAT",
+      "default": 1.0,
+      "observed_resolve_ofx_parameter": "sliderFloatParam43",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01
+    }
+  ],
+  "tested_recipe": {
+    "mode": "all defaults plus lm_fb_portra=1",
+    "overrides": {
+      "lm_fb_portra": 1.0
+    },
+    "meaning": "Original 1 + Portra 1, normalized 50/50, Master 1"
+  }
+}

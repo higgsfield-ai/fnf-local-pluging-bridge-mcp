@@ -1,0 +1,309 @@
+// GREEN published-chart shape only; not Kodak colour/stock emulation.
+// INPUT/OUTPUT DWG/DaVinci Intermediate. CST OUT last, no display transform here.
+// Anchor logH=-1.5 is a creative registration; local mid slope normalized.
+// ZeroBlackContinuation and high tangent tail are modelling choices. See DATA_SHAPE_README.md.
+DEFINE_UI_PARAMS(stock, Green Chart Shape, DCTLUI_COMBO_BOX, 0, { GREEN_250D, GREEN_500T }, { Green 250D, Green 500T })
+DEFINE_UI_PARAMS(printContrast, Creative Print Contrast, DCTLUI_SLIDER_FLOAT, 1.15, 0.5, 1.5, 0.01)
+DEFINE_UI_PARAMS(strength, Strength, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 1.0, 0.01)
+
+__DEVICE__ float ds_encode(float x)
+{
+    if (x <= 0.00262409f) { return x * 10.44426855f; }
+    return (_log2f(x + 0.0075f) + 7.0f) * 0.07329248f;
+}
+__DEVICE__ float ds_decode(float x)
+{
+    if (x <= 0.02740668f) { return x / 10.44426855f; }
+    return _exp2f(x / 0.07329248f - 7.0f) - 0.0075f;
+}
+__DEVICE__ float ds_log_output(float log2out)
+{
+    if (log2out < -4.0f) { return ds_encode(_exp2f(log2out)); }
+    return (log2out + _log2f(1.0f + 0.0075f * _exp2f(-log2out)) + 7.0f) * 0.07329248f;
+}
+__DEVICE__ float ds_density_250D(float h)
+{
+    if (h < -3.3f)
+    {
+        float t = (h - -3.5f) / 0.2f;
+        return 0.5815835836f + t * (0.008807113563f + t * (-0.003106863893f + t * 0.003106863893f));
+    }
+    if (h < -3.1f)
+    {
+        float t = (h - -3.3f) / 0.2f;
+        return 0.5903906972f + t * (0.01191397746f + t * (0.006685916467f + t * -0.0001923225855f));
+    }
+    if (h < -2.9f)
+    {
+        float t = (h - -3.1f) / 0.2f;
+        return 0.6087982685f + t * (0.02470884263f + t * (0.02175986966f + t * -0.008899035196f));
+    }
+    if (h < -2.7f)
+    {
+        float t = (h - -2.9f) / 0.2f;
+        return 0.6463679456f + t * (0.04153147637f + t * (0.001733400026f + t * 0.00316245724f));
+    }
+    if (h < -2.5f)
+    {
+        float t = (h - -2.7f) / 0.2f;
+        return 0.6927952793f + t * (0.05448564815f + t * (0.01276071635f + t * -0.001317565109f));
+    }
+    if (h < -2.3f)
+    {
+        float t = (h - -2.5f) / 0.2f;
+        return 0.7587240787f + t * (0.07605438552f + t * (0.01930339895f + t * -0.005503203829f));
+    }
+    if (h < -2.1f)
+    {
+        float t = (h - -2.3f) / 0.2f;
+        return 0.8485786593f + t * (0.09815157193f + t * (0.01890323533f + t * -0.008918110167f));
+    }
+    if (h < -1.9f)
+    {
+        float t = (h - -2.1f) / 0.2f;
+        return 0.9567153564f + t * (0.1092037121f + t * (0.002448903136f + t * -0.001360621225f));
+    }
+    if (h < -1.7f)
+    {
+        float t = (h - -1.9f) / 0.2f;
+        return 1.06700735f + t * (0.1100196547f + t * (-0.001739117088f + t * 0.001468119412f));
+    }
+    if (h < -1.5f)
+    {
+        float t = (h - -1.7f) / 0.2f;
+        return 1.176756007f + t * (0.1109457787f + t * (0.00341106984f + t * -0.002187544048f));
+    }
+    if (h < -1.3f)
+    {
+        float t = (h - -1.5f) / 0.2f;
+        return 1.288925312f + t * (0.1112052863f + t * (-0.003448830816f + t * 0.002501241517f));
+    }
+    if (h < -1.1f)
+    {
+        float t = (h - -1.3f) / 0.2f;
+        return 1.399183009f + t * (0.1118113492f + t * (0.004738990561f + t * -0.003140927205f));
+    }
+    if (h < -0.9f)
+    {
+        float t = (h - -1.1f) / 0.2f;
+        return 1.512592421f + t * (0.1118665487f + t * (-0.00365517393f + t * 0.00215372603f));
+    }
+    if (h < -0.7f)
+    {
+        float t = (h - -0.9f) / 0.2f;
+        return 1.622957522f + t * (0.1110173789f + t * (0.0009082233646f + t * -0.0002481892262f));
+    }
+    if (h < -0.5f)
+    {
+        float t = (h - -0.7f) / 0.2f;
+        return 1.734634935f + t * (0.112089258f + t * (0.002006256236f + t * -0.00159136247f));
+    }
+    if (h < -0.3f)
+    {
+        float t = (h - -0.5f) / 0.2f;
+        return 1.847139087f + t * (0.111327683f + t * (-0.00140202733f + t * 0.0002499089268f));
+    }
+    if (h < -0.1f)
+    {
+        float t = (h - -0.3f) / 0.2f;
+        return 1.957314652f + t * (0.1092733552f + t * (0.001567785038f + t * -0.002455338442f));
+    }
+    if (h < 0.1f)
+    {
+        float t = (h - -0.1f) / 0.2f;
+        return 2.065700453f + t * (0.1050429099f + t * (-0.004164788492f + t * 0.001021933458f));
+    }
+    if (h < 0.3f)
+    {
+        float t = (h - 0.1f) / 0.2f;
+        return 2.167600508f + t * (0.0997791333f + t * (-0.0002340026928f + t * -0.001800430398f));
+    }
+    if (h < 0.5f)
+    {
+        float t = (h - 0.3f) / 0.2f;
+        return 2.265345209f + t * (0.09390983672f + t * (-0.0004795574145f + t * -0.003065756141f));
+    }
+    if (h < 0.7f)
+    {
+        float t = (h - 0.5f) / 0.2f;
+        return 2.355709732f + t * (0.08375345347f + t * (-0.0114193665f + t * 0.00570968325f));
+    }
+    return 2.433753502f + 0.3902188511f * (h - 0.7f);
+}
+__DEVICE__ float ds_channel_250D(float x, float contrast)
+{
+    float factor = contrast / 0.5560264314f;
+    float lowOutput = 0.18f * _exp2f(factor * -2.34973836f);
+    float r = factor * 0.04403556781f;
+    if (x <= 0.01879968339f)
+    {
+        float lin = ds_decode(x);
+        float t = lin / 0.0018f;
+        // ZeroBlackContinuation: quadratic bridge; tangent continuation for negatives.
+        float shaped = lowOutput * t * (2.0f - r);
+        if (t > 0.0f) { shaped += lowOutput * t * t * (r - 1.0f); }
+        return ds_encode(shaped);
+    }
+    float h;
+    if (x <= 2.0f)
+    {
+        h = -1.5f + _log2f(ds_decode(x) / 0.18f) * 0.3010299957f;
+    }
+    else
+    {
+        float l = x / 0.07329248f - 7.0f;
+        h = -1.5f + l * 0.3010299957f + _log2f(1.0f - 0.0075f * _exp2f(-l)) * 0.3010299957f - -0.7447274949f;
+    }
+    float d = ds_density_250D(h);
+    float log2out = -2.473931188f + factor * (d - 1.288925312f) / 0.3010299957f;
+    return ds_log_output(log2out);
+}
+
+__DEVICE__ float ds_density_500T(float h)
+{
+    if (h < -3.3f)
+    {
+        float t = (h - -3.5f) / 0.2f;
+        return 0.6040779594f + t * (0.02691585689f + t * (-0.004422533441f + t * 0.004422533441f));
+    }
+    if (h < -3.1f)
+    {
+        float t = (h - -3.3f) / 0.2f;
+        return 0.6309938163f + t * (0.03133839033f + t * (0.006404516067f + t * -0.0002429063986f));
+    }
+    if (h < -2.9f)
+    {
+        float t = (h - -3.1f) / 0.2f;
+        return 0.6684938163f + t * (0.04341870327f + t * (0.008598267628f + t * -0.0004610963393f));
+    }
+    if (h < -2.7f)
+    {
+        float t = (h - -2.9f) / 0.2f;
+        return 0.7200496908f + t * (0.05923194951f + t * (0.0112433535f + t * -0.0008816634282f));
+    }
+    if (h < -2.5f)
+    {
+        float t = (h - -2.7f) / 0.2f;
+        return 0.7896433304f + t * (0.07907366622f + t * (0.0188786594f + t * -0.0064085977f));
+    }
+    if (h < -2.3f)
+    {
+        float t = (h - -2.5f) / 0.2f;
+        return 0.8811870583f + t * (0.09760519191f + t * (0.01173078186f + t * -0.00480969286f));
+    }
+    if (h < -2.1f)
+    {
+        float t = (h - -2.3f) / 0.2f;
+        return 0.9857133392f + t * (0.1066376771f + t * (0.006044716778f + t * -0.003846263099f));
+    }
+    if (h < -1.9f)
+    {
+        float t = (h - -2.1f) / 0.2f;
+        return 1.09454947f + t * (0.1071883213f + t * (-0.004497900967f + t * 0.002899243955f));
+    }
+    if (h < -1.7f)
+    {
+        float t = (h - -1.9f) / 0.2f;
+        return 1.200139134f + t * (0.1068902513f + t * (0.003366224424f + t * -0.002033198294f));
+    }
+    if (h < -1.5f)
+    {
+        float t = (h - -1.7f) / 0.2f;
+        return 1.308362412f + t * (0.1075231052f + t * (-0.001329311342f + t * 0.000638140749f));
+    }
+    if (h < -1.3f)
+    {
+        float t = (h - -1.5f) / 0.2f;
+        return 1.415194346f + t * (0.1067789048f + t * (5.661613428e-05f + t * -0.0001095933577f));
+    }
+    if (h < -1.1f)
+    {
+        float t = (h - -1.3f) / 0.2f;
+        return 1.521920274f + t * (0.106563357f + t * (-0.000578621581f + t * 0.0004165455189f));
+    }
+    if (h < -0.9f)
+    {
+        float t = (h - -1.1f) / 0.2f;
+        return 1.628321555f + t * (0.1066557504f + t * (0.0009304179427f + t * -0.0006747283889f));
+    }
+    if (h < -0.7f)
+    {
+        float t = (h - -0.9f) / 0.2f;
+        return 1.735232995f + t * (0.1064924011f + t * (-0.001539018324f + t * 0.001123251506f));
+    }
+    if (h < -0.5f)
+    {
+        float t = (h - -0.7f) / 0.2f;
+        return 1.841309629f + t * (0.106784119f + t * (0.003158983187f + t * -0.002441997909f));
+    }
+    if (h < -0.3f)
+    {
+        float t = (h - -0.5f) / 0.2f;
+        return 1.948810733f + t * (0.1057760916f + t * (-0.000714002323f + t * -0.000956523915f));
+    }
+    if (h < -0.1f)
+    {
+        float t = (h - -0.3f) / 0.2f;
+        return 2.052916299f + t * (0.1014785152f + t * (-0.002049794167f + t * -0.0004479348325f));
+    }
+    if (h < 0.1f)
+    {
+        float t = (h - -0.1f) / 0.2f;
+        return 2.151897085f + t * (0.09603512239f + t * (-0.003795777829f + t * 0.001020372755f));
+    }
+    if (h < 0.3f)
+    {
+        float t = (h - 0.1f) / 0.2f;
+        return 2.245156802f + t * (0.091504685f + t * (0.001811082747f + t * -0.003501280111f));
+    }
+    if (h < 0.5f)
+    {
+        float t = (h - 0.3f) / 0.2f;
+        return 2.33497129f + t * (0.08462301016f + t * (-0.002281704055f + t * -0.002342410343f));
+    }
+    if (h < 0.7f)
+    {
+        float t = (h - 0.5f) / 0.2f;
+        return 2.414970186f + t * (0.07303237102f + t * (-0.01170078444f + t * 0.005850392221f));
+    }
+    return 2.482152164f + 0.335909894f * (h - 0.7f);
+}
+__DEVICE__ float ds_channel_500T(float x, float contrast)
+{
+    float factor = contrast / 0.5338945239f;
+    float lowOutput = 0.18f * _exp2f(factor * -2.694470314f);
+    float r = factor * 0.1345792845f;
+    if (x <= 0.01879968339f)
+    {
+        float lin = ds_decode(x);
+        float t = lin / 0.0018f;
+        // ZeroBlackContinuation: quadratic bridge; tangent continuation for negatives.
+        float shaped = lowOutput * t * (2.0f - r);
+        if (t > 0.0f) { shaped += lowOutput * t * t * (r - 1.0f); }
+        return ds_encode(shaped);
+    }
+    float h;
+    if (x <= 2.0f)
+    {
+        h = -1.5f + _log2f(ds_decode(x) / 0.18f) * 0.3010299957f;
+    }
+    else
+    {
+        float l = x / 0.07329248f - 7.0f;
+        h = -1.5f + l * 0.3010299957f + _log2f(1.0f - 0.0075f * _exp2f(-l)) * 0.3010299957f - -0.7447274949f;
+    }
+    float d = ds_density_500T(h);
+    float log2out = -2.473931188f + factor * (d - 1.415194346f) / 0.3010299957f;
+    return ds_log_output(log2out);
+}
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float mix = _fminf(1.0f, _fmaxf(0.0f, strength));
+    if (mix == 0.0f) { return make_float3(p_R, p_G, p_B); }
+    float c = _fminf(1.5f, _fmaxf(0.5f, printContrast));
+    float3 v;
+    if (stock == 0) { v = make_float3(ds_channel_250D(p_R,c), ds_channel_250D(p_G,c), ds_channel_250D(p_B,c)); }
+    else { v = make_float3(ds_channel_500T(p_R,c), ds_channel_500T(p_G,c), ds_channel_500T(p_B,c)); }
+    return make_float3((1.0f-mix)*p_R+mix*v.x, (1.0f-mix)*p_G+mix*v.y, (1.0f-mix)*p_B+mix*v.z);
+}

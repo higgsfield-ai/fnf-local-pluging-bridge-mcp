@@ -4,12 +4,19 @@ import json
 import hashlib
 root = Path(__file__).resolve().parents[1]
 errors = []
-skills = sorted(path for path in (root / 'skills').iterdir() if path.is_dir())
+# A SKILL.md is loaded whole into the model's context; mirrors generate-skills-manifest.mjs.
+MAX_DOCUMENT_BYTES = 64 * 1024
+# Skills are filed one level deep by host application: skills/<group>/<name>.
+groups = sorted(path for path in (root / 'skills').iterdir() if path.is_dir())
+skills = sorted(skill for group in groups for skill in group.iterdir() if skill.is_dir())
 for skill in skills:
     entry = skill / 'SKILL.md'
     text = entry.read_text()
     if not text.startswith('---\nname: ' + skill.name + '\n') or '\ndescription: ' not in text:
         errors.append(f'{entry}: invalid metadata')
+    for doc in skill.rglob('*.md'):
+        if doc.stat().st_size > MAX_DOCUMENT_BYTES:
+            errors.append(f'{doc}: exceeds {MAX_DOCUMENT_BYTES} bytes')
     for doc in skill.rglob('*.md'):
         for link in re.findall(r'\]\(([^)]+)\)', doc.read_text()):
             if '://' in link or link.startswith('#'):

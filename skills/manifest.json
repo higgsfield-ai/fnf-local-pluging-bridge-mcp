@@ -1,10 +1,11 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 4,
   "sourceRepository": "higgsfield-ai/fnf-local-pluging-bridge-mcp",
   "sourcePath": "skills",
   "skills": [
     {
       "name": "ae-animation-principles",
+      "path": "after-effects/ae-animation-principles",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers timing, easing, staging, anticipation, follow-through and loop validation for After Effects motion.",
       "documents": {
         "SKILL.md": "ca0b5bc2323ccd054c4fa0c3f513e9e009a1a0df07a7a3512e6b254c39bc7ce8"
@@ -12,6 +13,7 @@
     },
     {
       "name": "ae-build-orchestration",
+      "path": "after-effects/ae-build-orchestration",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers multi-step native builds with small verified batches, stable references, recoverable checkpoints and editable delivery.",
       "documents": {
         "SKILL.md": "99f0c2ad794728afbd5e6cc2049be7511e7c4d11cb677e922ccedf511981ae45"
@@ -19,20 +21,21 @@
     },
     {
       "name": "ae-clean-rig",
+      "path": "after-effects/ae-clean-rig",
       "description": "Primary entry point for every native After Effects task through the local MCP. Use whenever the user asks to build, create, edit, rebuild, animate, fix, inspect, verify or render an After Effects project, composition, layer, text, shape, mask, effect, expression, keyframe or frame — including reference recreation and cleanup work. Builds clean native projects, preserves reference appearance and motion, exposes useful controls, and verifies rendered results. Load this before any other ae- skill; it routes to the companion modules itself through ae_get_skill, so those must not be selected on their own. When another ae- skill names the specific subject of the request in its own description, that skill takes precedence over this one.",
       "documents": {
-        "SKILL.md": "72ee4558a74f9d5d0010acc4ca8a462cd1645b457f36f2ce7c6c12989ed1897d",
+        "SKILL.md": "f070100e4b8513ba95bf81b2f492dffc9473acd7a8c60ecc6cf659abcade6b02",
         "references/01-construction.md": "55bb5d6b1c6c47d781785887acc6a2756141d376b6d14288d5896083bc99858a",
-        "references/02-reference-motion.md": "2ce67d51d84e9d1a69276cab4189995f709a74cd864ba76b77b57f421a15a6f2",
-        "references/03-typography.md": "a20b74746d65fd13e24daf35e182a14d3dc6b63114e6a93d6a82e188b6561b4b",
+        "references/02-reference-motion.md": "e60c9e5c3935e4ed288843e35b6898b63b97d3c5ec9bd5293f41c76e95aa5400",
+        "references/03-typography.md": "dbfd3c68259669649084eaef1170e023ea5b480d6958c4e916f24a85909f4b43",
         "references/04-gradients-effects.md": "0535b44f26d66705580777d2e338077cb7421c2889c7ac0f709f3374e7a27398",
         "references/05-media-generation.md": "08a00124a15bf7f95c06dba7ba1856d4e6b5079da50364e763ab4d66130cffd9",
-        "references/06-editable-rigs.md": "09485b002a3dd2c5bd5c48f961b111251ae338fb967c8812410d80bfd35ac7e0",
+        "references/06-editable-rigs.md": "19cee2fe0fbf69f6683a54c28a8fa6b5b9210f1324c100e46e19f32d61c420db",
         "references/07-sliders.md": "a4d7171d1d6b9ab40b440bd1a16b24cb5205d9d493b41c117653afed82df24b4",
         "references/08-characters.md": "1a73b02cd1f631ea7048c6cbbd084ddb72230a1f9898a2b0dc56e3d0ae9f46b7",
         "references/09-validation-delivery.md": "98ba25736d608628165d517396654feae7b7d50a865abeab2336559d0ab4e586",
         "references/10-ae-scripting.md": "7b17a4100e8832bce1b780c9c59b063546038ff25b4cd6ba13a2c0ffcff5f40f",
-        "references/11-character-production.md": "9bc944486fa71df226630d40530ae022f914eecec377ddc275a1c427eef5de5d",
+        "references/11-character-production.md": "6ab6c40aa89a8fd30e4778156c9c6f1487b102935c73acef114ac09d77fb2852",
         "references/12-symbol-characters.md": "01206e7c98f4efffbaaa2ecd81b2ad5e4d53d59dc4b99a626034c2df95853353",
         "references/13-localization.md": "a4b401b0fcfcbd9ef7084c76da744f1253547e811e3fa1d3db370e88c0feefbe",
         "references/14-localization-typography.md": "0d20d9cb5b0acbdff7f875e286c975335212fd76988424474d8d24b9fd5d94ff",
@@ -48,18 +51,26 @@
         "references/characters/artwork-and-materials.md": "781fed5cf5acd18a9fa883763830e3640ea84724d5280f3278942d733b38ecd9",
         "references/characters/character-performance.md": "cb993030062707da877e60bed803590fd088cc68c179872d8604d1cf1cbf0ba5",
         "references/characters/native-execution.md": "ce80132cd0d4935e35bea65b920b22c04517ecca50903a44781f61af1253ad7a",
-        "references/characters/overview.md": "3df5450e4a6b3d75843bccd668316f7e9a53543e00919ddef66af2444f204917",
+        "references/characters/overview.md": "dbbca5eb8897b7ac4e897f8296dd9aa251fb6b8a1e126d88f2ce290b32d176dc",
         "references/collage/motion-and-depth.md": "4cf0f7c17d9031092eefe37719514f08af698355a4a9a043d159187799a04f24",
         "references/collage/native-execution.md": "7c1ddf937f0d5c96875fa6d72a3b399a00933bcf164036166d4dcb6236879af4",
         "references/collage/overview.md": "272517b0a572795332919e15da162560499989e1a8ee4aa92ea0744efa0ca52b",
         "references/collage/paper-and-print.md": "1f8600ca3095218de58e9f0d3ddbe6c70cf5a08440aa51a498b1f2329b8e4968",
         "references/collage/prompt-interface.md": "a28f495db0ecd8d673c5c1c54b19d4503b5e41dc194cb23214d69cc4cfd67948",
         "references/collage/reference-and-review.md": "911d61225424110ddbc6cd185ea27b362bf51de12a95c62c8ed216947c111d25",
-        "references/collage/science-details.md": "5e7250cf58e165a9c715c7a9ea864a18a46b1e920ddfff066afadb408be16810"
+        "references/collage/science-details.md": "5e7250cf58e165a9c715c7a9ea864a18a46b1e920ddfff066afadb408be16810",
+        "references/rigging/artwork-preparation.md": "5d917de48e128b5ff808c8ee4ef8d1c87989be50116e13fa863aabc5a5a679f3",
+        "references/rigging/body-construction.md": "e7bb68db88e92a9fb4d6c9004ff9891150db20f8d50607d3c761ab10d8483a93",
+        "references/rigging/face-construction.md": "2d932e6afda2a91fb4ad0d9ceacbfad835c8173e376e52ac8f500be5bfbd78ae",
+        "references/rigging/native-execution-and-delivery.md": "750de6af76e000dc74e38dd0033022f151ed33e57e05c2ae5febbd3037200937",
+        "references/rigging/native-puppet.md": "8abb7e835530f0a30c7ddc0f30705e6fc6ef9ddcc665e64b5aa104ffccd0d2b5",
+        "references/rigging/overview.md": "7617dd38fc9b7e33417d09a2514b8642de3e4585fe579e99776e7191edb7aab6",
+        "references/rigging/volume-and-instances.md": "b84e0dcb2c08e1c21562594f653d399c41525574fd88ea0da7464c0e4693db1a"
       }
     },
     {
       "name": "ae-depth-space",
+      "path": "after-effects/ae-depth-space",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers depth and parallax with native 3D or layered 2D, perspective, shadows, atmospheric cues and restrained motion.",
       "documents": {
         "SKILL.md": "5fdf4cd19e42386056715aa45d14ed68e27f68696a99121006f93d65344292b5"
@@ -67,6 +78,7 @@
     },
     {
       "name": "ae-design-first",
+      "path": "after-effects/ae-design-first",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers scene geometry and typography planned before animation, translating visual references or approved designs into native editable components.",
       "documents": {
         "SKILL.md": "412eaa925f408aaa1971f7e8dedd21dfe571093e7b76df3f634bf7609ed9be37"
@@ -74,6 +86,7 @@
     },
     {
       "name": "ae-figma-transfer",
+      "path": "after-effects/ae-figma-transfer",
       "description": "Transfer Figma frames into editable native layers in the open After Effects project. Use for a layered import, a repeat of a verified unchanged import, or an explicitly requested update to an existing mapped import. Requires actual Figma node data. Exclude screenshot reconstruction, animation creation, and skill maintenance.",
       "documents": {
         "SKILL.md": "3de46ab21283ae33e5623776933a15086636fbb17b9275e491ecd56d4b286635",
@@ -87,6 +100,7 @@
     },
     {
       "name": "ae-liquid-glass",
+      "path": "after-effects/ae-liquid-glass",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers editable glass surfaces with refraction, edge light, restrained tint, shadows and verified alpha/matte behavior.",
       "documents": {
         "SKILL.md": "f788979f20ea9541fc5392c33f818597e68fee2e8a14d39a8d10326b051403cc"
@@ -94,6 +108,7 @@
     },
     {
       "name": "ae-mcp-realities",
+      "path": "after-effects/ae-mcp-realities",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers local MCP capabilities, operation discovery, policy restrictions, error recovery and differences from the cloud bridge.",
       "documents": {
         "SKILL.md": "dbd1eef3af77b2b719c9845ac0a89f6cd65c6744acbd7fed111effed9fb1dcf3",
@@ -102,6 +117,7 @@
     },
     {
       "name": "ae-transition-kit",
+      "path": "after-effects/ae-transition-kit",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers reusable editable transitions with independent placeholders, continuous boundary frames and resolution-aware controls.",
       "documents": {
         "SKILL.md": "2098c9ba8fcf086900c874d6e348565fbe4addeb4e74b446c5b875f802f21775"
@@ -109,13 +125,251 @@
     },
     {
       "name": "ae-ui-mastery",
+      "path": "after-effects/ae-ui-mastery",
       "description": "Companion module of ae-clean-rig, loaded on demand through ae_get_skill. Not an entry point: do not select it directly and do not use it to start After Effects work — ae-clean-rig decides when this module is needed. Covers coherent editable interface layouts using typography, spacing, component anatomy, contrast and reusable design tokens.",
       "documents": {
         "SKILL.md": "d9ac8862a36313795a99ea15cf38fc8db3fbdac2150b600c18edc72ef94f93fd"
       }
     },
     {
+      "name": "davinci-film-colorist",
+      "path": "davinci/davinci-film-colorist",
+      "description": "Grade film and video in DaVinci Resolve Studio, analyze frames and visual references, configure color pipelines, match shots, and verify the result. Use for requested Color-page work or practical training in Color tools and built-in effects. Excludes editing, compositing, audio work, and final video delivery.",
+      "documents": {
+        "SKILL.md": "9a13ba8ac5d527fb42e79d022c2c07af25ae5d7aac80dcdf540742d487a3ac32",
+        "references/autonomous-workflow.md": "32a5fa5aff1048c1cf1a1a3eb5d030ca6fb9a4489907f6bf0f4b9581e9bfeb39",
+        "references/camera-arri.md": "9074473b250a4d56a7e186c70e138066ec2ac3def48d4b12fd46e532427f7e63",
+        "references/camera-blackmagic.md": "3819e5e470c2e1f59dc144fc104ab7e65c05e90c35120a7b1e564b74f5aa1c68",
+        "references/camera-identification.md": "039591fe8f40f59f0bf97125b81f624405e680ec0767f404a154ee200e774b03",
+        "references/camera-red-canon-panasonic.md": "2cc9d3d9c80e9b84332af3a8f205e7ab5a9166d5b4794943ed5719b3b9f030d9",
+        "references/camera-sony.md": "bf6599e7ffb1f88fff10b5b8bb848a483bcdd901cdae8653116b9611d3c2698c",
+        "references/color-correction-handbook.md": "8ade00db671ef61727bcc498fb7d4618072471cc882a79642a2d656c2dc5362b",
+        "references/color-pipeline.md": "3ee864298e565a0a6759a30662011047d83e3bd1d9972bd0d068d9ecd3838651",
+        "references/color-relationships.md": "83c9922c13d85ecaab19983d73316c7cd2626a916089d9d8a04fd85f429c2112",
+        "references/color-tools-atlas.md": "61a8865216a6058706c8b267953db1ab46438e075c0cb4899b48cb3c438b617b",
+        "references/color-warper-practice.md": "dee6e252328da83d77a613d2158086424b54edcf03cc695b71827c61c084f73d",
+        "references/effects-film-color-restoration.md": "c310642c9a2444446e159b866c537f52ba273b8f15f6ea56fe486e8a5f6d6f55",
+        "references/effects-light-mapping-optical.md": "b89f452c81ff19c2264e466d38bb4e171c58a17584027427fee11da88e223216",
+        "references/effects-tool-atlas.md": "0592ee32a45ff430a6e08dcd83da09ec0c874a7750ad388b3936f76054ad8f6a",
+        "references/evidence-access.md": "64aef351b4a824498b5075510cd118e766cec01798a18c7c7dede75fe826d48a",
+        "references/exposure-decisions.md": "21bc6594957f1385129dfdbc86ed66a648e2e387642f33f1ddf97bce3b6de1d9",
+        "references/gallery-matching-perception.md": "6c68ba12a2174457b1439de4a2fb6cb3cd7df4524a8edb5dbfb142319d86dc3a",
+        "references/hf-astra-looks.md": "84410f20e8edea9ba8c87c8f87e1ecec67dc0c280393c981727565720c9c7151",
+        "references/light-and-color-basics.md": "f5d039ae283997f546d9e38faa32a58761d50fd29a1047146f74d42220fd9c7b",
+        "references/masks-tracking-relight.md": "020ed6991c3f3eab11023689216a126481bbff093eb5012daecdc961c65e9df6",
+        "references/native-look-recipes.md": "28f8401d37e2cc1f0ce147da51d72e75ed6a0d1dc20323506c70b0b89a62412a",
+        "references/nodes-key-practice.md": "2f394c4d4094af6b96b52c595104b49ac94040c79a7490473668684b3beb4850",
+        "references/noise-texture-practice.md": "8e866d91bb7bb9f42e148d0a92aea75dfb17307c32649c2167b0e8d870f11ce7",
+        "references/perceptual-decisions.md": "3b8f78262a07214b6dc790038704ef67dc8732220457d6188af70fc2b02b7e75",
+        "references/primaries-log-hdr-curves.md": "ecb6e4d0d4566c74a0c85a7c1545e772c0eb2f836707b9081f050f582c433838",
+        "references/reference-look-cases.md": "f0bcc49747e0d5ee313fc6b3b6132186d0ecac321d078eda7c75f1a02b86089d",
+        "references/resolve-effects.md": "1b8059f80229a5138a4fa4844bbe81c042d3e276f946fd1b019b9d081cf3966d",
+        "references/resolve-fundamentals.md": "67a43384618bca1cff2b696cd0a998de05f147783c0e97420d6fb675c04700e4",
+        "references/resolve-scripting.md": "a7321fa227cf1ae686ec1ee97080dc70156309c209cf3a8cee8e65733b0cb0ef",
+        "references/scene-production-workflow.md": "3ab25569026c4c845b15e41f3a1c17a3eb3ef6b405b9f499e2e6381a5300b6bc",
+        "references/scopes-and-diagnostics.md": "302148373a31304ae0c8a20513645cf699bd57178037031624ae40924131daab",
+        "references/scopes-in-grading.md": "d6af912a2fbf30152eb2185bc7148fc4fd5c5dd6bab2c9f984d5aa9870bd18ca",
+        "references/shot-matching-and-skin.md": "408f018477ee6de57da939f3ffabfcc7daee57bf70d32e5b299d5729937bfcae",
+        "references/taste-workflow.md": "bd83eeb95a281afb43dbbad1ea21cb3d7bb6af4200242c05e60ef4c26bfa7f89",
+        "references/tonal-shaping.md": "3d97509d92fac063e97be97d83c14d7edd8e1efe250d5d6c015abb9c4b2fc42b"
+      },
+      "files": {
+        "assets/HF-Astra-Looks/DCTL/ASTRA_LookMixer_Data/ektachrome.cube": {
+          "sha256": "db37f671df260cc9477eda92d3d30ac9ad483b2a0d1ec1f7a3342cf7d02cc299",
+          "bytes": 10985968
+        },
+        "assets/HF-Astra-Looks/DCTL/ASTRA_LookMixer_Data/portra.cube": {
+          "sha256": "7f16f76ac078371b5b451f8265be8ec9bf13fb7b343ab19944972c8f08801544",
+          "bytes": 10985466
+        },
+        "assets/HF-Astra-Looks/DCTL/ASTRA_LookMixer_Data/vision2.cube": {
+          "sha256": "3ba6f85695f674fd65360faa5c4d68d6691b94d304e01a4534433adfc855c684",
+          "bytes": 10985821
+        },
+        "assets/HF-Astra-Looks/DCTL/ASTRA_LookMixer_Data/vision3d.cube": {
+          "sha256": "14ec7a952170a00f1cd31554752904c646b2184baf2460217577f1f74a376669",
+          "bytes": 10985451
+        },
+        "assets/HF-Astra-Looks/DCTL/ASTRA_LookMixer_Data/vision3t.cube": {
+          "sha256": "23d8950e94b96cca39a713c03286f8414d0a99fe6e8be967b62a7bd6f85216a7",
+          "bytes": 10985451
+        },
+        "assets/HF-Astra-Looks/DCTL/HF-Astra-Looks.dctl": {
+          "sha256": "1b2736d56567274708a0ff10156c93a34521e4955f776612a2f10fa6d0fe4603",
+          "bytes": 35471
+        },
+        "assets/HF-Astra-Looks/manifest.json": {
+          "sha256": "f0e58c39ace0e1af5b6bb5fa8b5eef96c681c3984f5c7644933d1ef4774afe8c",
+          "bytes": 2005
+        },
+        "assets/HF-Astra-Looks/parameters.json": {
+          "sha256": "df8ad4c3c95c727b5d54c5236f97e9a627c963e78a043c371ef412440405edf9",
+          "bytes": 15350
+        },
+        "assets/hf-astra-native-verification/drx-verification.json": {
+          "sha256": "042540a1a3825edaf8e02f1e4d2560ca46447d96de99de37dabf4c65919936b0",
+          "bytes": 125681
+        },
+        "assets/hf-astra-native-verification/png-verification.json": {
+          "sha256": "b3896e9647e536f3b44b2da3f1e962ae14840ebedfc7fbf340c8b86f41a7a845",
+          "bytes": 41666
+        },
+        "assets/hf-astra-native-verification/recipes.json": {
+          "sha256": "9be3e9350cf9caf7a0e40661f025e9b1b9ccf5a6317cebe0cdd22d14fb6a2be2",
+          "bytes": 3376
+        },
+        "assets/hf-astra-native-verification/verification.json": {
+          "sha256": "ee4a2922d9187417cb74ae3599cd01fdfb231b0398cebdfecb35463ad239e2d0",
+          "bytes": 7374
+        },
+        "assets/tonality/ExposurePlus075_DWG_DI.dctl": {
+          "sha256": "d2386f55fa14e00de2dd5bb43d3130c70cbaf6696c348e3c2ac2cb277508b2a8",
+          "bytes": 1370
+        },
+        "assets/tonality/ExposurePlusHalfStop_DWG_DI.dctl": {
+          "sha256": "bf4cbffdd1bc0d1216f75356704832150695e39f812c550e4d8101c7e7a8c2db",
+          "bytes": 1367
+        },
+        "assets/tonality/FilmInspired_v1_bold_static.cube": {
+          "sha256": "1069af5bfe7af6341fcf912fceb47973f78e61d52d1be35c430598ed8c9384c8",
+          "bytes": 2556174
+        },
+        "assets/tonality/FilmInspired_v1_bold_static.dctl": {
+          "sha256": "9905e29196b7c0fd0ef403a0c7072a6ba1db9c9dcd75587e87de5bd00e58f427",
+          "bytes": 3059
+        },
+        "assets/tonality/FilmInspired_v1_dense_static.cube": {
+          "sha256": "4c5620c820b38533c5dc766c07cc48097ededff8be5f981df183838c459f459c",
+          "bytes": 2556175
+        },
+        "assets/tonality/FilmInspired_v1_dense_static.dctl": {
+          "sha256": "05f623cac46870ae9756abe24524f1f928a82acc9b3b2cbb73d8d0dcff65b693",
+          "bytes": 3060
+        },
+        "assets/tonality/FilmInspired_v1_soft_static.cube": {
+          "sha256": "c601ad00f5fb14ce94b46ad21bed69f9f6dd03fa08cada3d2352a36d42151415",
+          "bytes": 2556174
+        },
+        "assets/tonality/FilmInspired_v1_soft_static.dctl": {
+          "sha256": "f513465963329a03b4f4c716357fe05640aa25938a1a17346454a81410da2567",
+          "bytes": 3059
+        },
+        "assets/tonality/GreenShape_250D_DWG_DI_static.cube": {
+          "sha256": "5a086352d30ab387cdca86c3c1ead86c681bde5d2eb951fe7d008fd3a5b59863",
+          "bytes": 2556176
+        },
+        "assets/tonality/GreenShape_250D_DWG_DI_static.dctl": {
+          "sha256": "154933c484854c4e7e318c3d26c6e0ca669de6f5d53d3cb0127c455c184bc88b",
+          "bytes": 5646
+        },
+        "assets/tonality/GreenShape_500T_DWG_DI_static.cube": {
+          "sha256": "cff5084696229b8c22f13dd397149235a3f08d8d56d0e258d448d99cc021ad77",
+          "bytes": 2556176
+        },
+        "assets/tonality/GreenShape_500T_DWG_DI_static.dctl": {
+          "sha256": "8e9beef03e30bfe6f701679a480262408f84c1fb2017ed401fc1ec7d517307b5",
+          "bytes": 5650
+        },
+        "assets/tonality/GreenShape_DWG_DI_UI.dctl": {
+          "sha256": "45acee288e54eb503587f736d4668ede3227b37d8f37daef7e3bdb4f6797a6c2",
+          "bytes": 10933
+        },
+        "assets/tonality/exposure-validation.json": {
+          "sha256": "5107fc858da0cd8af9c820a2ce96d093f0b18f6fa97e42264a42d48c52967632",
+          "bytes": 500
+        },
+        "assets/tonality/green-shape-profiles.json": {
+          "sha256": "d6a21c8f970b1d5293b3c385ce81195c4c643ae8ba2837434197fe4611a3c649",
+          "bytes": 4389
+        },
+        "assets/tonality/validation-v2.json": {
+          "sha256": "74541e4f00eab5831b99fa0d9d664611a00ed8c96081b03d80d90b07775c4275",
+          "bytes": 2917
+        },
+        "scripts/inspect_resolve.py": {
+          "sha256": "e7e97d502e8e8ebbacdd7b2434daa0ff774a8da2158d22cf166635d2206a64ea",
+          "bytes": 31854
+        },
+        "scripts/install_hf_astra.py": {
+          "sha256": "79624f0ad02cfbf9a30e45d119be947c74bdb05067e0eeee1c88c07b0025c559",
+          "bytes": 8849
+        },
+        "scripts/test_context_chain.py": {
+          "sha256": "1dcf73e065c4f19c1586b63302b14ca529b12e6a55124c911e9f473926cf33f0",
+          "bytes": 8271
+        },
+        "scripts/test_inspect_resolve.py": {
+          "sha256": "86118b65dc0befc79d1d705bca5e780ad98b7799a9349fb845060cd0500cfd6c",
+          "bytes": 17450
+        },
+        "scripts/test_inspect_timeout.py": {
+          "sha256": "45c84d3d283d8c44d06c670fe6665f26f4aeca48572bbfcb795c68ae2de546ee",
+          "bytes": 13924
+        },
+        "scripts/test_loader_portability.py": {
+          "sha256": "123e0190b2d4cff4f3fe1ce06f9f3171c1847e148996cd881b8558805e38b751",
+          "bytes": 21683
+        },
+        "scripts/test_top_context.py": {
+          "sha256": "98206c5956c58ef140dba725cdee9496676025fd4f125d3bdacc6eb8fd236ce2",
+          "bytes": 4956
+        }
+      }
+    },
+    {
+      "name": "premiere-assembly",
+      "path": "premiere/premiere-assembly",
+      "description": "Assemble and revise editable Adobe Premiere Pro timelines with the connected pr_* tools, from importing footage and placing selected source ranges to checking tracks, framing, audio and exports. Use for Premiere montage and timeline edits; pair with premiere-radio-edit for speech selection and premiere-editing-reference for specialized operations.",
+      "documents": {
+        "SKILL.md": "3780f1dbc664ffa8dfdbfdd7a238ba9c99f24a3c073bba01d85405eb338363ad"
+      }
+    },
+    {
+      "name": "premiere-editing-reference",
+      "path": "premiere/premiere-editing-reference",
+      "description": "Choose Premiere pr_* tools and recipes for framing, B-roll, music, captions, effects, transitions, multicam and export. Use alongside premiere-assembly when an edit needs specialized operations or recovery from a tool failure. Catalog availability does not imply runtime verification.",
+      "documents": {
+        "SKILL.md": "2cf9af27a61ca71516eaa632276212d0604895386892ac659bfecb64a948e3d5"
+      }
+    },
+    {
+      "name": "premiere-house-style",
+      "path": "premiere/premiere-house-style",
+      "description": "Apply the Higgsfield Reels house style to short-form vertical Premiere edits: hook, visual cadence, restrained punch-ins, product B-roll, designed captions, sound and color. Use when that style is requested or appropriate to the brief; adapt targets to speech clarity, source framing and available tools.",
+      "documents": {
+        "SKILL.md": "f3214e2b2373c227f5f6b3756a030446f8cf8348329548feee44e293a7df189b"
+      }
+    },
+    {
+      "name": "premiere-radio-edit",
+      "path": "premiere/premiere-radio-edit",
+      "description": "Select and join recorded speech in Premiere for interview, talking-head, podcast and vlog edits. Use for cleanup, highlights, retakes or a target script, preserving meaning, breath, natural pauses and AV sync. Includes transcription fallbacks and speech-seam checks.",
+      "documents": {
+        "SKILL.md": "c121bbdca1a82b77cb8b185f377f8c88c3680af95ab0c2707edef17c3a1fc535"
+      }
+    },
+    {
+      "name": "ps-retouch",
+      "path": "photoshop/ps-retouch",
+      "description": "Retouch existing photographs or prepare retouching prompts with six profiles for people, clothing, events and products. Use when the user requests photographic retouching or a retouching prompt. Exclude new image creation, standalone background replacement and review of skill or prompt documents.",
+      "documents": {
+        "SKILL.md": "c96ecd652fa0c01f5b95c54b12f3d513eab0eca6a55caf2de11f23cf96d68ff9",
+        "references/beauty.md": "6b08a311098472217f12861e3dc5c33795bc5e26ce6b79b8ae605568ceddb567",
+        "references/e-commerce.md": "5d9babe658639f2346e51e3f29acfa3e97aa43f3833cdd3938f4ff8435849168",
+        "references/evaluation.md": "25c73d47d4f02150a2dc32ab0c2e032e59564abc426f2067ccf15ced94cce107",
+        "references/event.md": "1d17e290b746248f2acd5f157b58f39fc616e6f3e669f50548eb84aa311a239b",
+        "references/follow-up-edits.md": "214f1c3935182685584c72e3ddd3210f189fb86b4c21056b9c1c4a43dd1906db",
+        "references/generation-recovery.md": "17663540117166a08065e085e11cb5821238741c76e693115478295b7991d7e5",
+        "references/insta-look.md": "cd3ab6b01f3f9bd805784442ccb8b6f9a90974a6c7d71f3ffcc56a53a47785c6",
+        "references/portrait.md": "a524cdfd572d2de73538d7ba684d8349e680f275af2d109de2b6e2065d1b6399",
+        "references/product.md": "b3e140893fbeb565ba9f24b15de4cb3e13c20a2e2b7ca80fae8b26d89f9a42fc",
+        "references/profile-provenance.md": "ca55bb21c28396379765ab2e69e9e387e4cdaec6666e1736ab56ae572e7bf079",
+        "references/selection-ui.md": "d00c334c3f6886b1ccf99ae98eb06c5a24dd14dc4cdd3efe2445aa3d63fac4e6"
+      }
+    },
+    {
       "name": "use-after-effects",
+      "path": "after-effects/use-after-effects",
       "description": "Set up and use the local Higgsfield use After Effects MCP when the user asks to connect After Effects, install its local integration, or create and edit native AE projects.",
       "documents": {
         "SKILL.md": "2fe0875d86779086238756b5fd9639ca3f37133df0cf5ce01ced8492450be0ea"

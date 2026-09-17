@@ -6,6 +6,7 @@ import {
   mkdtempSync,
   readFileSync,
   rmSync,
+  statSync,
   symlinkSync,
   unlinkSync,
   writeFileSync,
@@ -14,6 +15,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { SkillStore } from "../src/skills.js";
 import { getSkillTool } from "../src/tools/get-skill.js";
+import { getSkillAssetTool } from "../src/tools/get-skill-asset.js";
 import { nullTransport } from "./helpers/null-transport.js";
 import { ALL_TOOLS } from "../src/tools/index.js";
 import { McpTestClient } from "./harness.js";
@@ -44,8 +46,8 @@ describe("single skill source tooling", () => {
     const root = copySkillTools();
     const script = join(root, "scripts/generate-skills-manifest.mjs");
     const manifestPath = join(root, "skills/manifest.json");
-    const entryPath = join(root, "skills/ae-clean-rig/SKILL.md");
-    const metadataPath = join(root, "skills/use-after-effects/agents/openai.yaml");
+    const entryPath = join(root, "skills/after-effects/ae-clean-rig/SKILL.md");
+    const metadataPath = join(root, "skills/after-effects/use-after-effects/agents/openai.yaml");
     const metadata = readFileSync(metadataPath, "utf8");
     const originalManifest = readFileSync(manifestPath, "utf8");
     execFileSync(process.execPath, [script], { cwd: tmpdir() });
@@ -74,7 +76,7 @@ describe("single skill source tooling", () => {
   it("detects added and removed skill entries", () => {
     const root = copySkillTools();
     const script = join(root, "scripts/generate-skills-manifest.mjs");
-    const added = join(root, "skills/ae-test");
+    const added = join(root, "skills/after-effects/ae-test");
     mkdirSync(added);
     writeFileSync(join(added, "SKILL.md"), "---\nname: ae-test\ndescription: Test skill\n---\n");
     expect(spawnSync(process.execPath, [script, "--check"]).status).not.toBe(0);
@@ -89,7 +91,10 @@ describe("single skill source tooling", () => {
   it.skipIf(process.platform === "win32")("rejects symlinked skill directories", () => {
     const root = copySkillTools();
     const script = join(root, "scripts/generate-skills-manifest.mjs");
-    symlinkSync(join(root, "skills/ae-clean-rig"), join(root, "skills/ae-test"));
+    symlinkSync(
+      join(root, "skills/after-effects/ae-clean-rig"),
+      join(root, "skills/after-effects/ae-test"),
+    );
     const result = spawnSync(process.execPath, [script], { encoding: "utf8" });
     expect(result.status).not.toBe(0);
     expect(result.stderr).toContain("Symlink forbidden");
@@ -125,7 +130,7 @@ describe("bundled AE skills", () => {
   it("loads every bundled entry/reference and validates documented tool names", () => {
     const store = new SkillStore();
     const tools = new Set(ALL_TOOLS.map((tool) => tool.name));
-    expect(store.index().skills).toHaveLength(11);
+    expect(store.index().skills).toHaveLength(17);
     for (const skill of store.manifest.skills) {
       for (const document of Object.keys(skill.documents)) {
         const result = store.read(skill.name, document);
@@ -139,7 +144,7 @@ describe("bundled AE skills", () => {
   it("returns only the selected entry or reference", () => {
     const store = new SkillStore();
     const entry = store.read("ae-clean-rig");
-    expect(entry.references).toHaveLength(34);
+    expect(entry.references).toHaveLength(41);
     expect(entry.content).not.toContain("# Practical editability and exposed controls");
     expect(store.read("ae-clean-rig", "references/06-editable-rigs.md").content).toContain(
       "# Practical editability and exposed controls",
@@ -156,6 +161,43 @@ describe("bundled AE skills", () => {
     expect(() => new SkillStore().read("ae-clean-rig", reference)).toThrow("Unknown reference");
   });
 
+  it("lists bundled files and resolves them to verified absolute paths without returning content", () => {
+    const store = new SkillStore();
+    const entry = store.read("davinci-film-colorist");
+    expect(entry.files).toContain("assets/HF-Astra-Looks/DCTL/HF-Astra-Looks.dctl");
+    expect(entry.files).toContain("scripts/install_hf_astra.py");
+    expect(store.index().skills.find((s) => s.name === "ae-clean-rig")?.files).toBeUndefined();
+    const asset = store.resolveFile(
+      "davinci-film-colorist",
+      "assets/tonality/GreenShape_DWG_DI_UI.dctl",
+    );
+    expect(asset.absolute_path).toMatch(/GreenShape_DWG_DI_UI\.dctl$/);
+    expect(statSync(asset.absolute_path).size).toBe(asset.bytes);
+    expect(Object.keys(asset)).not.toContain("content");
+    for (const path of [
+      "SKILL.md",
+      "references/tonal-shaping.md",
+      "assets/../SKILL.md",
+      "assets/missing.cube",
+    ])
+      expect(() => store.resolveFile("davinci-film-colorist", path)).toThrow("Unknown file");
+    expect(() => store.resolveFile("ae-clean-rig", "assets/x.cube")).toThrow("Unknown file");
+  });
+
+  it("detects edited bundle files", () => {
+    const root = copyCorpus();
+    writeFileSync(
+      join(root, "davinci/davinci-film-colorist/assets/tonality/exposure-validation.json"),
+      "{}",
+    );
+    expect(() =>
+      new SkillStore(root).resolveFile(
+        "davinci-film-colorist",
+        "assets/tonality/exposure-validation.json",
+      ),
+    ).toThrow("integrity mismatch");
+  });
+
   it("rejects unknown skills, including prototype property names", () => {
     for (const name of ["missing", "__proto__", "../../etc"])
       expect(() => new SkillStore().read(name)).toThrow("Unknown skill");
@@ -163,7 +205,7 @@ describe("bundled AE skills", () => {
 
   it("detects edited bundle documents", () => {
     const root = copyCorpus();
-    writeFileSync(join(root, "ae-clean-rig/SKILL.md"), "tampered");
+    writeFileSync(join(root, "after-effects/ae-clean-rig/SKILL.md"), "tampered");
     expect(() => new SkillStore(root).read("ae-clean-rig")).toThrow("integrity mismatch");
   });
 
@@ -171,7 +213,7 @@ describe("bundled AE skills", () => {
     "rejects a listed document symlink outside the corpus",
     () => {
       const root = copyCorpus();
-      const file = join(root, "ae-clean-rig/SKILL.md");
+      const file = join(root, "after-effects/ae-clean-rig/SKILL.md");
       unlinkSync(file);
       symlinkSync(resolve("package.json"), file);
       expect(() => new SkillStore(root).read("ae-clean-rig")).toThrow("escapes");
@@ -193,6 +235,22 @@ describe("bundled AE skills", () => {
     expect((await getSkillTool.handler({ name: "ae-clean-rig" }, transport)).isError).toBe(false);
     expect((await getSkillTool.handler({ reference: "SKILL.md" }, transport)).isError).toBe(true);
     expect((await getSkillTool.handler({ name: "missing" }, transport)).isError).toBe(true);
+    expect(
+      (
+        await getSkillAssetTool.handler(
+          { name: "davinci-film-colorist", path: "scripts/inspect_resolve.py" },
+          transport,
+        )
+      ).isError,
+    ).toBe(false);
+    expect(
+      (
+        await getSkillAssetTool.handler(
+          { name: "davinci-film-colorist", path: "SKILL.md" },
+          transport,
+        )
+      ).isError,
+    ).toBe(true);
     expect(transport.calls).toHaveLength(0);
   });
 
@@ -201,7 +259,7 @@ describe("bundled AE skills", () => {
     await client.connect({ AE_MCP_READONLY: "1" });
     try {
       const index = await client.call<{ skills: unknown[] }>("ae_get_skill");
-      expect(index.skills).toHaveLength(11);
+      expect(index.skills).toHaveLength(17);
       const entry = await client.call<{ content: string; references: string[] }>("ae_get_skill", {
         name: "ae-clean-rig",
       });

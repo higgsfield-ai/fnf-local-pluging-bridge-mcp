@@ -1,0 +1,56 @@
+{
+  "name": "HF-Astra-Looks",
+  "date": "2026-09-15",
+  "source_version": "ASTRA LookMixer v04 Optimized",
+  "dctl": "DCTL/HF-Astra-Looks.dctl",
+  "dctl_renamed_only": false,
+  "source_dctl_sha256": "1b2736d56567274708a0ff10156c93a34521e4955f776612a2f10fa6d0fe4603",
+  "input": "DaVinci Wide Gamut / DaVinci Intermediate",
+  "output": "DaVinci Wide Gamut / DaVinci Intermediate",
+  "required_luts": 5,
+  "lut_grid_size": 65,
+  "files": [
+    {
+      "path": "DCTL/ASTRA_LookMixer_Data/ektachrome.cube",
+      "bytes": 10985968,
+      "sha256": "db37f671df260cc9477eda92d3d30ac9ad483b2a0d1ec1f7a3342cf7d02cc299"
+    },
+    {
+      "path": "DCTL/ASTRA_LookMixer_Data/portra.cube",
+      "bytes": 10985466,
+      "sha256": "7f16f76ac078371b5b451f8265be8ec9bf13fb7b343ab19944972c8f08801544"
+    },
+    {
+      "path": "DCTL/ASTRA_LookMixer_Data/vision2.cube",
+      "bytes": 10985821,
+      "sha256": "3ba6f85695f674fd65360faa5c4d68d6691b94d304e01a4534433adfc855c684"
+    },
+    {
+      "path": "DCTL/ASTRA_LookMixer_Data/vision3d.cube",
+      "bytes": 10985451,
+      "sha256": "14ec7a952170a00f1cd31554752904c646b2184baf2460217577f1f74a376669"
+    },
+    {
+      "path": "DCTL/ASTRA_LookMixer_Data/vision3t.cube",
+      "bytes": 10985451,
+      "sha256": "23d8950e94b96cca39a713c03286f8414d0a99fe6e8be967b62a7bd6f85216a7"
+    },
+    {
+      "path": "DCTL/HF-Astra-Looks.dctl",
+      "bytes": 35471,
+      "sha256": "1b2736d56567274708a0ff10156c93a34521e4955f776612a2f10fa6d0fe4603"
+    },
+    {
+      "path": "parameters.json",
+      "bytes": 15858,
+      "sha256": "85cdf6e2afb0eb6d447f42e3bc76e6864bf44c25793c84b986f05d6cb738dd95"
+    },
+    {
+      "path": "SUMMARY.md",
+      "bytes": 15501,
+      "sha256": "99e1bdf4657dec40d0380fe92bce4561651558449c1df4efa8bbed35fe34c05b"
+    }
+  ],
+  "manifest_scope": "Every payload file except this manifest. The ZIP has a separate SHA-256 sidecar.",
+  "revision": "Comments, tooltips and documentation edited; DCTL calculations and LUT numeric data preserved."
+}

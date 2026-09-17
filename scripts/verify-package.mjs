@@ -1,5 +1,13 @@
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, mkdirSync, readFileSync, realpathSync, renameSync, rmSync } from "node:fs";
+import {
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  renameSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import assert from "node:assert/strict";
@@ -54,13 +62,24 @@ try {
   assert.equal(client.getServerVersion().name, "higgsfield-use-after-effects");
   assert.equal(client.getServerVersion().title, "Higgsfield use After Effects");
   const tools = await client.listTools();
-  assert.equal(tools.tools.length, 12);
+  assert.equal(tools.tools.length, 13);
   const skill = await client.callTool({
     name: "ae_get_skill",
     arguments: { name: "ae-clean-rig", reference: "references/07-sliders.md" },
   });
   assert(!skill.isError);
   assert(skill.structuredContent.content.includes("Slide"));
+  // Bundled assets must ship in the tarball and resolve to a real installed path.
+  const asset = await client.callTool({
+    name: "ae_get_skill_asset",
+    arguments: {
+      name: "davinci-film-colorist",
+      path: "assets/HF-Astra-Looks/DCTL/HF-Astra-Looks.dctl",
+    },
+  });
+  assert(!asset.isError, JSON.stringify(asset.content));
+  assert(asset.structuredContent.absolute_path.startsWith(pkg));
+  assert.equal(statSync(asset.structuredContent.absolute_path).size, asset.structuredContent.bytes);
   for (const reference of [
     "references/17-visual-foundation.md",
     "references/boards/overview.md",

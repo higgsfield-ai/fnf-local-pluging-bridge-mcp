@@ -1,0 +1,77 @@
+{
+  "tests": 9,
+  "failures": 0,
+  "errors": 0,
+  "compile_mode": "All 6 DCTLs compiled offline with C++ float32; actual source executed",
+  "native_resolve_compile_or_render": false,
+  "channel_domain_tested_DI": [
+    -16,
+    16
+  ],
+  "monotonic_host_samples_each": 32775,
+  "monotonic_host_profiles": 6,
+  "static_dctl_files": 5,
+  "cube_files": 5,
+  "cube_size_each": 65536,
+  "cube_input_domain": [
+    0,
+    1
+  ],
+  "stock_metrics": {
+    "250D": {
+      "anchor_log10H": -1.5,
+      "anchor_density": 1.288925311922366,
+      "normalizing_midslope": 0.5560264313643374,
+      "creative_print_contrast": 1.15,
+      "fit_residual_D": {
+        "rms": 0.0014642223687140884,
+        "max_abs": 0.004482110842871201,
+        "samples": 473
+      },
+      "ZeroBlackContinuation": {
+        "input_linear_join": 0.0018,
+        "output_linear_join": 0.006198906642920833,
+        "normalized_log_slope_at_join": 0.09107643113675384,
+        "gain_at_zero": 6.5740216621414005
+      },
+      "measured_interpolation_log10H": [
+        -3.5,
+        0.7
+      ]
+    },
+    "500T": {
+      "anchor_log10H": -1.5,
+      "anchor_density": 1.4151943462897538,
+      "normalizing_midslope": 0.5338945239260536,
+      "creative_print_contrast": 1.15,
+      "fit_residual_D": {
+        "rms": 0.0012392076023453522,
+        "max_abs": 0.003699460347831307,
+        "samples": 43
+      },
+      "ZeroBlackContinuation": {
+        "input_linear_join": 0.0018,
+        "output_linear_join": 0.0032221160922119396,
+        "normalized_log_slope_at_join": 0.2898815593425648,
+        "gain_at_zero": 3.0612223040170616
+      },
+      "measured_interpolation_log10H": [
+        -3.5,
+        0.7
+      ]
+    }
+  },
+  "sha256": {
+    "FilmInspired_v1_bold_static.cube": "1069af5bfe7af6341fcf912fceb47973f78e61d52d1be35c430598ed8c9384c8",
+    "FilmInspired_v1_bold_static.dctl": "9905e29196b7c0fd0ef403a0c7072a6ba1db9c9dcd75587e87de5bd00e58f427",
+    "FilmInspired_v1_dense_static.cube": "4c5620c820b38533c5dc766c07cc48097ededff8be5f981df183838c459f459c",
+    "FilmInspired_v1_dense_static.dctl": "05f623cac46870ae9756abe24524f1f928a82acc9b3b2cbb73d8d0dcff65b693",
+    "FilmInspired_v1_soft_static.cube": "c601ad00f5fb14ce94b46ad21bed69f9f6dd03fa08cada3d2352a36d42151415",
+    "FilmInspired_v1_soft_static.dctl": "f513465963329a03b4f4c716357fe05640aa25938a1a17346454a81410da2567",
+    "GreenShape_250D_DWG_DI_static.cube": "5a086352d30ab387cdca86c3c1ead86c681bde5d2eb951fe7d008fd3a5b59863",
+    "GreenShape_250D_DWG_DI_static.dctl": "154933c484854c4e7e318c3d26c6e0ca669de6f5d53d3cb0127c455c184bc88b",
+    "GreenShape_500T_DWG_DI_static.cube": "cff5084696229b8c22f13dd397149235a3f08d8d56d0e258d448d99cc021ad77",
+    "GreenShape_500T_DWG_DI_static.dctl": "8e9beef03e30bfe6f701679a480262408f84c1fb2017ed401fc1ec7d517307b5",
+    "GreenShape_DWG_DI_UI.dctl": "45acee288e54eb503587f736d4668ede3227b37d8f37daef7e3bdb4f6797a6c2"
+  }
+}

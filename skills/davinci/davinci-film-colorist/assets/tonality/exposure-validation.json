@@ -1,0 +1,16 @@
+{
+  "classification": "Pure scene-linear exposure compensation; not a film curve",
+  "tests": 5,
+  "failures": 0,
+  "errors": 0,
+  "compile": "Actual source offline C++ float32",
+  "native_tested_by_this_task": false,
+  "finite_tested_domain_DI": [
+    -16,
+    16
+  ],
+  "sha256": {
+    "ExposurePlusHalfStop_DWG_DI.dctl": "bf4cbffdd1bc0d1216f75356704832150695e39f812c550e4d8101c7e7a8c2db",
+    "ExposurePlus075_DWG_DI.dctl": "d2386f55fa14e00de2dd5bb43d3130c70cbaf6696c348e3c2ac2cb277508b2a8"
+  }
+}

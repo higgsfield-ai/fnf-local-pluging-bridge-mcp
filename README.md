@@ -48,6 +48,7 @@ For the discoverable entry skill, run `python3 scripts/install-skill.py` from th
 1. `ae_get_skill({})`: offline skill index.
 2. `ae_get_skill({"name":"ae-clean-rig"})`: construction and verification workflow.
 3. `ae_get_skill({"name":"ae-clean-rig","reference":"references/07-sliders.md"})`: load one focused module.
+   Skills that ship files (LUTs, DCTLs, JSON, Python) list them under `files`; `ae_get_skill_asset({"name":"davinci-film-colorist","path":"assets/tonality/GreenShape_DWG_DI_UI.dctl"})` returns the verified absolute path so a host application, shell or Python can open it. Content is never returned through MCP.
 4. `ae_project_info({})`: verify the real AE connection and inspect current work.
 5. `ae_catalog({})`, then `ae_catalog({"category":"layer"})`: discover exact operation parameters.
 6. `ae_do({"operation":"layer.create_text","args":{"comp":"Main","text":"Hello","name":"Title"}})`: edit an existing named comp when requested.
@@ -70,7 +71,7 @@ npm run check
 npm run test:offline
 ```
 
-Edit `skills/` directly, then regenerate `skills/manifest.json` and commit it together with the skill changes. Generation writes only the manifest, works with uncommitted edits and requires no Git metadata. `npm run skills:check` rejects stale descriptions, hashes, missing entries and invalid reference links. The version 2 manifest uses document hashes instead of `sourceCommit`; `ae_get_skill` no longer returns that obsolete snapshot field. Live tests under `tests/e2e` have separate prerequisites; offline success does not prove rendering on your AE installation. See [VALIDATION.md](docs/VALIDATION.md) for the actual checks performed on this fork.
+Edit `skills/` directly, then regenerate `skills/manifest.json` and commit it together with the skill changes. Generation writes only the manifest, works with uncommitted edits and requires no Git metadata. `npm run skills:check` rejects stale descriptions, hashes, missing entries and invalid reference links. The manifest records a sha256 per Markdown document and per file under `assets/` or `scripts/`, and rejects a `SKILL.md` over 64 KiB; `ae_get_skill` no longer returns that obsolete snapshot field. Live tests under `tests/e2e` have separate prerequisites; offline success does not prove rendering on your AE installation. See [VALIDATION.md](docs/VALIDATION.md) for the actual checks performed on this fork.
 
 The root After Effects package publishes to the public npm registry as `fnf-after-effects-mcp`. Install the current release with `npm install --global --ignore-scripts fnf-after-effects-mcp@0.1.1`. Do not use the upstream package name when installing this fork. Historical upstream documentation is preserved in `docs/UPSTREAM-README.md` for reference.
 

@@ -5,6 +5,7 @@ import type { ToolGroup } from "./define-tool.js";
 import type { ToolResult } from "./types.js";
 
 import { getSkillTool } from "./get-skill.js";
+import { getSkillAssetTool } from "./get-skill-asset.js";
 import { catalogTool } from "./catalog.js";
 import { compInfoTool } from "./comp-info.js";
 import { contextTool } from "./context.js";
@@ -31,6 +32,7 @@ export type AnyTool = {
 /** Every MCP tool this server exposes, in registration order. */
 export const ALL_TOOLS: AnyTool[] = [
   getSkillTool,
+  getSkillAssetTool,
   projectInfoTool,
   compInfoTool,
   layerInfoTool,
