@@ -1,0 +1,722 @@
+DEFINE_LUT(ASTRA_FB_PORTRA, ASTRA_LookMixer_Data/portra.cube);
+DEFINE_LUT(ASTRA_FB_EKTACHROME, ASTRA_LookMixer_Data/ektachrome.cube);
+DEFINE_LUT(ASTRA_FB_VISION2, ASTRA_LookMixer_Data/vision2.cube);
+DEFINE_LUT(ASTRA_FB_VISION3D, ASTRA_LookMixer_Data/vision3d.cube);
+DEFINE_LUT(ASTRA_FB_VISION3T, ASTRA_LookMixer_Data/vision3t.cube);
+
+// ASTRA LookMixer v04 Optimized - shared analytic work and external native LUTs.
+// IN / OUT: DaVinci Wide Gamut / DaVinci Intermediate.
+// Group Post-Clip: after shot balance, before the single output CST/DRT.
+// LUT Source: DWG/DI; LUT output: RCM SDR, requires matching SDR output DRT.
+// Five original-size 65^3 cubes are referenced externally; no film-look engine texture processing.
+// LUT input coordinates clamp to the documented cube domain [0,1]; no extrapolation.
+// Export settings are preserved in each external cube file.
+// Normal mode blends independent palette outputs in LINEAR DWG.
+// Zero palette weights bypass palettes ONLY; global controls remain active.
+
+DEFINE_UI_PARAMS(lm_master, Master Strength, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_original, Original, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_coldgreen, 🔵 Cold Green, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_petrol, 🔵 Petrol, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_steel, 🔵 Steel, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_warmprint, 🔵 Warm Print, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_softneutral, 🔵 Soft Neutral, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_fb_portra, 🟠 Portra 400, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_fb_ektachrome, 🟠 Ektachrome, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_fb_vision2, 🟠 Vision2 500T 5299, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_fb_vision3d, 🟠 Vision3 250D, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_fb_vision3t, 🟠 Vision3 500T, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_contrast, Contrast, DCTLUI_SLIDER_FLOAT, 1.0, 0.65, 1.35, 0.01)
+DEFINE_UI_PARAMS(lm_saturation, Saturation, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_hue, Hue Degrees, DCTLUI_SLIDER_FLOAT, 0.0, -15.0, 15.0, 0.1)
+DEFINE_UI_PARAMS(lm_split, Cool Shadow Warm Highlight Split, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_density, Chroma Density Stops, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.01)
+DEFINE_UI_PARAMS(lm_warm_protect, Warm Hue Protection, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_additive, Additive Experimental, DCTLUI_CHECK_BOX, 0)
+
+DEFINE_UI_TOOLTIP(Master Strength, "Linear DWG blend with the original input. Zero is exact finite bypass.")
+DEFINE_UI_TOOLTIP(Original, "Post-Curve/Tetra base in Normal mode. Default one makes the first color-weight move smooth. Zero delta in Additive mode.")
+DEFINE_UI_TOOLTIP(🔵 Cold Green, "Blue: color palette without baked contrast. Shared Contrast, Toe and Shoulder still apply. Normal mode uses relative weights.")
+DEFINE_UI_TOOLTIP(🟠 Portra 400, "Orange: baked color and contrast from the supplied 65-cube. Shared curve controls still apply. Needs the corresponding DaVinci SDR output DRT. Normal mode uses relative weights including Original. No grain or halation.")
+DEFINE_UI_TOOLTIP(🟠 Ektachrome, "Supplied custom look includes camera, lab, print and split-tone choices; not a neutral stock profile. Warm Hue Protection does not protect LUT changes.")
+DEFINE_UI_TOOLTIP(Contrast, "One signed monotonic Y curve before palettes. Adjustable linear-light pivot; neutral default is 18 percent. Not a display transform.")
+DEFINE_UI_TOOLTIP(Saturation, "Radial linear DWG chroma gain around equal Y. One is neutral.")
+DEFINE_UI_TOOLTIP(Hue Degrees, "Opponent hue rotation. Warm protection applies. This is not a calibrated perceptual hue angle.")
+DEFINE_UI_TOOLTIP(Cool Shadow Warm Highlight Split, "Positive: cool shadows and warm highlights. Negative reverses. Intentionally tints neutrals.")
+DEFINE_UI_TOOLTIP(Chroma Density Stops, "Equal RGB exposure gain selected by INPUT chroma and warm protection. Positive darkens.")
+DEFINE_UI_TOOLTIP(Warm Hue Protection, "Soft warm hue and chroma mask, not face or skin recognition. Protects analytical/shared color changes, not baked LUTs, Curve or Tetra.")
+DEFINE_UI_TOOLTIP(Additive Experimental, "Adds weighted palette deltas without normalization. May exceed every individual look. Master remains 0 to 1.")
+
+
+DEFINE_UI_PARAMS(lm_pivot, Curve Pivot Linear, DCTLUI_SLIDER_FLOAT, 0.18, 0.02, 0.8, 0.001)
+DEFINE_UI_PARAMS(lm_toe, Curve Toe Strength, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_toe_length, Curve Toe Length, DCTLUI_SLIDER_FLOAT, 0.1, 0.01, 0.5, 0.01)
+DEFINE_UI_PARAMS(lm_shoulder, Curve Shoulder Strength, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_shoulder_length, Curve Shoulder Length, DCTLUI_SLIDER_FLOAT, 2.0, 0.25, 16.0, 0.05)
+DEFINE_UI_PARAMS(lm_tetra_strength, Tetra Strength, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_red_r, Tetra Red R, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_red_g, Tetra Red G, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_red_b, Tetra Red B, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_green_r, Tetra Green R, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_green_g, Tetra Green G, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_green_b, Tetra Green B, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_blue_r, Tetra Blue R, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_blue_g, Tetra Blue G, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_blue_b, Tetra Blue B, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_cyan_r, Tetra Cyan R, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_cyan_g, Tetra Cyan G, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_cyan_b, Tetra Cyan B, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_magenta_r, Tetra Magenta R, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_magenta_g, Tetra Magenta G, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_magenta_b, Tetra Magenta B, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_yellow_r, Tetra Yellow R, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_yellow_g, Tetra Yellow G, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 2.0, 0.01)
+DEFINE_UI_PARAMS(lm_t_yellow_b, Tetra Yellow B, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+
+DEFINE_UI_PARAMS(lm_show_ramp, View Ramp, DCTLUI_CHECK_BOX, 0)
+DEFINE_UI_PARAMS(lm_ramp_compare, Ramp Reference Curve Look, DCTLUI_CHECK_BOX, 1)
+DEFINE_UI_PARAMS(lm_ramp_fullscreen, Ramp Fullscreen, DCTLUI_CHECK_BOX, 0)
+DEFINE_UI_PARAMS(lm_ramp_stops, Ramp Exposure Stops, DCTLUI_CHECK_BOX, 0)
+DEFINE_UI_PARAMS(lm_ramp_height, Ramp Height, DCTLUI_SLIDER_FLOAT, 0.18, 0.05, 0.5, 0.01)
+DEFINE_UI_PARAMS(lm_ramp_position, Ramp Vertical Position, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 1.0, 0.01)
+DEFINE_UI_TOOLTIP(View Ramp, "Diagnostic image overlay. Switch off for delivery. Downstream nodes and CST still affect it.")
+DEFINE_UI_TOOLTIP(Ramp Reference Curve Look, "Three stacked strips: input reference at top, curve only in middle, full look at bottom. Off shows full look only.")
+DEFINE_UI_TOOLTIP(Ramp Exposure Stops, "On: minus ten to plus eight scene stops around 18 percent gray. Off: uniform DaVinci Intermediate code zero to one.")
+DEFINE_UI_TOOLTIP(Tetra Strength, "Six RGB color vertices with fixed black and white. Independent of Warm Hue Protection. Neutral axes stay neutral before split toning.")
+DEFINE_UI_TOOLTIP(Curve Pivot Linear, "Scene-linear luminance anchor. Default 0.18. Pivot has no effect at unity contrast with Toe and Shoulder at zero.")
+DEFINE_UI_TOOLTIP(Curve Toe Strength, "Shapes the low end below the pivot. Zero preserves the legacy curve. Shared luminance gain keeps RGB ratios.")
+DEFINE_UI_TOOLTIP(Curve Shoulder Strength, "Soft compression above the pivot without a hard clip. Zero preserves the legacy curve.")
+
+__DEVICE__ int lm_finite(float v)
+{
+    return (v <= 3.402823466e38f) && (v >= -3.402823466e38f);
+}
+
+__DEVICE__ float lm_ui(float v, float lo, float hi, float fallback)
+{
+    if (!lm_finite(v)) return fallback;
+    return _clampf(v, lo, hi);
+}
+
+__DEVICE__ float3 lm_add(float3 a, float3 b)
+{
+    return make_float3(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+__DEVICE__ float3 lm_sub(float3 a, float3 b)
+{
+    return make_float3(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+__DEVICE__ float3 lm_scale(float3 a, float s)
+{
+    return make_float3(a.x * s, a.y * s, a.z * s);
+}
+
+__DEVICE__ float lm_maxabs(float3 v)
+{
+    return _fmaxf(_fabs(v.x), _fmaxf(_fabs(v.y), _fabs(v.z)));
+}
+
+__DEVICE__ float lm_smooth(float lo, float hi, float x)
+{
+    float t = _clampf((x - lo) / (hi - lo), 0.0f, 1.0f);
+    return t * t * (3.0f - 2.0f * t);
+}
+
+__DEVICE__ float lm_decode(float v)
+{
+    if (v <= 0.02740668f) return v / 10.44426855f;
+    return _exp2f(v / 0.07329248f - 7.0f) - 0.0075f;
+}
+
+__DEVICE__ float lm_encode(float v)
+{
+    if (v <= 0.00262409f) return v * 10.44426855f;
+    return (_log2f(v + 0.0075f) + 7.0f) * 0.07329248f;
+}
+
+// Equivalent DWG Y weights: .27411851, .87363190, -.14775041.
+// Difference form gives exact Y=t for a float neutral (t,t,t).
+__DEVICE__ float lm_Y(float3 v)
+{
+    return v.y + 0.27411851f * (v.x - v.y) - 0.14775041f * (v.z - v.y);
+}
+
+__DEVICE__ float3 lm_zeroY(float3 d)
+{
+    float y = lm_Y(d);
+    return make_float3(d.x - y, d.y - y, d.z - y);
+}
+
+// F(Y)=Y*g(abs(Y)); 18% pivot, odd signed continuation, finite gain at Y=0.
+// g=[ ((absY+.01)/(absY+1.8)) * ((.18+1.8)/(.18+.01)) ]^(contrast-1).
+// For contrast .65..1.35, F' > 0: the logarithmic correction to its slope
+// has magnitude below .35. Positive finite power bases only; no division by Y.
+__DEVICE__ float lm_curve_gain(float Y, float contrast)
+{
+    if (contrast == 1.0f) return 1.0f;
+    float ay = _fabs(Y);
+    float ratio = ((ay + 0.01f) / (ay + 1.8f)) * (1.98f / 0.19f);
+    return _powf(ratio, contrast - 1.0f);
+}
+
+// Normalized opponent descriptor: (a, q, chroma). Normalize before squaring.
+__DEVICE__ float3 lm_opponent(float3 v)
+{
+    float m = lm_maxabs(v);
+    if (m == 0.0f) return make_float3(0.0f, 0.0f, 0.0f);
+    float r = v.x / m;
+    float g = v.y / m;
+    float b = v.z / m;
+    float a = r - 0.5f * (g + b);
+    float q = 0.866025404f * (g - b);
+    return make_float3(a, q, _sqrtf(a * a + q * q));
+}
+
+__DEVICE__ float lm_hue_mask(float3 op, float cx, float cy, float edge)
+{
+    if (op.z <= 1.0e-12f) return 0.0f;
+    float dot = (op.x * cx + op.y * cy) / op.z;
+    return lm_smooth(edge, 1.0f, dot) * lm_smooth(0.02f, 0.15f, op.z);
+}
+
+__DEVICE__ float lm_protection(float3 op, float amount)
+{
+    if (amount == 0.0f) return 1.0f;
+    // Broad warm direction around 30 degrees, with low/high-chroma soft fades.
+    float warm = lm_hue_mask(op, 0.866025404f, 0.5f, 0.642787610f);
+    warm *= 1.0f - lm_smooth(0.75f, 1.35f, op.z);
+    return 1.0f - amount * warm;
+}
+
+__DEVICE__ float3 lm_rotate(float3 v, float angle)
+{
+    if (angle == 0.0f) return v;
+    float m = lm_maxabs(v);
+    if (m == 0.0f) return v;
+    float3 op = lm_opponent(v);
+    float ca = _cosf(angle);
+    float sa = _sinf(angle);
+    float da = op.x * ca - op.y * sa - op.x;
+    float dq = op.x * sa + op.y * ca - op.y;
+    float3 d = lm_zeroY(make_float3(0.666666667f * da,
+                                   -0.333333333f * da + 0.577350269f * dq,
+                                   -0.333333333f * da - 0.577350269f * dq));
+    return lm_add(v, lm_scale(d, m));
+}
+
+__DEVICE__ float3 lm_rotate_precomputed(float3 v, float angle, float3 op)
+{
+    if (angle == 0.0f) return v;
+    float m = lm_maxabs(v);
+    if (m == 0.0f) return v;
+    float ca = _cosf(angle);
+    float sa = _sinf(angle);
+    float da = op.x * ca - op.y * sa - op.x;
+    float dq = op.x * sa + op.y * ca - op.y;
+    float3 d = lm_zeroY(make_float3(0.666666667f * da,
+                                   -0.333333333f * da + 0.577350269f * dq,
+                                   -0.333333333f * da - 0.577350269f * dq));
+    return lm_add(v, lm_scale(d, m));
+}
+
+__DEVICE__ float3 lm_sat(float3 v, float gain)
+{
+    if (gain == 1.0f) return v;
+    float y = lm_Y(v);
+    return make_float3(y + gain * (v.x - y),
+                      y + gain * (v.y - y),
+                      y + gain * (v.z - y));
+}
+
+// Non-overlapping level masks (shadow, mid, highlight); descriptor uses positive Y.
+// Signed Y<=0 has defined shadow masks, but split amplitude is zero there.
+__DEVICE__ float3 lm_tones(float Y)
+{
+    float level = _fmaxf(Y, 0.0f);
+    float ev = _log2f((level + 0.002f) / 0.182f);
+    float sh = 1.0f - lm_smooth(-3.0f, 0.0f, ev);
+    float hi = lm_smooth(0.5f, 3.0f, ev);
+    return make_float3(sh, 1.0f - sh - hi, hi);
+}
+
+// Shared per-pixel base descriptors. Each formula and its arithmetic order
+// match v03; LUT data and native APPLY_LUT interpolation are unchanged.
+typedef struct
+{
+    float3 op;
+    float protect;
+    float blue;
+    float yellow;
+    float Y;
+    float3 tones;
+    float affinity;
+} ASTRA_PaletteDescriptor;
+
+__DEVICE__ ASTRA_PaletteDescriptor lm_base_descriptor(float3 base,
+    float protectAmount, int needHueMasks, int needToneMasks)
+{
+    ASTRA_PaletteDescriptor d;
+    d.op = lm_opponent(base);
+    d.protect = lm_protection(d.op, protectAmount);
+    d.blue = 0.0f;
+    d.yellow = 0.0f;
+    if (needHueMasks)
+    {
+        d.blue = lm_hue_mask(d.op, -0.5f, -0.866025404f, 0.5f);
+        d.yellow = lm_hue_mask(d.op, 0.5f, 0.866025404f, 0.642787610f);
+    }
+    d.Y = lm_Y(base);
+    d.tones = make_float3(0.0f, 0.0f, 0.0f);
+    d.affinity = 1.0f;
+    if (needToneMasks)
+    {
+        d.tones = lm_tones(d.Y);
+        d.affinity = 1.0f - 0.65f * lm_smooth(0.10f, 0.80f, d.op.z);
+    }
+    return d;
+}
+
+// Each palette is evaluated from the SAME curve-adjusted RGB, not serially.
+// style: 0 Cold Green, 1 Petrol, 2 Steel, 3 Warm Print, 4 Soft Neutral.
+// All palette color operations preserve linear Y up to floating-point roundoff.
+// Active split palettes intentionally tint neutrals; Soft Neutral does not.
+__DEVICE__ float3 lm_palette(float3 base, int style, ASTRA_PaletteDescriptor d)
+{
+    if (style < 0 || style > 4) return base;
+    float protect = d.protect;
+    float blue = d.blue;
+    float yellow = d.yellow;
+    float Y = d.Y;
+    float3 tones = d.tones;
+    float affinity = d.affinity;
+    float angle = 0.0f;
+    float saturation = 1.0f;
+    float split = 0.0f;
+    float3 direction = make_float3(0.0f, 0.0f, 0.0f);
+
+    if (style == 0)
+    {
+        angle = 0.060f * yellow - 0.080f * blue;
+        saturation = 0.93f;
+        split = 0.38f * tones.x + 0.34f * tones.y + 0.06f * tones.z;
+        direction = make_float3(-0.55f, 0.12f, -0.48f);
+    }
+    else if (style == 1)
+    {
+        angle = -0.240f * blue + 0.015f * yellow;
+        saturation = 0.96f;
+        split = 0.22f * tones.x + 0.12f * tones.y + 0.02f * tones.z;
+        direction = make_float3(-0.45f, 0.10f, 0.32f);
+    }
+    else if (style == 2)
+    {
+        angle = -0.050f * blue;
+        saturation = 0.82f;
+        split = 0.30f * tones.x + 0.08f * tones.y + 0.025f * tones.z;
+        direction = make_float3(-0.35f, 0.03f, 0.50f);
+    }
+    else if (style == 3)
+    {
+        angle = 0.030f * yellow + 0.040f * blue;
+        saturation = 0.94f;
+        split = 0.12f * tones.x + 0.24f * tones.y + 0.16f * tones.z;
+        direction = make_float3(0.42f, 0.10f, -0.32f);
+    }
+    else
+    {
+        saturation = 0.88f;
+    }
+
+    float3 out = lm_rotate_precomputed(base, angle * protect, d.op);
+    out = lm_sat(out, 1.0f + (saturation - 1.0f) * protect);
+    float scale = _fmaxf(Y, 0.0f) * affinity * split * protect;
+    return lm_add(out, lm_scale(lm_zeroY(direction), scale));
+}
+
+// ASTRA v02 original curve extension. Requires the preceding lm_curve_gain.
+// Scalar scene-linear Y gain, applied equally to RGB. No RGB/output clipping.
+// Contrast fixes the selected pivot. Toe then shapes values below that pivot;
+// shoulder shapes values above it. Odd signed continuation is C1 through zero.
+// UI contract: contrast .65..1.35, pivot .02..0.8, strengths 0..1,
+// toeLength .01..0.5, shoulderLength .25..16. Callers sanitize these controls.
+
+__DEVICE__ float astra_curve_gain(float Y, float contrast, float pivot,
+                                float toe, float toeLength,
+                                float shoulder, float shoulderLength)
+{
+    if (contrast == 1.0f && toe == 0.0f && shoulder == 0.0f) return 1.0f;
+    // Preserve the exact v01 operations and their rounding in the legacy case.
+    // In particular, contrast=1 returns exactly one regardless of Y.
+    if (toe == 0.0f && shoulder == 0.0f && pivot == 0.18f)
+        return lm_curve_gain(Y, contrast);
+
+    float ay = _fabs(Y);
+    float gain = 1.0f;
+    if (contrast != 1.0f)
+    {
+        if (pivot == 0.18f) gain = lm_curve_gain(Y, contrast);
+        else
+        {
+            float ratio = ((ay + 0.01f) / (ay + 1.8f)) *
+                          ((pivot + 1.8f) / (pivot + 0.01f));
+            gain = _powf(ratio, contrast - 1.0f);
+        }
+    }
+
+    // Comparing before multiplication avoids an overflowing ay*gain for HDR.
+    // Each extension has unit value ratio and unit derivative at its join.
+    if (ay <= pivot / gain)
+    {
+        if (toe > 0.0f)
+        {
+            // Smoothly approaches min(toeLength,pivot), always below pivot.
+            // Longer length extends the toe upward without a clamped plateau.
+            float onset = (pivot * toeLength) /
+                _sqrtf(pivot * pivot + toeLength * toeLength);
+            float shaped = ay * gain;
+            if (shaped < onset)
+            {
+                float t = 1.0f - shaped / onset;
+                // Maximum strength retains 1/8 black slope (three stops).
+                gain *= 1.0f - 0.875f * toe * t * t;
+            }
+        }
+    }
+    else if (shoulder > 0.0f)
+    {
+        // S(x)=pivot+(1-b)*d+b*L*d/(d+L), d=x-pivot, b=.9*strength.
+        // Evaluate S(x)/x with scaled ratios, never forming HDR-sized x or d.
+        float relativeDistance = 1.0f - (pivot / ay) / gain;
+        float relativeLength = (shoulderLength / ay) / gain;
+        float bend = relativeDistance / (relativeDistance + relativeLength);
+        gain *= 1.0f - 0.9f * shoulder * relativeDistance * bend;
+    }
+    return gain;
+}
+
+// ASTRA original six-tetrahedron RGB corner deformation, 2026-09-15.
+// Absolute target corners, in argument order R, G, B, C, M, Y.
+// Caller supplies finite RGB and finite UI-limited corner coordinates.
+// Work in the caller's chosen RGB domain; this function performs no transfer curve.
+// Fixed black/white diagonal; continuous linear extension beyond the unit cube.
+
+__DEVICE__ int astra_tetra_finite(float value)
+{
+    return (value <= 3.402823466e38f) && (value >= -3.402823466e38f);
+}
+
+__DEVICE__ float3 astra_tetra_apply(float3 rgb, float3 red, float3 green,
+                                  float3 blue, float3 cyan, float3 magenta,
+                                  float3 yellow)
+{
+    // Preserve every signed neutral directly, including black and white.
+    if (rgb.x == rgb.y && rgb.y == rgb.z) return rgb;
+
+    // Scale before subtraction: opposite-sign finite channels cannot overflow
+    // the gap calculation. Direct division also handles very small inputs.
+    float scale = _fmaxf(_fabs(rgb.x), _fmaxf(_fabs(rgb.y), _fabs(rgb.z)));
+    if (scale == 0.0f) return rgb;
+    float r = rgb.x / scale;
+    float g = rgb.y / scale;
+    float b = rgb.z / scale;
+
+    // A primary owns the gap above the middle channel; a secondary owns
+    // the gap below it. At most two weights are positive in each tetrahedron.
+    float wr = _fmaxf(r - _fmaxf(g, b), 0.0f);
+    float wg = _fmaxf(g - _fmaxf(r, b), 0.0f);
+    float wb = _fmaxf(b - _fmaxf(r, g), 0.0f);
+    float wc = _fmaxf(_fminf(g, b) - r, 0.0f);
+    float wm = _fmaxf(_fminf(r, b) - g, 0.0f);
+    float wy = _fmaxf(_fminf(r, g) - b, 0.0f);
+
+    // Subtract the identity corners, then accumulate their displacements.
+    float dx = wr * (red.x - 1.0f) + wg * green.x + wb * blue.x
+             + wc * cyan.x + wm * (magenta.x - 1.0f) + wy * (yellow.x - 1.0f);
+    float dy = wr * red.y + wg * (green.y - 1.0f) + wb * blue.y
+             + wc * (cyan.y - 1.0f) + wm * magenta.y + wy * (yellow.y - 1.0f);
+    float dz = wr * red.z + wg * green.z + wb * (blue.z - 1.0f)
+             + wc * (cyan.z - 1.0f) + wm * (magenta.z - 1.0f) + wy * yellow.z;
+
+    // Exact identity and untouched channels avoid a normalize/rescale roundtrip.
+    // Combine before rescaling to avoid overflow in a cancelling displacement.
+    float3 result = make_float3(dx == 0.0f ? rgb.x : (r + dx) * scale,
+                               dy == 0.0f ? rgb.y : (g + dy) * scale,
+                               dz == 0.0f ? rgb.z : (b + dz) * scale);
+    // Only an unrepresentable float result bypasses the deformation. This is
+    // an arithmetic guard, never a 0..1 clamp, gamut map, or highlight rolloff.
+    if (!astra_tetra_finite(result.x) || !astra_tetra_finite(result.y) ||
+        !astra_tetra_finite(result.z)) return rgb;
+    return result;
+}
+
+// Original diagnostic overlay, DWG / DaVinci Intermediate.
+// Helpers take explicit values: DCTL UI variables are read only in transform.
+__DEVICE__ float3 astra_ramp_curve(float v, float contrast, float master, float pivot, float toe, float toeLength, float shoulder, float shoulderLength)
+{
+    float linear = lm_decode(v);
+    float gain = astra_curve_gain(linear, contrast, pivot, toe, toeLength, shoulder, shoulderLength);
+    float value = master == 0.0f ? v : lm_encode(linear + (linear * gain - linear) * master);
+    return make_float3(value, value, value);
+}
+
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+
+    // Ramp is an input selector; full-look strips use the same core below.
+    if (lm_show_ramp != 0 && p_Width > 1 && p_Height > 1)
+    {
+        float rampHeight = lm_ui(lm_ramp_height, 0.05f, 0.5f, 0.18f);
+        float rampPosition = lm_ui(lm_ramp_position, 0.0f, 1.0f, 1.0f);
+        if (lm_ramp_fullscreen != 0) { rampHeight = 1.0f; rampPosition = 0.0f; }
+        float rampY = (float)p_Y / (float)(p_Height - 1);
+        float rampStart = rampPosition * (1.0f - rampHeight);
+        if (rampY >= rampStart && rampY <= rampStart + rampHeight)
+        {
+            float rampV = (float)p_X / (float)(p_Width - 1);
+            if (lm_ramp_stops != 0) rampV = lm_encode(0.18f * _exp2f(-10.0f + 18.0f * rampV));
+            float3 rampResult = make_float3(rampV, rampV, rampV);
+            if (lm_ramp_compare != 0)
+            {
+                float rampRow = (rampY - rampStart) / rampHeight;
+                if (rampRow < 0.333333333f) return rampResult;
+                if (rampRow < 0.666666667f)
+                {
+                    rampResult = astra_ramp_curve(rampV,
+                        lm_ui(lm_contrast, 0.65f, 1.35f, 1.0f),
+                        lm_ui(lm_master, 0.0f, 1.0f, 1.0f),
+                        lm_ui(lm_pivot, 0.02f, 0.8f, 0.18f),
+                        lm_ui(lm_toe, 0.0f, 1.0f, 0.0f),
+                        lm_ui(lm_toe_length, 0.01f, 0.5f, 0.1f),
+                        lm_ui(lm_shoulder, 0.0f, 1.0f, 0.0f),
+                        lm_ui(lm_shoulder_length, 0.25f, 16.0f, 2.0f));
+                    return rampResult;
+                }
+            }
+            p_R = rampV; p_G = rampV; p_B = rampV;
+        }
+    }
+
+    float3 src = make_float3(p_R, p_G, p_B);
+    // Invalid channels become zero; finite neighbours are retained without grading.
+    if (!lm_finite(p_R) || !lm_finite(p_G) || !lm_finite(p_B))
+    {
+        return make_float3(lm_finite(p_R) ? p_R : 0.0f,
+                           lm_finite(p_G) ? p_G : 0.0f,
+                           lm_finite(p_B) ? p_B : 0.0f);
+    }
+
+    float master = lm_ui(lm_master, 0.0f, 1.0f, 1.0f);
+    if (master == 0.0f) return src;
+    float w0 = lm_ui(lm_coldgreen, 0.0f, 1.0f, 0.0f);
+    float w1 = lm_ui(lm_petrol, 0.0f, 1.0f, 0.0f);
+    float w2 = lm_ui(lm_steel, 0.0f, 1.0f, 0.0f);
+    float w3 = lm_ui(lm_warmprint, 0.0f, 1.0f, 0.0f);
+    float w4 = lm_ui(lm_softneutral, 0.0f, 1.0f, 0.0f);
+    float original = lm_ui(lm_original, 0.0f, 1.0f, 1.0f);
+    float f0 = lm_ui(lm_fb_portra, 0.0f, 1.0f, 0.0f);
+    float f1 = lm_ui(lm_fb_ektachrome, 0.0f, 1.0f, 0.0f);
+    float f2 = lm_ui(lm_fb_vision2, 0.0f, 1.0f, 0.0f);
+    float f3 = lm_ui(lm_fb_vision3d, 0.0f, 1.0f, 0.0f);
+    float f4 = lm_ui(lm_fb_vision3t, 0.0f, 1.0f, 0.0f);
+    float filmTotal = f0 + f1 + f2 + f3 + f4;
+    float colorTotal = (w0 + w1 + w2 + w3 + w4) + filmTotal;
+    float total = original + colorTotal;
+    float contrast = lm_ui(lm_contrast, 0.65f, 1.35f, 1.0f);
+    float saturation = lm_ui(lm_saturation, 0.0f, 2.0f, 1.0f);
+    float hue = lm_ui(lm_hue, -15.0f, 15.0f, 0.0f);
+    float split = lm_ui(lm_split, -1.0f, 1.0f, 0.0f);
+    float density = lm_ui(lm_density, -0.5f, 0.5f, 0.0f);
+    float protectAmount = lm_ui(lm_warm_protect, 0.0f, 1.0f, 0.0f);
+    float pivot = lm_ui(lm_pivot, 0.02f, 0.8f, 0.18f);
+    float toe = lm_ui(lm_toe, 0.0f, 1.0f, 0.0f);
+    float toeLength = lm_ui(lm_toe_length, 0.01f, 0.5f, 0.1f);
+    float shoulder = lm_ui(lm_shoulder, 0.0f, 1.0f, 0.0f);
+    float shoulderLength = lm_ui(lm_shoulder_length, 0.25f, 16.0f, 2.0f);
+    float tetraStrength = lm_ui(lm_tetra_strength, 0.0f, 1.0f, 1.0f);
+    float3 t_red = make_float3(lm_ui(lm_t_red_r, 0.0f, 2.0f, 1.0f), lm_ui(lm_t_red_g, -1.0f, 1.0f, 0.0f), lm_ui(lm_t_red_b, -1.0f, 1.0f, 0.0f));
+    float3 t_green = make_float3(lm_ui(lm_t_green_r, -1.0f, 1.0f, 0.0f), lm_ui(lm_t_green_g, 0.0f, 2.0f, 1.0f), lm_ui(lm_t_green_b, -1.0f, 1.0f, 0.0f));
+    float3 t_blue = make_float3(lm_ui(lm_t_blue_r, -1.0f, 1.0f, 0.0f), lm_ui(lm_t_blue_g, -1.0f, 1.0f, 0.0f), lm_ui(lm_t_blue_b, 0.0f, 2.0f, 1.0f));
+    float3 t_cyan = make_float3(lm_ui(lm_t_cyan_r, -1.0f, 1.0f, 0.0f), lm_ui(lm_t_cyan_g, 0.0f, 2.0f, 1.0f), lm_ui(lm_t_cyan_b, 0.0f, 2.0f, 1.0f));
+    float3 t_magenta = make_float3(lm_ui(lm_t_magenta_r, 0.0f, 2.0f, 1.0f), lm_ui(lm_t_magenta_g, -1.0f, 1.0f, 0.0f), lm_ui(lm_t_magenta_b, 0.0f, 2.0f, 1.0f));
+    float3 t_yellow = make_float3(lm_ui(lm_t_yellow_r, 0.0f, 2.0f, 1.0f), lm_ui(lm_t_yellow_g, 0.0f, 2.0f, 1.0f), lm_ui(lm_t_yellow_b, -1.0f, 1.0f, 0.0f));
+    int tetraNeutral = (tetraStrength == 0.0f) || (t_red.x == 1.0f &&
+        t_red.y == 0.0f &&
+        t_red.z == 0.0f &&
+        t_green.x == 0.0f &&
+        t_green.y == 1.0f &&
+        t_green.z == 0.0f &&
+        t_blue.x == 0.0f &&
+        t_blue.y == 0.0f &&
+        t_blue.z == 1.0f &&
+        t_cyan.x == 0.0f &&
+        t_cyan.y == 1.0f &&
+        t_cyan.z == 1.0f &&
+        t_magenta.x == 1.0f &&
+        t_magenta.y == 0.0f &&
+        t_magenta.z == 1.0f &&
+        t_yellow.x == 1.0f &&
+        t_yellow.y == 1.0f &&
+        t_yellow.z == 0.0f);
+    if (tetraNeutral && toe == 0.0f && shoulder == 0.0f && colorTotal == 0.0f && contrast == 1.0f && saturation == 1.0f &&
+        hue == 0.0f && split == 0.0f && density == 0.0f) return src;
+
+    // Smooth fade to finite pass-through far outside practical DI values.
+    // These guards are not RGB clipping and not gamut mapping.
+    float codeMax = _fmaxf(p_R, _fmaxf(p_G, p_B));
+    float codeMin = _fminf(p_R, _fminf(p_G, p_B));
+    if (codeMax >= 8.0f || codeMin <= -1024.0f) return src;
+    // Six-octave negative fade avoids the Curve-only fold caused by a narrow
+    // fade in signed DI code. On a negative gray ray, |Y*d(remote)/dY|
+    // is bounded by 1.5/(6*ln(2)); log argument is positive in this branch.
+    float negativeGuard = 1.0f;
+    if (codeMin < -16.0f)
+        negativeGuard = 1.0f - lm_smooth(4.0f, 10.0f, _log2f(-codeMin));
+    float remote = (1.0f - lm_smooth(7.0f, 8.0f, codeMax)) * negativeGuard;
+    float strength = master * remote;
+    if (strength == 0.0f) return src;
+
+    float3 input = make_float3(lm_decode(p_R), lm_decode(p_G), lm_decode(p_B));
+    // A nonzero film look may lift or tint input black.
+    if (lm_maxabs(input) == 0.0f && filmTotal == 0.0f) return src;
+    float gain = astra_curve_gain(lm_Y(input), contrast, pivot, toe, toeLength, shoulder, shoulderLength);
+    float3 base = lm_scale(input, gain);
+    if (!tetraNeutral)
+    {
+        float3 deformed = astra_tetra_apply(base, t_red, t_green, t_blue, t_cyan, t_magenta, t_yellow);
+        base = lm_add(base, lm_scale(lm_sub(deformed, base), tetraStrength));
+    }
+
+    // UI-controlled branches are uniform across the frame. Compute shared
+    // descriptors only when an active palette or shared control needs them.
+    int splitPaletteActive = w0 > 0.0f || w1 > 0.0f || w2 > 0.0f || w3 > 0.0f;
+    int analyticActive = splitPaletteActive || w4 > 0.0f;
+    int sharedActive = hue != 0.0f || saturation != 1.0f || split != 0.0f || density != 0.0f;
+    ASTRA_PaletteDescriptor baseDescriptor;
+    baseDescriptor.op = make_float3(0.0f, 0.0f, 0.0f);
+    baseDescriptor.protect = 1.0f;
+    baseDescriptor.blue = 0.0f;
+    baseDescriptor.yellow = 0.0f;
+    baseDescriptor.Y = 0.0f;
+    baseDescriptor.tones = make_float3(0.0f, 0.0f, 0.0f);
+    baseDescriptor.affinity = 1.0f;
+    if (analyticActive || sharedActive)
+        baseDescriptor = lm_base_descriptor(base, protectAmount,
+            splitPaletteActive, splitPaletteActive || split != 0.0f);
+
+    float3 out = base;
+    if (filmTotal == 0.0f)
+    {
+        // Normalized output mix or additive delta mix. No _mix extrapolation.
+        float3 delta = make_float3(0.0f, 0.0f, 0.0f);
+        if (colorTotal > 0.0f)
+        {
+            // Divide each bounded weight directly: avoid an overflowing 1/total
+            // intermediate when manually entered weights are extremely small.
+            if (!lm_additive)
+            {
+                w0 = w0 / total; w1 = w1 / total; w2 = w2 / total;
+                w3 = w3 / total; w4 = w4 / total;
+            }
+            if (w0 > 0.0f) delta = lm_add(delta, lm_scale(lm_sub(lm_palette(base, 0, baseDescriptor), base), w0));
+            if (w1 > 0.0f) delta = lm_add(delta, lm_scale(lm_sub(lm_palette(base, 1, baseDescriptor), base), w1));
+            if (w2 > 0.0f) delta = lm_add(delta, lm_scale(lm_sub(lm_palette(base, 2, baseDescriptor), base), w2));
+            if (w3 > 0.0f) delta = lm_add(delta, lm_scale(lm_sub(lm_palette(base, 3, baseDescriptor), base), w3));
+            if (w4 > 0.0f) delta = lm_add(delta, lm_scale(lm_sub(lm_palette(base, 4, baseDescriptor), base), w4));
+        }
+        out = lm_add(base, delta);
+    
+    }
+    else
+    {
+        // Direct output sum avoids cancellation of bounded LUT results against
+        // large scene-linear inputs. Additive is the same weighted-delta model,
+        // written as (1 - sum(weights))*base + sum(weight*output).
+        float baseWeight = lm_additive ? 1.0f - colorTotal : original / total;
+        if (!lm_additive)
+        {
+            w0 = w0 / total; w1 = w1 / total; w2 = w2 / total;
+            w3 = w3 / total; w4 = w4 / total;
+            f0 = f0 / total; f1 = f1 / total; f2 = f2 / total;
+            f3 = f3 / total; f4 = f4 / total;
+        }
+        out = lm_scale(base, baseWeight);
+        if (w0 > 0.0f) out = lm_add(out, lm_scale(lm_palette(base, 0, baseDescriptor), w0));
+        if (w1 > 0.0f) out = lm_add(out, lm_scale(lm_palette(base, 1, baseDescriptor), w1));
+        if (w2 > 0.0f) out = lm_add(out, lm_scale(lm_palette(base, 2, baseDescriptor), w2));
+        if (w3 > 0.0f) out = lm_add(out, lm_scale(lm_palette(base, 3, baseDescriptor), w3));
+        if (w4 > 0.0f) out = lm_add(out, lm_scale(lm_palette(base, 4, baseDescriptor), w4));
+        float3 lutInput = make_float3(_clampf(lm_encode(base.x), 0.0f, 1.0f),
+                                     _clampf(lm_encode(base.y), 0.0f, 1.0f),
+                                     _clampf(lm_encode(base.z), 0.0f, 1.0f));
+        if (f0 > 0.0f)
+        {
+            float3 lutValue = APPLY_LUT(lutInput.x, lutInput.y, lutInput.z, ASTRA_FB_PORTRA);
+            float3 lutLinear = make_float3(lm_decode(lutValue.x), lm_decode(lutValue.y), lm_decode(lutValue.z));
+            out = lm_add(out, lm_scale(lutLinear, f0));
+        }
+        if (f1 > 0.0f)
+        {
+            float3 lutValue = APPLY_LUT(lutInput.x, lutInput.y, lutInput.z, ASTRA_FB_EKTACHROME);
+            float3 lutLinear = make_float3(lm_decode(lutValue.x), lm_decode(lutValue.y), lm_decode(lutValue.z));
+            out = lm_add(out, lm_scale(lutLinear, f1));
+        }
+        if (f2 > 0.0f)
+        {
+            float3 lutValue = APPLY_LUT(lutInput.x, lutInput.y, lutInput.z, ASTRA_FB_VISION2);
+            float3 lutLinear = make_float3(lm_decode(lutValue.x), lm_decode(lutValue.y), lm_decode(lutValue.z));
+            out = lm_add(out, lm_scale(lutLinear, f2));
+        }
+        if (f3 > 0.0f)
+        {
+            float3 lutValue = APPLY_LUT(lutInput.x, lutInput.y, lutInput.z, ASTRA_FB_VISION3D);
+            float3 lutLinear = make_float3(lm_decode(lutValue.x), lm_decode(lutValue.y), lm_decode(lutValue.z));
+            out = lm_add(out, lm_scale(lutLinear, f3));
+        }
+        if (f4 > 0.0f)
+        {
+            float3 lutValue = APPLY_LUT(lutInput.x, lutInput.y, lutInput.z, ASTRA_FB_VISION3T);
+            float3 lutLinear = make_float3(lm_decode(lutValue.x), lm_decode(lutValue.y), lm_decode(lutValue.z));
+            out = lm_add(out, lm_scale(lutLinear, f4));
+        }
+    }
+
+    // Shared fine controls use descriptors frozen from base, not changed colors.
+    float3 op = baseDescriptor.op;
+    float protect = baseDescriptor.protect;
+    out = lm_rotate(out, hue * 0.01745329252f * protect);
+    out = lm_sat(out, 1.0f + (saturation - 1.0f) * protect);
+
+    if (split != 0.0f)
+    {
+        float Y = baseDescriptor.Y;
+        float3 tones = baseDescriptor.tones;
+        float affinity = baseDescriptor.affinity;
+        float3 cool = lm_zeroY(make_float3(-0.40f, 0.08f, 0.30f));
+        float3 warm = lm_zeroY(make_float3(0.25f, 0.10f, -0.30f));
+        float3 tint = lm_add(lm_scale(cool, tones.x + 0.25f * tones.y),
+                             lm_scale(warm, 0.65f * tones.z));
+        out = lm_add(out, lm_scale(tint, 0.35f * split * protect * affinity * _fmaxf(Y, 0.0f)));
+    }
+
+    // True scalar RGB exposure gain. Mask is INPUT chroma, not generated tint.
+    // At master<1 the final input/output blend is not itself a pure stop change.
+    if (density != 0.0f)
+    {
+        float chromaMask = lm_smooth(0.02f, 0.20f, op.z);
+        float densityGain = _exp2f(-density * chromaMask * protect);
+        out = lm_scale(out, densityGain);
+    }
+    if (filmTotal == 0.0f)
+        out = lm_add(input, lm_scale(lm_sub(out, input), strength));
+    else if (strength != 1.0f)
+        out = lm_add(lm_scale(input, 1.0f - strength), lm_scale(out, strength));
+
+    if (!lm_finite(out.x) || !lm_finite(out.y) || !lm_finite(out.z)) return src;
+    float3 result = make_float3(lm_encode(out.x), lm_encode(out.y), lm_encode(out.z));
+    if (!lm_finite(result.x) || !lm_finite(result.y) || !lm_finite(result.z)) return src;
+    // No final 0..1 clamp: signed channels and HDR go to the downstream CST/DRT.
+    return result;
+}
