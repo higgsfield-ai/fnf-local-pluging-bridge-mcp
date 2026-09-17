@@ -12,6 +12,7 @@ const EXPECTED_TOOLS = [
   "ae_context",
   "ae_do",
   "ae_get_skill",
+  "ae_get_skill_asset",
   "ae_layer_info",
   "ae_project_export_json",
   "ae_project_import_json",

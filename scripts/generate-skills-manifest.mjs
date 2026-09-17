@@ -6,9 +6,17 @@ if (process.argv.slice(2).some((argument) => argument !== "--check"))
   throw new Error("Usage: node scripts/generate-skills-manifest.mjs [--check]");
 
 const root = resolve(import.meta.dirname, "../skills");
+// A SKILL.md is loaded whole into the model's context; keep it readable.
+const MAX_DOCUMENT_BYTES = 64 * 1024;
+// Total assets/ + scripts/ per skill; the package ships them to every install.
+const MAX_SKILL_FILE_BYTES = 96 * 1024 * 1024;
+
+function fileSha256(file) {
+  return createHash("sha256").update(readFileSync(file)).digest("hex");
+}
 const manifestPath = join(root, "manifest.json");
 const manifest = {
-  schemaVersion: 3,
+  schemaVersion: 4,
   sourceRepository: "higgsfield-ai/fnf-local-pluging-bridge-mcp",
   sourcePath: "skills",
   skills: [],
@@ -39,6 +47,10 @@ for (const [group, name] of groups) {
   if (seen.has(name)) throw new Error(`Duplicate skill name across groups: ${name}`);
   seen.add(name);
   const documents = {};
+  // Non-Markdown files a skill ships for local use: LUTs, DCTLs, JSON data and
+  // Python helpers. Served by path (never by content) through ae_get_skill_asset.
+  const files = {};
+  let bytes = 0;
   const walk = (directory, prefix = "") => {
     for (const item of readdirSync(directory).toSorted()) {
       const file = join(directory, item);
@@ -49,16 +61,32 @@ for (const [group, name] of groups) {
       else if (item.endsWith(".md")) {
         if (!/^(SKILL\.md|references\/[a-zA-Z0-9/_-]+\.md)$/.test(relative))
           throw new Error(`Invalid document: ${relative}`);
+        if (stat.size > MAX_DOCUMENT_BYTES)
+          throw new Error(`Document exceeds ${MAX_DOCUMENT_BYTES} bytes: ${relative}`);
         documents[relative] = createHash("sha256").update(readFileSync(file)).digest("hex");
+      } else if (/^(assets|scripts)\//.test(relative)) {
+        if (
+          !/^(assets|scripts)\/[a-zA-Z0-9][a-zA-Z0-9/._-]*$/.test(relative) ||
+          relative.includes("/.")
+        )
+          throw new Error(`Invalid skill file: ${relative}`);
+        bytes += stat.size;
+        files[relative] = { sha256: fileSha256(file), bytes: stat.size };
+      } else if (!/^agents\/[a-z0-9-]+\.ya?ml$/.test(relative)) {
+        throw new Error(`Unexpected skill file: ${relative}`);
       }
     }
   };
   walk(base);
+  if (bytes > MAX_SKILL_FILE_BYTES)
+    throw new Error(`Skill files exceed ${MAX_SKILL_FILE_BYTES} bytes: ${name} (${bytes})`);
   const entry = readFileSync(join(base, "SKILL.md"), "utf8");
   const description = entry.match(/^description: (.+)$/m)?.[1];
   if (!description || !entry.startsWith(`---\nname: ${name}\n`))
     throw new Error(`Invalid metadata: ${name}`);
-  manifest.skills.push({ name, path: `${group}/${name}`, description, documents });
+  const entry_ = { name, path: `${group}/${name}`, description, documents };
+  if (Object.keys(files).length) entry_.files = files;
+  manifest.skills.push(entry_);
 }
 
 manifest.skills.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));

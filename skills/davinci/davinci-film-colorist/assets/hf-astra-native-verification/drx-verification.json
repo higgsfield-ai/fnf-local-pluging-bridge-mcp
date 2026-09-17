@@ -1,0 +1,4801 @@
+{
+  "method": "Actual native re-exported DRX parsed with async parseDRXContent. Checkboxes independently decoded from original F3 varint wire; null parser values are not treated as zero.",
+  "recipes_sha256": "9be3e9350cf9caf7a0e40661f025e9b1b9ccf5a6317cebe0cdd22d14fb6a2be2",
+  "caseCount": 28,
+  "results": {
+    "neutral": {
+      "file": "test_neutral_1.3.1.drx",
+      "sha256": "5390b016c60671ffa35433689d00191b365a6920f551d2adb1d5f7e0eaac149b",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "5476972c67d2cea8ae47ed3e8c81f6b9b6170afa6f7c90ba0e813f99484fd84f",
+        "bac961748d6b875a47bf25e53981f177ceb52054d693d63326e79ba2fb71629f",
+        "bafc2a4992c7e87b2029ae4a1aec0a0a81dc010ee09610f692a047e450452c00",
+        "8a567913b8a4367f3a376dd91da86cc6e66be45f82c3a2ef148ea3a6b1f350ef",
+        "83ade84163d86aeb46b3bd477a94fc8531517c02070251056954b007e6d44867"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": true,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": true,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": true,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": true,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "warm_full": {
+      "file": "test_warm_full_1.3.1.drx",
+      "sha256": "5abcc70998b8d264e70b74f7641582caa798b6ca92981241f00a489893258d82",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 1,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "70508748c71d53ecc11aadd89f85557501dc43c38bd8e18f8ccb52da8bf76091",
+        "6b7386ba0dc0f0348f69530895bcbb1febd9cb03b7aeacbbaad96954cfe164bc",
+        "512b65a599c3425f5a8b4ccd8e29b166844cf135398886bb6b7cbab79c112e1b",
+        "ff0bcf3ee60a66814608b15db4dba52fdef921076f5f8a40ddcd0beef38235d8",
+        "d762cce61da0b8325928921230ada2cd9be1895cb82f646b531d857032e39f35"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "petrol_full": {
+      "file": "test_petrol_full_1.3.1.drx",
+      "sha256": "1b91e82bd172399682463ec2d6cb7875ee3d1d74d552579024868cc548a526df",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 1,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "3a0d244b09c141761a626b3e414322bf22a3c2c0794521f7d3934e2d980fc8ec",
+        "bb661a1595abb7c46794f0381748d0747c63bea90dc6be173cd345cb5d1dc03b",
+        "31132f4f356dfcd0f51ef646c12bb6dbaed24aabdbb2f752eddc63b97b843176",
+        "012b866c4e1f631f25103ac970ed2ab402553aec13fa368389fd63cfb7daa170",
+        "af8055a64155771661cd77c264d99d8083c4055e6f2b6eaa867449d0cd892c5f"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "coldgreen_full": {
+      "file": "test_coldgreen_full_1.3.1.drx",
+      "sha256": "1ca627526cd8235a85689eb0b093110bbe9e5c0d7088406a5dee71782d51bc2a",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 1,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "4f8e45e6b0cfce7748d37ad188a3634e53f24c1dafedac22d35c32474317a9f2",
+        "6ba8a796819fa5b56af29891abc0f2774e055b7debeb95d50c80133f4b7a4a3e",
+        "6a5049b63d41401cd507adcbdd3cf593ac47278e44542469db1651910a3fa7a0",
+        "9d0fcffcc1090a6ba0390082a07bff9a8912f48b86646e10d043a5b04a182b7d",
+        "da26302833c0bb5653dd0adbbbb9356c5561ef8bd5bf084bb78c3c11fbc1bf07"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "steel_full": {
+      "file": "test_steel_full_1.3.1.drx",
+      "sha256": "fefaf97e12a8ec99597ed2909887c41537a8e2c12e58bb59f981d0bd7609022c",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 1,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "49f0f7c5787cdd322c312f9ab2caed3d17967aafbf1189102bdb9e96c412f100",
+        "053ce0506f993653565e98f09c0ab5a20f52fb03f2f22925fdfd8a8254ec7ab8",
+        "e064b6ca8f6d316dd023700e49c9da8b99d85f51f0063856fd93d476647ef368",
+        "e34851c04291605e45167fcf2c92479270fa1ddef6214b5cfecb0845423a8901",
+        "fb1a2de0dc27e9dd5a23f22c3a4c866e2c2938346724d959ac04ecacebd9d569"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "softneutral_full": {
+      "file": "test_softneutral_full_1.3.1.drx",
+      "sha256": "e12bf59d862c8ac44e8dd899fadf9e4e4b39fd66cf4d823fe8f05c1521433432",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 1,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "3c8553f2f1bfe216d693c758fdf3af9856aeddfa02dd25e02dd06b7fc02ebe5b",
+        "28f1163c2743d7813675e20d95a1fc0b3e8f9367583e8d10b9644eb2c7d0c16b",
+        "e66599a9b6c26523c343f42e196482f32ede6f842b9c110cf103fcac3e76a686",
+        "24dfc4ae06ed51a6a1652e266ee97b92ea14d2247a3e5f4ce15e751b167d0823",
+        "00682ce7a71d487f7c934913fe7ebe93bbcbd76b9105149f6a1f8cbe02785704"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "portra_full": {
+      "file": "test_portra_full_1.3.1.drx",
+      "sha256": "7f3a4b93b2e510b8d384b99487546e1ea003f999f1a846b070112ba57ee2ece3",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 1,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "cf7be2d07ddc908a7451c5bb048e75f593bca01e8f78c3ee3391579d20dd41a0",
+        "d6435a36b1d66655fc5eb5036854a9825698420e91d353d8e17cc9cb308e2226",
+        "466171fb4f25be4345169ab87f396c8ea2bb30dcfafba2603d1e37a936e53ad1",
+        "c60f0ab82335b3d64d6b3bcfb426648b926e5b945613a23d86c62442458a6f8b",
+        "34baf38af7502612765752a518f0d41e98f99e60b10b97df778d90756f1c7ce7"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "ektachrome_full": {
+      "file": "test_ektachrome_full_1.3.1.drx",
+      "sha256": "0f247a6fe9a93234534063fb1060afa4cf70a21afd36cc5eb1493f4bf1d34017",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 1,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "20b4de6177d3fd4b5697260dfdb318cb53c3917332daac8b5d1f04b5ddb0bfdc",
+        "93cfc6c4ad8b292ad86f01e12476e75a1baebe2c291cdf33721ba207779b01f3",
+        "5107ebeafe3b098826480db2fda237197b44ec1a2ed9dad66b362270462ce33e",
+        "f10223fedf85a6dd828afcdd8894899caf4d589849d2dd95f6ba0f70b7e62bb6",
+        "6d10c015ac0a29e8a8db28bdf4f57b9c9f10c3ce36c5f54aa6a6bfbbad979eec"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "vision2_full": {
+      "file": "test_vision2_full_1.3.1.drx",
+      "sha256": "db187051027f83d51d27e35d6232d94ca9afcf5644d433dac5030289a3ad059a",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 1,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "ea88b9170db6e3879b519f1a9e430ef1f17cb678350b450ed75bcb8769c43814",
+        "14d24789bcffd8f904582cb36466cef8bbb72182add14fad7e43a43d7205f116",
+        "34e5d0fde234db9affb52ac5bb0e878f83598fe0ddf69bf34553fc4166d6eca2",
+        "84ec4e51c11f38ed792182538306b1a67bb7667a1fd4b8317ff1d52f5856f93c",
+        "d7046489ce79d9daf4c8f1bc7d575963ac6b1ae5ab0255b221ab97e9cee90dc8"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "vision3d_full": {
+      "file": "test_vision3d_full_1.3.1.drx",
+      "sha256": "8fd64d1752f711ed127d40701594b54b45580db51d75c859691f74ff1495c9f0",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 1,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "111b79f53851e81270bcc77105b3375e2a55bb7e8a95cf454b8f47a0366955ac",
+        "5830ff2e7ed6320455fa15c65dc0f673dd0bfd141e1b4225e0ea58f30b983f74",
+        "42044fd76ce67d12c89c7c1874c11a2388d44d56e505689327cd4a5a53ce4f97",
+        "69c168075bd468473bb0e63edaa019851b805974d7098da5e439a7fa948f2e4c",
+        "fdec61108a3b6dde3a85a833804734936e61a477e0dbca8cfb7570deda6d3992"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "vision3t_full": {
+      "file": "test_vision3t_full_1.3.1.drx",
+      "sha256": "84deabf825134aba5601f577df503a95413c446f551e5c4eea1e790cd69f84eb",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 1,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "05700c689efa188cd775c65667ce476f48e0809d3675a436907d499790f09d22",
+        "1058edfbf8a613ee132d23cbb96d883feb8466cb49ce7c20afe7da09594feb61",
+        "5fe4f860b04e3ae67fb6d02d829a497fb18208183a878e9fec567f98e1d52540",
+        "014d85fe60f366ffbfd7f194f20a6173800165dfb511dc94cb0cf99c1a906c53",
+        "b9bc7afb37caccf0c826e3d1081ce43e4b7ce6df5a39a7c35cebd1250e80238f"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "split_positive": {
+      "file": "test_split_positive_1.3.1.drx",
+      "sha256": "a6655f1f6d775d4134a5dd4790f8c346c13a93a6735e2d4a6dbd1b561b54aceb",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 1,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "d7deb39bc61465fa2fa288320c05cbac745ddc567e4e78898ba4051a0628fb8c",
+        "b47ecb6bcb2aab9e3ee31b362e728ce82f16f2343022b74c366425b8ba1b117e",
+        "6d1505055aa15f23cc875f96b5e3c862c173c72422d0c73e6c1d730e5cf73bf5",
+        "f27ead8a815dad398f572ae06c49fae3c38f632debdfceffdca0c276d6a5d11c",
+        "75b6fb15efc6a51bd00b9256920b55502c23e21863223058a54200b019f23b76"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "split_negative": {
+      "file": "test_split_negative_1.3.1.drx",
+      "sha256": "f618d57eba876ddd0c78e079d28c9bc4074de2dc5b06bdfc6a42b4e99105ded1",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": -1,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "88d3deaae7907a3dcdebdcc26d27c908dbcc83664e88e152ed32cbad9fd29b8a",
+        "a6b7d2949b0de7fed6df467c2c419f1ac273feaf1646b6c1f64f6cc046c9d216",
+        "4729c037f5c5dfcc9b7580d5e1902d890e7fdb62d0790c4cd23b84a1e83dc63c",
+        "1d5a8b3fcff078f61c394733b2ed3e8653a460646ce3539a7ca4c4b953f3b24c",
+        "3d74ebf19ec4514e83c1f74e11adac47fa80962b516d7ee246b956cec4736f4b"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "bold_warm_petrol": {
+      "file": "bold_warm_verify_1.3.1.drx",
+      "sha256": "8d624d97dc68f9a4475ceb4799e3a8ff79ceb566ba934780f864ca3e0bf4f15f",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 1920,
+      "height": 1080,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.85,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0.4,
+        "lm_steel": 0,
+        "lm_warmprint": 0.6,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1.3,
+        "lm_hue": 0,
+        "lm_split": 0.8,
+        "lm_density": 0.15,
+        "lm_warm_protect": 0.5,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "64191305d41d8eb2d7fbe06bece1bef8b3a2231e7c2b08b88e4ec30250aaf913",
+        "36b96d546cf8812aa3e05b8f8d45794be07c4d41b4f18cb7b6389bd91c667418",
+        "34d6421e0be5238a1c594c0592f87abd9aa53d98079ca57f9f3e3ebda888f098",
+        "7b7014dd68f26a2011441297314f1fddd55176deb7713c52acd5c50e6cd2283c",
+        "1da6cfb613d37e7fd2d0d2560308659b48dddec0c2f19325ca01be1d5d7e5f67"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": false
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": false
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": false
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": false
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "bold_cold": {
+      "file": "test_bold_cold_1.3.1.drx",
+      "sha256": "32115d9e4472d3cef8a5dad70b489124b5e9fe7ee8a514525f4d11c16b5aa238",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.9,
+        "lm_original": 0,
+        "lm_coldgreen": 0.65,
+        "lm_petrol": 0,
+        "lm_steel": 0.35,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1.15,
+        "lm_hue": 0,
+        "lm_split": 0.8,
+        "lm_density": 0,
+        "lm_warm_protect": 0.7,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "4d8cd190785ba89f8639203733a0c5f4f21987f607b24d91d98886bbb4592a24",
+        "6c4aa7cf1bc85700afa9bec2c86a2953bde299823564375b2fa585fec617354e",
+        "64c44d288b997d3843293db03ecf908846755e66e3cf3acc660f71a60cb1d50b",
+        "db37e004e1bb4a8a9a2c859c48e4ee957e1c6c5894383dfad1c0793b802b295b",
+        "f57fde13964f05acbfba1f1f8884d2442f8a256861679074a8de5e3d9583f651"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "tetra_test": {
+      "file": "test_tetra_test_1.3.1.drx",
+      "sha256": "189f5847ac32cca200afc16e7da0db508f9cc6e183b3e952be556653b3bfdc63",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0.4,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 0.7,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 0.8,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "5938a4233b32ef02fb065589e91ac4e4fa08e660d6be6cfaa1cfc4cb080a87af",
+        "d2ff824a91f3547be78040b1b7cbf13e48981173294a7fdf6d9d635e263a80c7",
+        "1aa81ca782428d814cd463b7305fbef95c7e4b11608be3633738c161be4288b5",
+        "a99fa0b5578b8b970c603c9ad10244c5a03426f5bd41131215479ab5a78c5631",
+        "a84c9eae23ddcb2aaad6263b51c65de3eb7ad52a1df0f9e9588b301be48f8744"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "curve_test": {
+      "file": "test_curve_test_1.3.1.drx",
+      "sha256": "15c6734228682afd95c55ef8b31ade3d98ed60ab95ddc610e7f472eea106084f",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1.2,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.15,
+        "lm_toe": 0.6,
+        "lm_toe_length": 0.15,
+        "lm_shoulder": 0.6,
+        "lm_shoulder_length": 1,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "0d63a568b56c8da667dd0c3e39544043093c1ddb0ddf166ff4f11786ec1270da",
+        "5f2ad178b2399db3b4d88379221f611b63c906e4e1cc43df2414571c4b0f041a",
+        "fd3c60f0eece72c9a598102dbb2f1322827e7ff934e2efabd58cbb2b65be17fc",
+        "2ced609bfe873ce40b212bd4fdce8b70e63f1977c09ad4a782ff571ba6dccb53",
+        "76ad39935b33829ae67f709e573d93d806386dc13d59a20f8bd7e41603126181"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "master_zero": {
+      "file": "test_master_zero_1.3.1.drx",
+      "sha256": "838d6387a881c293b2cf63b5a9b0fb9df861b9551fdae84acd44c0dc97da1b1f",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0,
+        "lm_original": 0,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 1,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": null,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": null,
+        "lm_ramp_compare": null,
+        "lm_ramp_fullscreen": null,
+        "lm_ramp_stops": null,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [
+        {
+          "id": "lm_additive",
+          "parameter": "checkBoxParam0",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_show_ramp",
+          "parameter": "checkBoxParam1",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_compare",
+          "parameter": "checkBoxParam2",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_fullscreen",
+          "parameter": "checkBoxParam3",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "id": "lm_ramp_stops",
+          "parameter": "checkBoxParam4",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0"
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1"
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2"
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3"
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4"
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "8e94d698f61373edbf645649fdb692ddba58194a8cd6ccc990f0b1470d04ff52",
+        "96f0c7d165855ad9b0d8b1895a98d8ad9f8d27bb65b70744acae6cafae5abfa5",
+        "3c1c4f6b10115c1057127847ec7b658c9655973c08048869dc7d196232b49276",
+        "cd4ca0f486345286bc1b8601cc5471f18590494c471c12ceba3e105aa9d1bf25",
+        "85ca39773c9f98e4ab07a64a428246d96522e59e7bbaa1e68bf980dd202c69aa"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "additive_warm": {
+      "file": "test_additive_warm_1.3.1.drx",
+      "sha256": "243596d41b28f08b217976c29baf30387449d1b929ea4cbcd6a0a36d9270f6c0",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 1,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": 1,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "6a173417765f0f7f77882de89f8bef98600ea5665bc3c3ff214f28c31301dbc5",
+        "234c1458578cfd55f84421adb3a4849b17e8a74cce325ff71898f06c6debe028",
+        "d898c131ecd862f49db9ac5228d1670d59c0fb34f68d50a01b640541e57e2fdd",
+        "30f967a0b5efe4e0a850d4252dc4f3f2e378b3610d0cf330c5633e68dc4a4b85",
+        "3b3cef34726e7c6d5dd3e603437860f2f7cf26f950e6f23b2f3051deec083e3b"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "additive_mix": {
+      "file": "test_additive_mix_1.3.1.drx",
+      "sha256": "f8fbe0e8fdb02736e1f22d379948b55c0af2a5674ca56ef3522d54895ad5fd9f",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.8,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 1,
+        "lm_steel": 0,
+        "lm_warmprint": 1,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0.6,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": 1,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "b36a816fe5aeff44785644ee08088dc46dfeb455d2cd7a68cf351422349b2406",
+        "f9bc5557724a57859cd9eef3fead6095476a85fde6219b95e78e6aa1a67ddff8",
+        "4dd43a5f13724184544d06a62a50aa37816f8ba880005ec08a131ed2e19830bc",
+        "d43559d4d1b15cbd0b86c5366d1eb56779709d6bfd5c28d9bdcf84bf947f23f6",
+        "280063364645a4dc9c3d15a0038a92573cdda9c8f1c2b55ba57c5d0998b7629b"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "normal_mix": {
+      "file": "test_normal_mix_1.3.1.drx",
+      "sha256": "3924a77f0bb823bf617f5e5bb737f2708084488767f17bdec0e711fdbad996b3",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.8,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 1,
+        "lm_steel": 0,
+        "lm_warmprint": 1,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0.6,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": 0,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "a421ff74dad397efd419a731a260927e3cd710f125018de95bab6c25e090da04",
+        "ba536cd7d627d9aafb79c3595e0720ed961d351e6f3e9437e871882ec51aed88",
+        "4f0b76685102c26d91b023786b649a093597eb93f16b3b27a4a63fab36cfdddf",
+        "edc249e6b0ae07c5e1b5bd4ca3f539c019d042db45636b7d5796e8662ec55dc6",
+        "55c437d0600f38d38a72a07a17546a14734ee856ba48eb78de4522d2728cbd54"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "ramp_curve": {
+      "file": "test_ramp_curve_1.3.1.drx",
+      "sha256": "0c61c416fd7500fb86058aff482d91d56e41e7180109a69831c223e63d7fd8c4",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1.25,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": 0,
+        "lm_pivot": 0.18,
+        "lm_toe": 0.5,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0.6,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 1,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 1,
+        "lm_ramp_stops": 1,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "517bc0354c539bd30525d9dec1a250febb02e9e73dd85accbfdfe6974947dc84",
+        "44796a7bb15191cd25af1e18b699d35cee6cb889f328a14bbd0bee2839ad4c21",
+        "20621637fca64920c5dde391eda0ba113b60897cb3999f3ffade0a42f9495499",
+        "91e8f4139bd2992f18acc72a7057a29507b4fbe6ffaccd902882336ccfe8f396",
+        "3aea73dcbbd1fff6d3f05c7da1aeb15fa5e8b5d81d7964390fa3411a4797d68a"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "ramp_lut_additive": {
+      "file": "test_ramp_lut_additive_1.3.1.drx",
+      "sha256": "a6c3f75b5e5457af31427729330fc12b70779f751310ecb9acb35c7648b85855",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 1,
+        "lm_original": 1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 1,
+        "lm_fb_ektachrome": 1,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0,
+        "lm_additive": 1,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 1,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 1,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "0fcde640ce7bea43a81d0b581d4f43315ec85c439a8c2ef30595fda74708ef68",
+        "be946489f048d8a0e87b00936c2add90c9207fc3db0ac7fe7ea1575e336cf25a",
+        "084f2d7d39cbc9a465f6061670606673f41da0fd2445306557cca3c8118252b7",
+        "9cb6c688140bf45d4d3f2ca6056ede560444143738ea9884e9c1b7f73d232392",
+        "fbebf540d348d7fe3535acade4ee714572df025ca6d6aedcb17760437da482b4"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "recipe_01": {
+      "file": "test_recipe_01_1.3.1.drx",
+      "sha256": "9a258faf6dc647a2a922fd02bfc7381b4347371f504c4eebfac5862fe6414604",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.85,
+        "lm_original": 0.15,
+        "lm_coldgreen": 1,
+        "lm_petrol": 0.25,
+        "lm_steel": 0,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 0.9,
+        "lm_hue": 0,
+        "lm_split": 0.25,
+        "lm_density": 0,
+        "lm_warm_protect": 0.55,
+        "lm_additive": 0,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "57ef7053535d605c973ca09448ed504fea5b089640342c2aed94022c348fc6e4",
+        "5833f0f3bf3c0d7de1fd76541b35ea28b54ef4729a552508c5e3d0b728a69b76",
+        "dc6babcddc108fc536454f0ce3d4355c8349d627068964241bbbbb7c50143b9e",
+        "bcacbe4e4085a98aa0fb3a3301a32ba1d551da1d7641bd31dbf0b9365806cf02",
+        "716902869e9f5f206352cec65d572ef9b8d514104487d4400088f450010ed236"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "recipe_02": {
+      "file": "test_recipe_02_1.3.1.drx",
+      "sha256": "108815c96e22d79bac0b442f1b9d7c51d46f0f6fa48cfd7d7cf67577ec0f6b51",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.9,
+        "lm_original": 0.1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 1,
+        "lm_steel": 0.2,
+        "lm_warmprint": 0,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1.12,
+        "lm_hue": -2,
+        "lm_split": 0.6,
+        "lm_density": 0,
+        "lm_warm_protect": 0.45,
+        "lm_additive": 0,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "7359ac604d13be766cbfa78e2108f10d73b749b52dfacce08d7449a1737934fa",
+        "8b2643bab49ec5f1355385dcb2cc58430ec7b79e21b1f090f60aaa83c58bc5ad",
+        "e0fe16e8aa08b493b0718e0ca6ca4256e162307aec2712da980ff235f426d9dd",
+        "a1da17fe9ca37b479f0d773c498a618f6d8718f6ad78bf0b9ccf287afd79f3e8",
+        "d78fe0d492d1eb4146184f95a266b085c0f3ce42b7c2fec3d3b17398487e9a1a"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "recipe_03": {
+      "file": "test_recipe_03_1.3.1.drx",
+      "sha256": "3020b6420db50cd3a9b0c6e375a66dd0280da3a15004bbb134c32f26366f3581",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.9,
+        "lm_original": 0.1,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0,
+        "lm_steel": 0,
+        "lm_warmprint": 1,
+        "lm_softneutral": 0.2,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 0.9,
+        "lm_hue": 1.5,
+        "lm_split": 0.35,
+        "lm_density": 0,
+        "lm_warm_protect": 0.35,
+        "lm_additive": 0,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "9b31af20ae85e264ebc95b1849228bb007fdfdbe90ce2922d9b0d46a68610a55",
+        "d0d40ec1a47cb2fdc0b342eb61304bafae54e74f915bffb8138524e8d17ab255",
+        "52c3743b0573c86de297b2426b1c29e971879ce94c3b27599237626c862e4926",
+        "320cf6103af271a2987041ae260ebfe454504c69f69164c761f904c5ff083d94",
+        "e6625657fd1e1b86f1d0cb57d8c55e3b299cdd1c09ae7e4d51690353f736af78"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "recipe_04": {
+      "file": "test_recipe_04_1.3.1.drx",
+      "sha256": "c4d7c28f3c433cd31f56e58bf99fd7999013c3e706b65c5d606a7a79dcb9307c",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.7,
+        "lm_original": 1,
+        "lm_coldgreen": 0.65,
+        "lm_petrol": 0.55,
+        "lm_steel": 0,
+        "lm_warmprint": 0.25,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1.05,
+        "lm_hue": 0,
+        "lm_split": 0.2,
+        "lm_density": 0,
+        "lm_warm_protect": 0.45,
+        "lm_additive": 1,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 1,
+        "lm_t_red_r": 1,
+        "lm_t_red_g": 0,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": 0,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "fac0bb4c07cbb8b548ee6f7746206075da077da0da69e4b75cbd832e385028be",
+        "734329d24ca5c7ba57f939139611c27de04b4061ea2b28273be7ba73bfd4f315",
+        "5317dce87355477f66fe6731ab5b934e5e78686568779cc65ee147c6dc40cee9",
+        "283cac654d32696a2c97d8fdbd28cdadf24284ed4a8b48576ec50aa38922ec0d",
+        "cf9824ba551bbf635a29daf587fdc09109b608b35d569f877cb4e7eff7de2c0b"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    },
+    "recipe_05": {
+      "file": "test_recipe_05_1.3.1.drx",
+      "sha256": "2c214e6b718680679654e3d169f9bdb5890322967fb876cfdd22e8b5c63de94c",
+      "sourceTC": "09:57:59:01",
+      "recordTC": "00:00:06:03",
+      "width": 2048,
+      "height": 858,
+      "nodeCount": 5,
+      "dctl": "HF-Astra-Looks/HF-Astra-Looks.dctl",
+      "hfEnabled": true,
+      "actual": {
+        "lm_master": 0.8,
+        "lm_original": 0.3,
+        "lm_coldgreen": 0,
+        "lm_petrol": 0.65,
+        "lm_steel": 0,
+        "lm_warmprint": 0.2,
+        "lm_softneutral": 0,
+        "lm_fb_portra": 0,
+        "lm_fb_ektachrome": 0,
+        "lm_fb_vision2": 0,
+        "lm_fb_vision3d": 0,
+        "lm_fb_vision3t": 0,
+        "lm_contrast": 1,
+        "lm_saturation": 1.05,
+        "lm_hue": 0,
+        "lm_split": 0,
+        "lm_density": 0,
+        "lm_warm_protect": 0.45,
+        "lm_additive": 0,
+        "lm_pivot": 0.18,
+        "lm_toe": 0,
+        "lm_toe_length": 0.1,
+        "lm_shoulder": 0,
+        "lm_shoulder_length": 2,
+        "lm_tetra_strength": 0.35,
+        "lm_t_red_r": 1.1,
+        "lm_t_red_g": -0.04,
+        "lm_t_red_b": 0,
+        "lm_t_green_r": 0.05,
+        "lm_t_green_g": 1,
+        "lm_t_green_b": 0.08,
+        "lm_t_blue_r": 0,
+        "lm_t_blue_g": 0.07,
+        "lm_t_blue_b": 1,
+        "lm_t_cyan_r": 0,
+        "lm_t_cyan_g": 1,
+        "lm_t_cyan_b": 1,
+        "lm_t_magenta_r": 1,
+        "lm_t_magenta_g": 0,
+        "lm_t_magenta_b": 1,
+        "lm_t_yellow_r": 1,
+        "lm_t_yellow_g": 1,
+        "lm_t_yellow_b": -0.08,
+        "lm_show_ramp": 0,
+        "lm_ramp_compare": 1,
+        "lm_ramp_fullscreen": 0,
+        "lm_ramp_stops": 0,
+        "lm_ramp_height": 0.18,
+        "lm_ramp_position": 1
+      },
+      "mismatches": [],
+      "checkboxWire": {
+        "lm_additive": {
+          "parameter": "checkBoxParam0",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_show_ramp": {
+          "parameter": "checkBoxParam1",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_compare": {
+          "parameter": "checkBoxParam2",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 1
+            }
+          ],
+          "value": 1
+        },
+        "lm_ramp_fullscreen": {
+          "parameter": "checkBoxParam3",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        },
+        "lm_ramp_stops": {
+          "parameter": "checkBoxParam4",
+          "fields": [
+            {
+              "field": 3,
+              "wire": 0,
+              "value": 0
+            }
+          ],
+          "value": 0
+        }
+      },
+      "sliderCount": 44,
+      "nodePayloadHashes": [
+        "0b7f1269405b4ce309aaf3b614fd00473d8830fd959b01e210d83bbe515b9528",
+        "6c0709c53139f1ea019e27d741f6533b258078012d2832c6ed585ccda9dc02a7",
+        "9d6e6b2f5ac21a4acab29a706ff8ab2ca37c4e34a86796f9cff16a5d5b63549b",
+        "1fd193d72cce33bca0c82af4a4ec397411c0e2382e4d48a4123fc812787a2be3",
+        "b8c1fa406d6e090b9ae2f519955a5ec4f8166496d5462e841cefd6464e954d13"
+      ],
+      "connections": [
+        {
+          "from": 10,
+          "to": 11,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 7
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 8
+        },
+        {
+          "from": 13,
+          "to": 14,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 10
+        },
+        {
+          "from": 12,
+          "to": 13,
+          "sourcePort": 64,
+          "targetPort": 64,
+          "index": 13
+        }
+      ],
+      "otherNodes": {
+        "1": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "2": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "3": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        },
+        "5": {
+          "rawPayloadEqualNeutral": false,
+          "parsedEqualNeutral": true
+        }
+      },
+      "connectionsEqualNeutral": true
+    }
+  }
+}

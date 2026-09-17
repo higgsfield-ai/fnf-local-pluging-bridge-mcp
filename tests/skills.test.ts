@@ -6,6 +6,7 @@ import {
   mkdtempSync,
   readFileSync,
   rmSync,
+  statSync,
   symlinkSync,
   unlinkSync,
   writeFileSync,
@@ -14,6 +15,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { SkillStore } from "../src/skills.js";
 import { getSkillTool } from "../src/tools/get-skill.js";
+import { getSkillAssetTool } from "../src/tools/get-skill-asset.js";
 import { nullTransport } from "./helpers/null-transport.js";
 import { ALL_TOOLS } from "../src/tools/index.js";
 import { McpTestClient } from "./harness.js";
@@ -159,6 +161,43 @@ describe("bundled AE skills", () => {
     expect(() => new SkillStore().read("ae-clean-rig", reference)).toThrow("Unknown reference");
   });
 
+  it("lists bundled files and resolves them to verified absolute paths without returning content", () => {
+    const store = new SkillStore();
+    const entry = store.read("davinci-film-colorist");
+    expect(entry.files).toContain("assets/HF-Astra-Looks/DCTL/HF-Astra-Looks.dctl");
+    expect(entry.files).toContain("scripts/install_hf_astra.py");
+    expect(store.index().skills.find((s) => s.name === "ae-clean-rig")?.files).toBeUndefined();
+    const asset = store.resolveFile(
+      "davinci-film-colorist",
+      "assets/tonality/GreenShape_DWG_DI_UI.dctl",
+    );
+    expect(asset.absolute_path).toMatch(/GreenShape_DWG_DI_UI\.dctl$/);
+    expect(statSync(asset.absolute_path).size).toBe(asset.bytes);
+    expect(Object.keys(asset)).not.toContain("content");
+    for (const path of [
+      "SKILL.md",
+      "references/tonal-shaping.md",
+      "assets/../SKILL.md",
+      "assets/missing.cube",
+    ])
+      expect(() => store.resolveFile("davinci-film-colorist", path)).toThrow("Unknown file");
+    expect(() => store.resolveFile("ae-clean-rig", "assets/x.cube")).toThrow("Unknown file");
+  });
+
+  it("detects edited bundle files", () => {
+    const root = copyCorpus();
+    writeFileSync(
+      join(root, "davinci/davinci-film-colorist/assets/tonality/exposure-validation.json"),
+      "{}",
+    );
+    expect(() =>
+      new SkillStore(root).resolveFile(
+        "davinci-film-colorist",
+        "assets/tonality/exposure-validation.json",
+      ),
+    ).toThrow("integrity mismatch");
+  });
+
   it("rejects unknown skills, including prototype property names", () => {
     for (const name of ["missing", "__proto__", "../../etc"])
       expect(() => new SkillStore().read(name)).toThrow("Unknown skill");
@@ -196,6 +235,22 @@ describe("bundled AE skills", () => {
     expect((await getSkillTool.handler({ name: "ae-clean-rig" }, transport)).isError).toBe(false);
     expect((await getSkillTool.handler({ reference: "SKILL.md" }, transport)).isError).toBe(true);
     expect((await getSkillTool.handler({ name: "missing" }, transport)).isError).toBe(true);
+    expect(
+      (
+        await getSkillAssetTool.handler(
+          { name: "davinci-film-colorist", path: "scripts/inspect_resolve.py" },
+          transport,
+        )
+      ).isError,
+    ).toBe(false);
+    expect(
+      (
+        await getSkillAssetTool.handler(
+          { name: "davinci-film-colorist", path: "SKILL.md" },
+          transport,
+        )
+      ).isError,
+    ).toBe(true);
     expect(transport.calls).toHaveLength(0);
   });
 

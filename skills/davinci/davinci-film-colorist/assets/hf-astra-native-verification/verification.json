@@ -1,0 +1,259 @@
+{
+  "scope": "Offline independent audit of actual operator-exported native DRX and PNG from the current macOS session; no Resolve actions by verifier.",
+  "source_dctl_sha256": "46013306cb4a7a18b60f9669e710415ff0679dd3b1269ee71e4ccd767434870c",
+  "case_count": 28,
+  "png_count": 27,
+  "additional_png": "bold_warm_petrol.png",
+  "float_values_matched": 1232,
+  "float_mismatches": [],
+  "checkbox_values_matched": 50,
+  "all49_serialized_verified_cases": [
+    "additive_warm",
+    "additive_mix",
+    "normal_mix",
+    "ramp_curve",
+    "ramp_lut_additive",
+    "recipe_01",
+    "recipe_02",
+    "recipe_03",
+    "recipe_04",
+    "recipe_05"
+  ],
+  "checkbox_not_serialized_cases": [
+    "neutral",
+    "warm_full",
+    "petrol_full",
+    "coldgreen_full",
+    "steel_full",
+    "softneutral_full",
+    "portra_full",
+    "ektachrome_full",
+    "vision2_full",
+    "vision3d_full",
+    "vision3t_full",
+    "split_positive",
+    "split_negative",
+    "bold_warm_petrol",
+    "bold_cold",
+    "tetra_test",
+    "curve_test",
+    "master_zero"
+  ],
+  "checkbox_absence_policy": "Absent checkbox records are unknown; never inferred zero or counted as mismatched runtime values.",
+  "key_png_pairs": {
+    "master_zero__vs__neutral": {
+      "comparable": true,
+      "pixel_equal": true,
+      "changed_pixels": 0,
+      "changed_fraction": 0.0,
+      "mean_abs_rgb_codes": 0.0,
+      "max_abs_rgb_codes": 0,
+      "p99_abs_rgb_codes": 0.0
+    },
+    "additive_warm__vs__warm_full": {
+      "comparable": true,
+      "pixel_equal": true,
+      "changed_pixels": 0,
+      "changed_fraction": 0.0,
+      "mean_abs_rgb_codes": 0.0,
+      "max_abs_rgb_codes": 0,
+      "p99_abs_rgb_codes": 0.0
+    },
+    "normal_mix__vs__additive_mix": {
+      "comparable": true,
+      "pixel_equal": false,
+      "changed_pixels": 1667057,
+      "changed_fraction": 0.9487094123324592,
+      "mean_abs_rgb_codes": 0.8997166299412394,
+      "max_abs_rgb_codes": 6,
+      "p99_abs_rgb_codes": 3.0
+    }
+  },
+  "creative_recipe_results": {
+    "recipe_01": {
+      "serialized49_match": true,
+      "unchanged_other_nodes_parsed": true,
+      "connections_equal_neutral": true,
+      "png_vs_neutral": {
+        "comparable": true,
+        "pixel_equal": false,
+        "changed_pixels": 1724489,
+        "changed_fraction": 0.981393525094697,
+        "mean_abs_rgb_codes": 1.8701133935508936,
+        "max_abs_rgb_codes": 14,
+        "p99_abs_rgb_codes": 11.0
+      }
+    },
+    "recipe_02": {
+      "serialized49_match": true,
+      "unchanged_other_nodes_parsed": true,
+      "connections_equal_neutral": true,
+      "png_vs_neutral": {
+        "comparable": true,
+        "pixel_equal": false,
+        "changed_pixels": 1697901,
+        "changed_fraction": 0.9662624972683567,
+        "mean_abs_rgb_codes": 1.820538429669289,
+        "max_abs_rgb_codes": 20,
+        "p99_abs_rgb_codes": 9.0
+      }
+    },
+    "recipe_03": {
+      "serialized49_match": true,
+      "unchanged_other_nodes_parsed": true,
+      "connections_equal_neutral": true,
+      "png_vs_neutral": {
+        "comparable": true,
+        "pixel_equal": false,
+        "changed_pixels": 1639102,
+        "changed_fraction": 0.9328004352418415,
+        "mean_abs_rgb_codes": 0.9465165097489316,
+        "max_abs_rgb_codes": 8,
+        "p99_abs_rgb_codes": 4.0
+      }
+    },
+    "recipe_04": {
+      "serialized49_match": true,
+      "unchanged_other_nodes_parsed": true,
+      "connections_equal_neutral": true,
+      "png_vs_neutral": {
+        "comparable": true,
+        "pixel_equal": false,
+        "changed_pixels": 1719231,
+        "changed_fraction": 0.9784012374344405,
+        "mean_abs_rgb_codes": 1.9801485406954158,
+        "max_abs_rgb_codes": 16,
+        "p99_abs_rgb_codes": 11.0
+      }
+    },
+    "recipe_05": {
+      "serialized49_match": true,
+      "unchanged_other_nodes_parsed": true,
+      "connections_equal_neutral": true,
+      "png_vs_neutral": {
+        "comparable": true,
+        "pixel_equal": false,
+        "changed_pixels": 1008886,
+        "changed_fraction": 0.5741493207313519,
+        "mean_abs_rgb_codes": 0.3458730939199689,
+        "max_abs_rgb_codes": 7,
+        "p99_abs_rgb_codes": 2.0
+      }
+    }
+  },
+  "other_node_comparison": "27/28 states retain equal parsed non-HF nodes and connections. The older bold_warm_petrol export differs in non-HF window matrices; exclude its image from controlled HF-only effect conclusions. Raw payload equality is not required or implied.",
+  "sourceTC": "09:57:59:01",
+  "recordTC": "00:00:06:03",
+  "png_format": "2048 x 858 RGB uint8, downstream output transform included",
+  "known_negative_native": {
+    "sample_y": 714,
+    "median_rows": [
+      711,
+      717
+    ],
+    "Yprime_peak": 249.33699999999996,
+    "peak_x_fraction": 0.7469467513434294,
+    "right_endpoint_Yprime": 0.0,
+    "decreasing_adjacent_pairs": 93,
+    "max_adjacent_drop_codes": 22.88640000000001,
+    "peak_to_right_drop_codes": 249.33699999999996,
+    "last_nonblack_x_fraction": 0.920371275036639,
+    "trailing_all_black_columns": 163,
+    "samples": {
+      "0": {
+        "x": 0,
+        "rgb": [
+          21.0,
+          20.0,
+          19.0
+        ],
+        "Yprime": 20.1404
+      },
+      "0.25": {
+        "x": 512,
+        "rgb": [
+          25.0,
+          48.0,
+          54.0
+        ],
+        "Yprime": 43.5434
+      },
+      "0.5": {
+        "x": 1024,
+        "rgb": [
+          224.0,
+          218.0,
+          210.0
+        ],
+        "Yprime": 218.698
+      },
+      "0.75": {
+        "x": 1535,
+        "rgb": [
+          255.0,
+          249.0,
+          236.0
+        ],
+        "Yprime": 249.33699999999996
+      },
+      "0.85": {
+        "x": 1740,
+        "rgb": [
+          255.0,
+          255.0,
+          0.0
+        ],
+        "Yprime": 236.58899999999997
+      },
+      "0.9": {
+        "x": 1842,
+        "rgb": [
+          255.0,
+          43.0,
+          55.0
+        ],
+        "Yprime": 88.9376
+      },
+      "0.95": {
+        "x": 1945,
+        "rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Yprime": 0.0
+      },
+      "0.98": {
+        "x": 2006,
+        "rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Yprime": 0.0
+      },
+      "1": {
+        "x": 2047,
+        "rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Yprime": 0.0
+      }
+    }
+  },
+  "limitations": [
+    "Serialized value matching is not 49 independent control-effect tests.",
+    "Exact PNG identity is only at this frame and RGB8 quantization. No floating-point GPU parity or intermediate NaN/Inf proof.",
+    "Five LUTs produce distinct native images; this does not establish agreement with direct LUT sampling or the authored RCM SDR DRT.",
+    "No universal preset, full HDR/gamut safety, cross-platform verification, or artistic acceptance is inferred."
+  ],
+  "evidence_files": {
+    "drx-verification.json": "042540a1a3825edaf8e02f1e4d2560ca46447d96de99de37dabf4c65919936b0",
+    "png-verification.json": "b3896e9647e536f3b44b2da3f1e962ae14840ebedfc7fbf340c8b86f41a7a845",
+    "cases/recipes.json": "9be3e9350cf9caf7a0e40661f025e9b1b9ccf5a6317cebe0cdd22d14fb6a2be2",
+    "verify-native-drx.cjs": "dd8724543a9530f8eb6722fd8c843740e5e68a37cbade14d47f147900e63e6a5",
+    "verify-native-png.py": "4dd43516bc3418d2c97a2edb04e869f299457b78cc459772ef167081143fa3c9"
+  }
+}

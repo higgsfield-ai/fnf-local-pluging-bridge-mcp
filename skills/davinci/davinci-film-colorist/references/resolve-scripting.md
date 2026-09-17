@@ -2,9 +2,9 @@
 
 ## Restore and locate the helper
 
-Materialize the embedded runtime by the procedure in the entrypoint before using Python helpers or JSON data. Resolve paths from that restored skill directory. The context helper is scripts/inspect_resolve.py; it uses official scripting getters and emits film-colorist-readonly-snapshot-2. It does not launch Resolve, switch pages or projects, select a grade, or modify processing. GetMediaPoolItem is used only to read source properties.
+Python helpers and JSON data are plain files under scripts/ and assets/ in this skill directory. The context helper is scripts/inspect_resolve.py; it uses official scripting getters and emits film-colorist-readonly-snapshot-2. It does not launch Resolve, switch pages or projects, select a grade, or modify processing. GetMediaPoolItem is used only to read source properties.
 
-Use the helper's CLI with a compatible 64-bit Python interpreter and an available official scripting session. Its documented minimum is Python 3.6, while the embedded materializer requires Python 3.9 or later. Native library compatibility remains a separate requirement. The helper reads RESOLVE_SCRIPT_API as the official Developer/Scripting directory; RESOLVE_SCRIPT_LIB identifies the native library through the official wrapper. Discovery of SDK files, successful import, and a connected application are distinct outcomes. A found but unimportable wrapper is not silently replaced.
+Use the helper's CLI with a compatible 64-bit Python interpreter and an available official scripting session. Its documented minimum is Python 3.6; the bundled helpers are tested with Python 3.9 or later. Native library compatibility remains a separate requirement. The helper reads RESOLVE_SCRIPT_API as the official Developer/Scripting directory; RESOLVE_SCRIPT_LIB identifies the native library through the official wrapper. Discovery of SDK files, successful import, and a connected application are distinct outcomes. A found but unimportable wrapper is not silently replaced.
 
 The helper first requires GetCurrentPage to return color. Otherwise it reports not_color_page or page_unavailable without reading project context. Prepare the required page through the designated operator; the helper does not open it.
 
