@@ -23,3 +23,8 @@
 *.zip binary
 *.ico binary
 *.aep binary
+
+# Colour data. LUT and DCTL files are byte-exact deliverables verified against
+# their upstream build; line-ending normalization would break that guarantee.
+*.cube binary
+*.dctl binary
