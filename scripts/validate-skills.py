@@ -4,7 +4,9 @@ import json
 import hashlib
 root = Path(__file__).resolve().parents[1]
 errors = []
-skills = sorted(path for path in (root / 'skills').iterdir() if path.is_dir())
+# Skills are filed one level deep by host application: skills/<group>/<name>.
+groups = sorted(path for path in (root / 'skills').iterdir() if path.is_dir())
+skills = sorted(skill for group in groups for skill in group.iterdir() if skill.is_dir())
 for skill in skills:
     entry = skill / 'SKILL.md'
     text = entry.read_text()

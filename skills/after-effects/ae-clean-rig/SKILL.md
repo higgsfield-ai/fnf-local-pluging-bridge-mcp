@@ -47,7 +47,8 @@ Load one module with `ae_get_skill({name: "ae-clean-rig", reference: "references
 | Final checks, 2K upgrades, render defects or delivery and packaging | [09 · Validation and delivery](references/09-validation-delivery.md) |
 | Scripting and expressions, timeouts, property references or renderer inconsistencies | [10 · AE scripting](references/10-ae-scripting.md) |
 | The same execution questions inside a group's own subject | `references/boards/native-execution.md`, `references/collage/native-execution.md`, `references/characters/native-execution.md` — each is scoped to its group and is not interchangeable with 10 or with the others |
-| A jointed figure that must hold poses: controller and coordinate design, hand and foot IK, pose libraries, lighting and compositing passes. Narrow add-on | [11 · Character production](references/11-character-production.md) |
+| **Building or repairing a 2D character rig** — the complete pipeline: artwork separation, face and body controls, native Puppet, dimensional turns and the rendered rig test. Start here for any rig request | [Rigging · pipeline](references/rigging/overview.md) |
+| The production wrap around a rig: measuring the reference's motion before designing it, reference playback that leaves manual controls free, lighting and texture as editable passes. Add-on to the rigging pipeline | [11 · Character production](references/11-character-production.md) |
 | Characters assembled out of glyphs and type, pose sheets and typographic scenery. Narrow add-on, unrelated to drawn artwork | [12 · Symbol characters and catalogues](references/12-symbol-characters.md) |
 | Translating a project, language versions, glossary and localization coverage | [13 · Localization](references/13-localization.md) |
 | Fitting translated text, fonts and glyph coverage, counters and optical alignment | [14 · Localized typography](references/14-localization-typography.md) |
@@ -56,7 +57,7 @@ Load one module with `ae_get_skill({name: "ae-clean-rig", reference: "references
 | A text-only brief with nothing attached: moodboard, frame choice, storyboard sheet | [17 · Visual foundation](references/17-visual-foundation.md) |
 | A whiteboard, sticky-note board or collaboration canvas: notes, cursors, staged entrances, board camera | [Boards](references/boards/overview.md) |
 | Editorial photographic collage: paper and print texture, depth travel, animated prompt interfaces | [Collage](references/collage/overview.md) |
-| **Animating drawn or illustrated characters end to end** — the complete pipeline: reading the artwork, contour deformation with vertex correspondence, connected anatomy, grain and shading that survive movement, a stepped cadence, and worked scene recipes. Start here for any illustrated character piece; 08, 11 and 12 are add-ons to it, not alternatives | [Characters · pipeline](references/characters/overview.md) |
+| **Animating drawn or illustrated characters end to end** — the complete pipeline: reading the artwork, contour deformation with vertex correspondence, connected anatomy, grain and shading that survive movement, a stepped cadence, and worked scene recipes. Start here for any illustrated character piece; building the rig itself is the rigging pipeline, and 08, 11 and 12 are add-ons, not alternatives | [Characters · pipeline](references/characters/overview.md) |
 
 ## Companion routing
 

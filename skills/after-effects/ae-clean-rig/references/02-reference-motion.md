@@ -10,6 +10,12 @@ Extract frames yourself when FFmpeg and ffprobe are available; this corpus ships
 
 For each cut, record the last outgoing frame, first incoming frame and any deliberate overlap. Use half-open layer intervals: if frame N is the last visible frame, the out-point belongs at frame N+1. Map global time through the instance's start time, stretch and time remap; subtracting the shot start alone is valid only for an unretimed instance. Check the rendered boundary even when the property values appear correct.
 
+## Read the editing rhythm, not only the object motion
+
+Study a reference at its scene boundaries and inside its continuous camera passages, not only frame by frame. Distinguish cuts from flashes and from transitions. Record how rapid sequences alternate with explanatory holds, where the camera starts and stops, how a change of scale reveals information, and how a recurring object connects ideas. Measurements taken from one reference inform that treatment; they do not become fixed durations for every piece.
+
+Observe ordinary text and emphasized phrases separately: position, size, type style, contrast, and relationship to the image. Note which sound accents land on visible events. Use this evidence to define one coherent treatment for the current story, and report approximations or substituted assets before claiming an exact match.
+
 ## Preserve animation while changing construction
 
 1. Inspect the actual open AE project and active comp through the available bridge/API before editing. Record dimensions, frame rate, duration, media dependencies, and the current composition structure. Before structural changes, save the current state to a separate backup and create a clearly named working iteration. Do not overwrite the sole original or accidentally change unrelated compositions.

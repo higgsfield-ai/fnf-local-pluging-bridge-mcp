@@ -31,3 +31,7 @@ Keep complete pose sources independently addressable from entrance choreography.
 Prefer automatic motion on a parent/helper so the advertised Position, Scale and Rotation remain free for keys. When the rig must express the same property, retain an authored neutral value and combine the automatic result with the user's raw value: additive offsets for Position/Rotation and component-wise ratios for Scale with nonzero neutral components. Use matching dimensionality and one declared coordinate space. Avoid measuring the current animated bounds to redefine that neutral value.
 
 Test the combined behavior during an automatic pose, not just with playback off: move the instance or a promised editable part by a known amount, verify the visible change, then restore it. Protect manual source-text edits from expressions that unconditionally rewrite the original string. Selection backgrounds should follow the visible label's rendered bounds, padding and intentional horizontal scale; a guide input and visible label may have different transforms.
+
+## A new aspect ratio is a rebuild, not a crop
+
+For a new aspect ratio, restage each scene's objects, diagrams, cameras and phrase groups for the new frame. Preserve the meaning of axes, comparisons, silhouettes and connections. Reframing source imagery can be appropriate; cropping a flattened finished master is not equivalent to rebuilding the editable scene, and delivering it as one is a regression in editability.
