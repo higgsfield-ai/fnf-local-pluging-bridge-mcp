@@ -132,6 +132,25 @@
       }
     },
     {
+      "name": "ps-retouch",
+      "path": "photoshop/ps-retouch",
+      "description": "Retouch existing photographs or prepare retouching prompts with six profiles for people, clothing, events and products. Use when the user requests photographic retouching or a retouching prompt. Exclude new image creation, standalone background replacement and review of skill or prompt documents.",
+      "documents": {
+        "SKILL.md": "c96ecd652fa0c01f5b95c54b12f3d513eab0eca6a55caf2de11f23cf96d68ff9",
+        "references/beauty.md": "6b08a311098472217f12861e3dc5c33795bc5e26ce6b79b8ae605568ceddb567",
+        "references/e-commerce.md": "5d9babe658639f2346e51e3f29acfa3e97aa43f3833cdd3938f4ff8435849168",
+        "references/evaluation.md": "25c73d47d4f02150a2dc32ab0c2e032e59564abc426f2067ccf15ced94cce107",
+        "references/event.md": "1d17e290b746248f2acd5f157b58f39fc616e6f3e669f50548eb84aa311a239b",
+        "references/follow-up-edits.md": "214f1c3935182685584c72e3ddd3210f189fb86b4c21056b9c1c4a43dd1906db",
+        "references/generation-recovery.md": "17663540117166a08065e085e11cb5821238741c76e693115478295b7991d7e5",
+        "references/insta-look.md": "cd3ab6b01f3f9bd805784442ccb8b6f9a90974a6c7d71f3ffcc56a53a47785c6",
+        "references/portrait.md": "a524cdfd572d2de73538d7ba684d8349e680f275af2d109de2b6e2065d1b6399",
+        "references/product.md": "b3e140893fbeb565ba9f24b15de4cb3e13c20a2e2b7ca80fae8b26d89f9a42fc",
+        "references/profile-provenance.md": "ca55bb21c28396379765ab2e69e9e387e4cdaec6666e1736ab56ae572e7bf079",
+        "references/selection-ui.md": "d00c334c3f6886b1ccf99ae98eb06c5a24dd14dc4cdd3efe2445aa3d63fac4e6"
+      }
+    },
+    {
       "name": "roto-ae",
       "path": "after-effects/roto-ae",
       "description": "Create, refine, review, and deliver AI-assisted rotoscoping in After Effects using local footage and available models. Use for subject extraction, matte correction, temporal cleanup, AE sequence delivery, or explicitly requested matting-model fine-tuning. Does not cover tracking-only work or editable mask animation.",
