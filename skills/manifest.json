@@ -132,6 +132,38 @@
       }
     },
     {
+      "name": "premiere-assembly",
+      "path": "premiere/premiere-assembly",
+      "description": "Assemble and revise editable Adobe Premiere Pro timelines with the connected pr_* tools, from importing footage and placing selected source ranges to checking tracks, framing, audio and exports. Use for Premiere montage and timeline edits; pair with premiere-radio-edit for speech selection and premiere-editing-reference for specialized operations.",
+      "documents": {
+        "SKILL.md": "3780f1dbc664ffa8dfdbfdd7a238ba9c99f24a3c073bba01d85405eb338363ad"
+      }
+    },
+    {
+      "name": "premiere-editing-reference",
+      "path": "premiere/premiere-editing-reference",
+      "description": "Choose Premiere pr_* tools and recipes for framing, B-roll, music, captions, effects, transitions, multicam and export. Use alongside premiere-assembly when an edit needs specialized operations or recovery from a tool failure. Catalog availability does not imply runtime verification.",
+      "documents": {
+        "SKILL.md": "2cf9af27a61ca71516eaa632276212d0604895386892ac659bfecb64a948e3d5"
+      }
+    },
+    {
+      "name": "premiere-house-style",
+      "path": "premiere/premiere-house-style",
+      "description": "Apply the Higgsfield Reels house style to short-form vertical Premiere edits: hook, visual cadence, restrained punch-ins, product B-roll, designed captions, sound and color. Use when that style is requested or appropriate to the brief; adapt targets to speech clarity, source framing and available tools.",
+      "documents": {
+        "SKILL.md": "f3214e2b2373c227f5f6b3756a030446f8cf8348329548feee44e293a7df189b"
+      }
+    },
+    {
+      "name": "premiere-radio-edit",
+      "path": "premiere/premiere-radio-edit",
+      "description": "Select and join recorded speech in Premiere for interview, talking-head, podcast and vlog edits. Use for cleanup, highlights, retakes or a target script, preserving meaning, breath, natural pauses and AV sync. Includes transcription fallbacks and speech-seam checks.",
+      "documents": {
+        "SKILL.md": "c121bbdca1a82b77cb8b185f377f8c88c3680af95ab0c2707edef17c3a1fc535"
+      }
+    },
+    {
       "name": "roto-ae",
       "path": "after-effects/roto-ae",
       "description": "Create, refine, review, and deliver AI-assisted rotoscoping in After Effects using local footage and available models. Use for subject extraction, matte correction, temporal cleanup, AE sequence delivery, or explicitly requested matting-model fine-tuning. Does not cover tracking-only work or editable mask animation.",
