@@ -1,0 +1,42 @@
+// Pure exposure compensation +0.5 stop. NOT a film curve.
+// Input/output: DaVinci Wide Gamut / DaVinci Intermediate.
+// Scene-linear RGB multiplied equally by 2^0.5; signed linear branch preserved.
+// Place in DWG/DI correction BEFORE global film look; CST OUT remains last.
+// Standalone plain RGB transform, no UI, no display transform, no clamp to 0..1.
+
+__DEVICE__ float exposure_decode(float x)
+{
+    if (x <= 0.02740668f)
+    {
+        return x / 10.44426855f;
+    }
+    return _exp2f(x / 0.07329248f - 7.0f) - 0.0075f;
+}
+
+__DEVICE__ float exposure_encode(float x)
+{
+    if (x <= 0.00262409f)
+    {
+        return x * 10.44426855f;
+    }
+    return (_log2f(x + 0.0075f) + 7.0f) * 0.07329248f;
+}
+
+__DEVICE__ float exposure_channel(float x)
+{
+    float stops = 0.5f;
+    float gain = _exp2f(stops);
+    if (x > 2.0f)
+    {
+        // Algebraically encode(decode(x)*gain), avoiding intermediate float overflow.
+        float u = x / 0.07329248f - 7.0f;
+        float correction = _log2f(1.0f + 0.0075f * (1.0f - gain) * _exp2f(-u) / gain);
+        return x + 0.07329248f * (stops + correction);
+    }
+    return exposure_encode(exposure_decode(x) * gain);
+}
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    return make_float3(exposure_channel(p_R), exposure_channel(p_G), exposure_channel(p_B));
+}

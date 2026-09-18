@@ -1,0 +1,162 @@
+// GREEN published-chart shape only; not Kodak colour/stock emulation.
+// INPUT/OUTPUT DWG/DaVinci Intermediate. CST OUT last, no display transform here.
+// Anchor logH=-1.5 is a creative registration; local mid slope normalized.
+// ZeroBlackContinuation and high tangent tail are modelling choices. See DATA_SHAPE_README.md.
+
+__DEVICE__ float ds_encode(float x)
+{
+    if (x <= 0.00262409f) { return x * 10.44426855f; }
+    return (_log2f(x + 0.0075f) + 7.0f) * 0.07329248f;
+}
+__DEVICE__ float ds_decode(float x)
+{
+    if (x <= 0.02740668f) { return x / 10.44426855f; }
+    return _exp2f(x / 0.07329248f - 7.0f) - 0.0075f;
+}
+__DEVICE__ float ds_log_output(float log2out)
+{
+    if (log2out < -4.0f) { return ds_encode(_exp2f(log2out)); }
+    return (log2out + _log2f(1.0f + 0.0075f * _exp2f(-log2out)) + 7.0f) * 0.07329248f;
+}
+__DEVICE__ float ds_density_250D(float h)
+{
+    if (h < -3.3f)
+    {
+        float t = (h - -3.5f) / 0.2f;
+        return 0.5815835836f + t * (0.008807113563f + t * (-0.003106863893f + t * 0.003106863893f));
+    }
+    if (h < -3.1f)
+    {
+        float t = (h - -3.3f) / 0.2f;
+        return 0.5903906972f + t * (0.01191397746f + t * (0.006685916467f + t * -0.0001923225855f));
+    }
+    if (h < -2.9f)
+    {
+        float t = (h - -3.1f) / 0.2f;
+        return 0.6087982685f + t * (0.02470884263f + t * (0.02175986966f + t * -0.008899035196f));
+    }
+    if (h < -2.7f)
+    {
+        float t = (h - -2.9f) / 0.2f;
+        return 0.6463679456f + t * (0.04153147637f + t * (0.001733400026f + t * 0.00316245724f));
+    }
+    if (h < -2.5f)
+    {
+        float t = (h - -2.7f) / 0.2f;
+        return 0.6927952793f + t * (0.05448564815f + t * (0.01276071635f + t * -0.001317565109f));
+    }
+    if (h < -2.3f)
+    {
+        float t = (h - -2.5f) / 0.2f;
+        return 0.7587240787f + t * (0.07605438552f + t * (0.01930339895f + t * -0.005503203829f));
+    }
+    if (h < -2.1f)
+    {
+        float t = (h - -2.3f) / 0.2f;
+        return 0.8485786593f + t * (0.09815157193f + t * (0.01890323533f + t * -0.008918110167f));
+    }
+    if (h < -1.9f)
+    {
+        float t = (h - -2.1f) / 0.2f;
+        return 0.9567153564f + t * (0.1092037121f + t * (0.002448903136f + t * -0.001360621225f));
+    }
+    if (h < -1.7f)
+    {
+        float t = (h - -1.9f) / 0.2f;
+        return 1.06700735f + t * (0.1100196547f + t * (-0.001739117088f + t * 0.001468119412f));
+    }
+    if (h < -1.5f)
+    {
+        float t = (h - -1.7f) / 0.2f;
+        return 1.176756007f + t * (0.1109457787f + t * (0.00341106984f + t * -0.002187544048f));
+    }
+    if (h < -1.3f)
+    {
+        float t = (h - -1.5f) / 0.2f;
+        return 1.288925312f + t * (0.1112052863f + t * (-0.003448830816f + t * 0.002501241517f));
+    }
+    if (h < -1.1f)
+    {
+        float t = (h - -1.3f) / 0.2f;
+        return 1.399183009f + t * (0.1118113492f + t * (0.004738990561f + t * -0.003140927205f));
+    }
+    if (h < -0.9f)
+    {
+        float t = (h - -1.1f) / 0.2f;
+        return 1.512592421f + t * (0.1118665487f + t * (-0.00365517393f + t * 0.00215372603f));
+    }
+    if (h < -0.7f)
+    {
+        float t = (h - -0.9f) / 0.2f;
+        return 1.622957522f + t * (0.1110173789f + t * (0.0009082233646f + t * -0.0002481892262f));
+    }
+    if (h < -0.5f)
+    {
+        float t = (h - -0.7f) / 0.2f;
+        return 1.734634935f + t * (0.112089258f + t * (0.002006256236f + t * -0.00159136247f));
+    }
+    if (h < -0.3f)
+    {
+        float t = (h - -0.5f) / 0.2f;
+        return 1.847139087f + t * (0.111327683f + t * (-0.00140202733f + t * 0.0002499089268f));
+    }
+    if (h < -0.1f)
+    {
+        float t = (h - -0.3f) / 0.2f;
+        return 1.957314652f + t * (0.1092733552f + t * (0.001567785038f + t * -0.002455338442f));
+    }
+    if (h < 0.1f)
+    {
+        float t = (h - -0.1f) / 0.2f;
+        return 2.065700453f + t * (0.1050429099f + t * (-0.004164788492f + t * 0.001021933458f));
+    }
+    if (h < 0.3f)
+    {
+        float t = (h - 0.1f) / 0.2f;
+        return 2.167600508f + t * (0.0997791333f + t * (-0.0002340026928f + t * -0.001800430398f));
+    }
+    if (h < 0.5f)
+    {
+        float t = (h - 0.3f) / 0.2f;
+        return 2.265345209f + t * (0.09390983672f + t * (-0.0004795574145f + t * -0.003065756141f));
+    }
+    if (h < 0.7f)
+    {
+        float t = (h - 0.5f) / 0.2f;
+        return 2.355709732f + t * (0.08375345347f + t * (-0.0114193665f + t * 0.00570968325f));
+    }
+    return 2.433753502f + 0.3902188511f * (h - 0.7f);
+}
+__DEVICE__ float ds_channel_250D(float x, float contrast)
+{
+    float factor = contrast / 0.5560264314f;
+    float lowOutput = 0.18f * _exp2f(factor * -2.34973836f);
+    float r = factor * 0.04403556781f;
+    if (x <= 0.01879968339f)
+    {
+        float lin = ds_decode(x);
+        float t = lin / 0.0018f;
+        // ZeroBlackContinuation: quadratic bridge; tangent continuation for negatives.
+        float shaped = lowOutput * t * (2.0f - r);
+        if (t > 0.0f) { shaped += lowOutput * t * t * (r - 1.0f); }
+        return ds_encode(shaped);
+    }
+    float h;
+    if (x <= 2.0f)
+    {
+        h = -1.5f + _log2f(ds_decode(x) / 0.18f) * 0.3010299957f;
+    }
+    else
+    {
+        float l = x / 0.07329248f - 7.0f;
+        h = -1.5f + l * 0.3010299957f + _log2f(1.0f - 0.0075f * _exp2f(-l)) * 0.3010299957f - -0.7447274949f;
+    }
+    float d = ds_density_250D(h);
+    float log2out = -2.473931188f + factor * (d - 1.288925312f) / 0.3010299957f;
+    return ds_log_output(log2out);
+}
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    return make_float3(ds_channel_250D(p_R, 1.15f), ds_channel_250D(p_G, 1.15f), ds_channel_250D(p_B, 1.15f));
+}
