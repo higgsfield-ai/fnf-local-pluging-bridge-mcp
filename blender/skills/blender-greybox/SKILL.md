@@ -1,6 +1,6 @@
 ---
 name: blender-greybox
-description: Build and animate a local Blender greybox, render camera stills, and export verified motion video when a native or host encoder is available.
+description: Build and animate a local Blender greybox from modelled geometry, render camera stills, and export verified motion video when a native or host encoder is available. To block a room and cast from ready-made adjustable parts instead, use blender-scene-blocking.
 ---
 
 # Greybox
