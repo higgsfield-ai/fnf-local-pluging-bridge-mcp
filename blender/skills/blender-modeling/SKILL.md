@@ -1,6 +1,6 @@
 ---
 name: blender-modeling
-description: Procedural, camera-aware blockout-first geometry — silhouette/proportion/depth/contact/camera-read/detail gates, typed tools before bl_execute, and topology/parenting/measurement/destructive-edit traps.
+description: Procedural, camera-aware blockout-first geometry — silhouette/proportion/depth/contact/camera-read/detail gates, typed tools before bl_execute, and topology/parenting/measurement/destructive-edit traps. Geometry is modelled here; to block a room and cast from ready-made adjustable parts instead, use blender-scene-blocking.
 ---
 
 # Modeling
